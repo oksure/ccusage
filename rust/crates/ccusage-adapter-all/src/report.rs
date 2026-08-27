@@ -590,6 +590,7 @@ fn agent_label(agent: &str) -> &str {
         "kimi" => "Kimi",
         "qwen" => "Qwen",
         "grok" => "Grok",
+        "dsh" => "DeepSeek Harness",
         _ => agent,
     }
 }

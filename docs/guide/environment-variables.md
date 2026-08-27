@@ -23,7 +23,8 @@ ccusage detects supported data source files from conventional locations by defau
 | `QWEN_DATA_DIR`                   | Qwen           | `~/.qwen`                          |
 | `COPILOT_OTEL_FILE_EXPORTER_PATH` | Copilot CLI    | Explicit `.jsonl` file             |
 | `GEMINI_DATA_DIR`                 | Gemini CLI     | `~/.gemini/tmp`                    |
-| `GROK_HOME`                       | Grok Build CLI | `~/.grok`                          |
+| `GROK_HOME`                       | Grok Build CLI   | `~/.grok`                          |
+| `DSH_HOME`                        | DeepSeek Harness | `~/.dsh`                           |
 
 Example:
 
@@ -43,6 +44,7 @@ export QWEN_DATA_DIR="/path/to/qwen,/archive/qwen"
 export COPILOT_OTEL_FILE_EXPORTER_PATH="/path/to/copilot-otel.jsonl"
 export GEMINI_DATA_DIR="/path/to/gemini/tmp,/archive/gemini/tmp"
 export GROK_HOME="/path/to/grok-home"
+export DSH_HOME="/path/to/dsh-home,/archive/dsh-home"
 ccusage daily
 ```
 
@@ -212,7 +214,7 @@ To see which environment variables are being used:
 
 ```bash
 # Show all environment variables
-env | grep -E "CLAUDE|CODEX|OPENCODE|AMP|DROID|CODEBUFF|HERMES|PI_AGENT|GOOSE|OPENCLAW|KILO|KIMI|QWEN|COPILOT|GEMINI|GROK|CCUSAGE|LOG_LEVEL"
+env | grep -E "CLAUDE|CODEX|OPENCODE|AMP|DROID|CODEBUFF|HERMES|PI_AGENT|GOOSE|OPENCLAW|KILO|KIMI|QWEN|COPILOT|GEMINI|GROK|DSH|CCUSAGE|LOG_LEVEL"
 
 # Debug mode shows environment variable usage
 LOG_LEVEL=4 ccusage daily --debug

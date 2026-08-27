@@ -23,7 +23,7 @@ in
       inherit (config.packages.ccusage.passthru) commonArgs workspaceArtifacts;
       # The generator only needs the config layer, so it starts from the foundation
       # artifacts rather than the adapter ones: this derivation gates the CI
-      # preflight, and waiting for 15 adapters there would delay every build job.
+      # preflight, and waiting for 17 adapters there would delay every build job.
       cargoArtifacts = workspaceArtifacts.foundation;
       generateConfigSchema = craneLib.buildPackage (
         commonArgs

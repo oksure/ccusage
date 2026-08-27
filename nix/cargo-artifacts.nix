@@ -38,6 +38,7 @@ let
     "codex"
     "copilot"
     "droid"
+    "dsh"
     "gemini"
     "goose"
     "grok"

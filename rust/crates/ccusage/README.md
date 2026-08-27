@@ -2,7 +2,7 @@
 
 The distributed binary. It stays thin on purpose: argument parsing lives in
 `ccusage-cli-parser`, shared runtime behavior in `ccusage-core`, and every data
-source in its own `ccusage-adapter-*` crate.
+source in its own `ccusage-adapter-*` crate, including DeepSeek Harness (`dsh`).
 
 ## Owns
 
@@ -26,6 +26,7 @@ source in its own `ccusage-adapter-*` crate.
 - `ccusage-adapter-common`
 - `ccusage-adapter-copilot`
 - `ccusage-adapter-droid`
+- `ccusage-adapter-dsh`
 - `ccusage-adapter-gemini`
 - `ccusage-adapter-goose`
 - `ccusage-adapter-grok`
