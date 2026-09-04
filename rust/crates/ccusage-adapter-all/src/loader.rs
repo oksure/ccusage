@@ -11,8 +11,8 @@ use crate::{
     BUILT_IN_AGENT_NAMES, CodexGroup, LoadedEntry, ModelBreakdown, PricingMap, Result,
     SessionAccumulator, UsageSummary,
     adapter::{
-        amp, claude, codebuff, codex, copilot, droid, dsh, gemini, goose, grok, hermes, kilo, kimi,
-        openclaw, opencode, pi, qwen,
+        amp, antigravity, claude, codebuff, codex, copilot, droid, dsh, gemini, goose, grok,
+        hermes, kilo, kimi, openclaw, opencode, pi, qwen, zcode,
     },
     cli::{AgentReportKind, CodexSpeed, NamedPiStore, SharedArgs, WeekDay},
     filter_loaded_entries_by_date, json_float,
@@ -135,7 +135,7 @@ fn load_base_rows(
                     "opencode",
                     load_kind,
                     &loader_shared,
-                    || opencode::load_entries(&loader_shared),
+                    || opencode::load_entries(&loader_shared, load_kind),
                     opencode::summarize_entries,
                 )?;
                 // The OpenCode loader narrows to the date window as it reads, so
@@ -291,6 +291,21 @@ fn load_base_rows(
         AgentLoadSpec {
             index: 13,
             agent: BUILT_IN_AGENT_NAMES[13],
+            progress_agent: crate::progress::UsageLoadAgent("Antigravity"),
+            load: Box::new(|| {
+                load_priced_summary_agent_rows(
+                    "antigravity",
+                    load_kind,
+                    &loader_shared,
+                    pricing,
+                    antigravity::load_entries,
+                    antigravity::summarize_entries,
+                )
+            }),
+        },
+        AgentLoadSpec {
+            index: 14,
+            agent: BUILT_IN_AGENT_NAMES[14],
             progress_agent: crate::progress::UsageLoadAgent("Kimi"),
             load: Box::new(|| {
                 load_priced_summary_agent_rows(
@@ -304,14 +319,14 @@ fn load_base_rows(
             }),
         },
         AgentLoadSpec {
-            index: 14,
-            agent: BUILT_IN_AGENT_NAMES[14],
+            index: 15,
+            agent: BUILT_IN_AGENT_NAMES[15],
             progress_agent: crate::progress::UsageLoadAgent("Qwen"),
             load: Box::new(|| load_qwen_rows(load_kind, &loader_shared)),
         },
         AgentLoadSpec {
-            index: 15,
-            agent: BUILT_IN_AGENT_NAMES[15],
+            index: 16,
+            agent: BUILT_IN_AGENT_NAMES[16],
             progress_agent: crate::progress::UsageLoadAgent("Grok"),
             load: Box::new(|| {
                 let mut rows = load_summary_agent_rows(
@@ -326,8 +341,8 @@ fn load_base_rows(
             }),
         },
         AgentLoadSpec {
-            index: 16,
-            agent: BUILT_IN_AGENT_NAMES[16],
+            index: 17,
+            agent: BUILT_IN_AGENT_NAMES[17],
             progress_agent: crate::progress::UsageLoadAgent("DeepSeek Harness"),
             load: Box::new(|| {
                 load_priced_summary_agent_rows(
@@ -337,6 +352,21 @@ fn load_base_rows(
                     pricing,
                     dsh::load_entries,
                     dsh::summarize_entries,
+                )
+            }),
+        },
+        AgentLoadSpec {
+            index: 18,
+            agent: BUILT_IN_AGENT_NAMES[18],
+            progress_agent: crate::progress::UsageLoadAgent("ZCode"),
+            load: Box::new(|| {
+                load_priced_summary_agent_rows(
+                    "zcode",
+                    load_kind,
+                    &loader_shared,
+                    pricing,
+                    zcode::load_entries,
+                    zcode::summarize_entries,
                 )
             }),
         },
@@ -655,8 +685,7 @@ fn load_codex_rows(
         });
     }
 
-    let mut events = codex::load_codex_events(shared)?;
-    let detected = !events.is_empty();
+    let (mut events, detected) = codex::load_codex_events_with_detection(shared)?;
     codex::filter_events_by_date(&mut events, shared)?;
     let groups = codex::aggregate_events(&events, kind, shared.timezone.as_deref())?;
     let speed = codex::resolve_codex_speed(CodexSpeed::Auto);
@@ -814,13 +843,16 @@ where
         .models
         .iter()
         .map(|(model, usage)| {
-            let input =
-                codex::non_cached_input_tokens(usage.input_tokens, usage.cached_input_tokens);
+            let input = codex::non_cached_input_tokens(
+                usage.input_tokens,
+                usage.cached_input_tokens,
+                usage.cache_creation_tokens,
+            );
             ModelBreakdown {
                 model_name: model.clone(),
                 input_tokens: input,
                 output_tokens: usage.output_tokens,
-                cache_creation_tokens: 0,
+                cache_creation_tokens: usage.cache_creation_tokens,
                 cache_read_tokens: usage.cached_input_tokens,
                 extra_total_tokens: 0,
                 cost: codex::calculate_codex_model_cost(model, usage, pricing, speed),
@@ -833,9 +865,13 @@ where
         period: period.to_string(),
         agent: "codex",
         models_used: group.models.keys().cloned().collect(),
-        input_tokens: codex::non_cached_input_tokens(group.input_tokens, group.cached_input_tokens),
+        input_tokens: codex::non_cached_input_tokens(
+            group.input_tokens,
+            group.cached_input_tokens,
+            group.cache_creation_tokens,
+        ),
         output_tokens: group.output_tokens,
-        cache_creation_tokens: 0,
+        cache_creation_tokens: group.cache_creation_tokens,
         cache_read_tokens: group.cached_input_tokens,
         total_tokens: group.total_tokens,
         total_cost: codex::calculate_group_cost(group, pricing, speed),
@@ -960,6 +996,50 @@ mod tests {
         assert!((focused_cost - 40e-6).abs() < f64::EPSILON);
         assert!((unified.total_cost - focused_cost).abs() < f64::EPSILON);
         assert!((unified.model_breakdowns[0].cost - focused_cost).abs() < f64::EPSILON);
+    }
+
+    #[test]
+    fn unified_row_reports_codex_cache_write_tokens_and_cost() {
+        let pricing = PricingMap::load_embedded();
+        let usage = crate::CodexModelUsage {
+            input_tokens: 935_040,
+            cached_input_tokens: 875_306,
+            cache_creation_tokens: 57_610,
+            output_tokens: 11_150,
+            total_tokens: 946_190,
+            long_context_input_tokens: 935_040,
+            long_context_cached_input_tokens: 875_306,
+            long_context_cache_creation_tokens: 57_610,
+            long_context_output_tokens: 11_150,
+            ..crate::CodexModelUsage::default()
+        };
+        let mut group = CodexGroup {
+            input_tokens: 935_040,
+            cached_input_tokens: 875_306,
+            cache_creation_tokens: 57_610,
+            output_tokens: 11_150,
+            total_tokens: 946_190,
+            ..CodexGroup::default()
+        };
+        group.models.insert("gpt-5.6-terra".to_string(), usage);
+
+        let row = codex_group_row(
+            "2026-08-20",
+            &group,
+            &pricing,
+            codex::CodexSpeedPolicy::Forced(codex::CodexServiceTier::Standard),
+        );
+        let expected_cost =
+            2_124.0 * 4e-6 + 875_306.0 * 0.4e-6 + 57_610.0 * 5e-6 + 11_150.0 * 18e-6;
+
+        assert_eq!(row.input_tokens, 2_124);
+        assert_eq!(row.cache_creation_tokens, 57_610);
+        assert_eq!(row.cache_read_tokens, 875_306);
+        assert!((row.total_cost - expected_cost).abs() < 1e-12);
+        assert_eq!(row.model_breakdowns[0].input_tokens, 2_124);
+        assert_eq!(row.model_breakdowns[0].cache_creation_tokens, 57_610);
+        assert_eq!(row.model_breakdowns[0].cache_read_tokens, 875_306);
+        assert!((row.model_breakdowns[0].cost - expected_cost).abs() < 1e-12);
     }
 
     fn pi_path_subcommand_rows(

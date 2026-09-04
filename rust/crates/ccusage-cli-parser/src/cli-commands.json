@@ -90,6 +90,10 @@
 				"description": "Show Gemini CLI usage commands"
 			},
 			{
+				"name": "antigravity",
+				"description": "Show Antigravity usage commands"
+			},
+			{
 				"name": "kimi",
 				"description": "Show Kimi usage commands"
 			},
@@ -108,6 +112,10 @@
 			{
 				"name": "dsh",
 				"description": "Show DeepSeek Harness usage commands"
+			},
+			{
+				"name": "zcode",
+				"description": "Show ZCode usage commands"
 			}
 		]
 	},
@@ -633,6 +641,43 @@
 			"options": "agent_options"
 		},
 		{
+			"path": ["antigravity"],
+			"description": "Usage reports for antigravity.",
+			"usage": "ccusage antigravity <COMMANDS>",
+			"commands": [
+				{
+					"name": "daily",
+					"description": "Show Antigravity usage grouped by date"
+				},
+				{
+					"name": "monthly",
+					"description": "Show Antigravity usage grouped by month"
+				},
+				{
+					"name": "session",
+					"description": "Show Antigravity usage grouped by session"
+				}
+			]
+		},
+		{
+			"path": ["antigravity", "daily"],
+			"description": "Show Antigravity usage grouped by date",
+			"usage": "ccusage antigravity daily <OPTIONS>",
+			"options": "agent_period_options"
+		},
+		{
+			"path": ["antigravity", "monthly"],
+			"description": "Show Antigravity usage grouped by month",
+			"usage": "ccusage antigravity monthly <OPTIONS>",
+			"options": "agent_period_options"
+		},
+		{
+			"path": ["antigravity", "session"],
+			"description": "Show Antigravity usage grouped by session",
+			"usage": "ccusage antigravity session <OPTIONS>",
+			"options": "agent_options"
+		},
+		{
 			"path": ["kimi"],
 			"description": "Usage reports for kimi.",
 			"usage": "ccusage kimi <COMMANDS>",
@@ -800,6 +845,25 @@
 			]
 		},
 		{
+			"path": ["zcode"],
+			"description": "Usage reports for ZCode.",
+			"usage": "ccusage zcode <COMMANDS>",
+			"commands": [
+				{
+					"name": "daily",
+					"description": "Show ZCode usage grouped by date"
+				},
+				{
+					"name": "monthly",
+					"description": "Show ZCode usage grouped by month"
+				},
+				{
+					"name": "session",
+					"description": "Show ZCode usage grouped by session"
+				}
+			]
+		},
+		{
 			"path": ["dsh", "daily"],
 			"description": "Show DeepSeek Harness usage grouped by date",
 			"usage": "ccusage dsh daily <OPTIONS>",
@@ -815,6 +879,24 @@
 			"path": ["dsh", "session"],
 			"description": "Show DeepSeek Harness usage grouped by session",
 			"usage": "ccusage dsh session <OPTIONS>",
+			"options": "agent_options"
+		},
+		{
+			"path": ["zcode", "daily"],
+			"description": "Show ZCode usage grouped by date",
+			"usage": "ccusage zcode daily <OPTIONS>",
+			"options": "agent_period_options"
+		},
+		{
+			"path": ["zcode", "monthly"],
+			"description": "Show ZCode usage grouped by month",
+			"usage": "ccusage zcode monthly <OPTIONS>",
+			"options": "agent_period_options"
+		},
+		{
+			"path": ["zcode", "session"],
+			"description": "Show ZCode usage grouped by session",
+			"usage": "ccusage zcode session <OPTIONS>",
 			"options": "agent_options"
 		}
 	]

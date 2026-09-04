@@ -37,6 +37,7 @@ source in its own `ccusage-adapter-*` crate, including DeepSeek Harness (`dsh`).
 - `ccusage-adapter-opencode`
 - `ccusage-adapter-pi`
 - `ccusage-adapter-qwen`
+- `ccusage-adapter-zcode`
 - `ccusage-cli`
 - `ccusage-cli-parser`
 - `ccusage-config`

@@ -13,7 +13,7 @@ use ccusage_adapter_common::jsonl;
 
 use crate::{
     LoadedEntry, PricingMap, Result, TimestampMs, TokenUsageRaw, UsageEntry, UsageMessage,
-    calculate_cost_for_usage,
+    calculate_cost_for_usage_at,
     cli::{CostMode, SharedArgs},
     fast::LinePrefilter,
     format_date_tz, format_rfc3339_millis, missing_pricing_model_for_candidates, parse_tz,
@@ -307,7 +307,14 @@ fn to_loaded_entry(
         .as_ref()
         .and_then(|route| route.provider.as_deref())
         .unwrap_or_default();
-    let cost = calculate_dsh_cost(provider, &model, sample.usage, mode, pricing);
+    let cost = calculate_dsh_cost(
+        provider,
+        &model,
+        sample.usage,
+        sample.timestamp,
+        mode,
+        pricing,
+    );
     let missing_pricing_model = missing_dsh_pricing(provider, &model, sample.usage, mode, pricing);
     let timestamp_text = format_rfc3339_millis(sample.timestamp);
     let id = format!("dsh:{session_id}:{}:{}", key.turn, key.step);
@@ -346,12 +353,20 @@ fn calculate_dsh_cost(
     provider: &str,
     model: &str,
     usage: TokenUsageRaw,
+    timestamp: TimestampMs,
     mode: CostMode,
     pricing: &PricingMap,
 ) -> f64 {
     for candidate in dsh_model_candidates(provider, model) {
         if mode == CostMode::Display || pricing.find(&candidate).is_some() {
-            return calculate_cost_for_usage(Some(&candidate), usage, None, mode, Some(pricing));
+            return calculate_cost_for_usage_at(
+                Some(&candidate),
+                usage,
+                None,
+                Some(timestamp),
+                mode,
+                Some(pricing),
+            );
         }
     }
     0.0

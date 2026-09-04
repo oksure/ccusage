@@ -37,6 +37,7 @@ themselves independent of each other.
 - `ccusage-adapter-opencode`
 - `ccusage-adapter-pi`
 - `ccusage-adapter-qwen`
+- `ccusage-adapter-zcode`
 - `ccusage-cli`
 - `ccusage-core`
 - `serde`

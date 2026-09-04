@@ -23,10 +23,12 @@ pub enum Command {
     Kilo(AgentCommandArgs),
     Copilot(AgentCommandArgs),
     Gemini(AgentCommandArgs),
+    Antigravity(AgentCommandArgs),
     Kimi(AgentCommandArgs),
     Qwen(AgentCommandArgs),
     OpenClaw(AgentCommandArgs),
     Grok(AgentCommandArgs),
+    ZCode(AgentCommandArgs),
 }
 
 #[derive(Clone, Debug, Default)]
@@ -164,6 +166,7 @@ pub struct StatuslineArgs {
     pub config: Option<PathBuf>,
     pub debug: bool,
     pub model_label_aliases: HashMap<String, String>,
+    pub pricing_overrides: BTreeMap<String, PricingOverride>,
 }
 
 #[derive(Clone)]
@@ -228,6 +231,7 @@ impl Default for StatuslineArgs {
             config: None,
             debug: false,
             model_label_aliases: HashMap::new(),
+            pricing_overrides: BTreeMap::new(),
         }
     }
 }

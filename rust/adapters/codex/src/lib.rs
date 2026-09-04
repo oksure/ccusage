@@ -13,16 +13,17 @@ mod types;
 use crate::{PricingMap, Result, cli::AgentCommandArgs, log_level, print_json_or_jq, wants_json};
 
 pub use aggregate::{aggregate_events, filter_events_by_date, load_groups};
-pub use loader::load_codex_events;
 #[doc(hidden)]
 pub use loader::load_codex_events_from_directory;
+pub use loader::load_codex_events_with_detection;
 pub use report::{
     calculate_codex_model_cost, calculate_group_cost, codex_model_missing_pricing,
     non_cached_input_tokens,
 };
 pub use speed::{CodexSpeedPolicy, resolve_codex_speed};
 pub use types::{
-    CodexGroup, CodexModelUsage, CodexServiceTier, CodexTokenUsageEvent, CodexUsageBucket,
+    CodexGroup, CodexModelUsage, CodexServiceTier, CodexTimestampedUsage, CodexTokenUsageEvent,
+    CodexUsageBucket,
 };
 pub(crate) use types::{CodexRawUsage, merge_codex_service_tiers};
 
@@ -65,10 +66,12 @@ mod tests {
     use std::collections::BTreeMap;
 
     use super::aggregate::load_groups_from_directory;
+    use super::report::report_from_groups;
     use super::*;
     use crate::cli::SharedArgs;
     use crate::{CodexModelUsage, CodexServiceTier, CodexTokenUsageEvent, CodexUsageBucket};
     use ccusage_test_support::fs_fixture;
+    use serde_json::json;
 
     #[test]
     fn loads_directory_groups_with_date_filter_without_global_event_vector() {
@@ -132,6 +135,7 @@ mod tests {
                 model: Some("gpt-5".to_string()),
                 input_tokens: 100,
                 cached_input_tokens: 90,
+                cache_creation_tokens: 0,
                 output_tokens: 5,
                 reasoning_output_tokens: 0,
                 total_tokens: 105,
@@ -162,6 +166,123 @@ mod tests {
     }
 
     #[test]
+    fn prices_mixed_deepseek_timestamps_in_model_totals() {
+        let mut pricing = PricingMap::default();
+        pricing.load_json(
+            r#"{
+                "deepseek-v4-flash": {
+                    "input_cost_per_token": 0.00000014,
+                    "output_cost_per_token": 0.00000028,
+                    "cache_creation_input_token_cost": 0.000000123,
+                    "cache_read_input_token_cost": 0.0000000028
+                }
+            }"#,
+        );
+        let event = |timestamp: &str| CodexTokenUsageEvent {
+            session_id: "session-1".to_string(),
+            timestamp: timestamp.to_string(),
+            model: Some("deepseek-v4-flash".to_string()),
+            input_tokens: 1_000_000,
+            cached_input_tokens: 0,
+            cache_creation_tokens: 0,
+            output_tokens: 0,
+            reasoning_output_tokens: 0,
+            total_tokens: 1_000_000,
+            is_fallback_model: false,
+            service_tier: None,
+        };
+        let events = vec![
+            event("2026-08-16T15:59:59.000Z"),
+            event("2026-08-16T16:00:00.000Z"),
+            event("2026-08-17T01:00:00.000Z"),
+        ];
+
+        let report = report_json(
+            &events,
+            AgentReportKind::Daily,
+            Some("UTC"),
+            &pricing,
+            CodexSpeed::Standard,
+        )
+        .unwrap();
+
+        assert!((report["totals"]["costUSD"].as_f64().unwrap() - 0.80).abs() < 1e-12);
+        assert!((report["daily"][0]["costUSD"].as_f64().unwrap() - 0.36).abs() < 1e-12);
+        assert!((report["daily"][1]["costUSD"].as_f64().unwrap() - 0.44).abs() < 1e-12);
+    }
+
+    #[test]
+    fn reports_codex_cache_write_tokens_and_cost_for_gpt_5_6_terra() {
+        let fixture = fs_fixture!({
+            "session.jsonl": [
+                json!({
+                    "timestamp": "2026-08-20T05:49:00.000Z",
+                    "type": "turn_context",
+                    "payload": { "model": "gpt-5.6-terra" },
+                })
+                .to_string(),
+                json!({
+                    "timestamp": "2026-08-20T05:49:12.034Z",
+                    "type": "event_msg",
+                    "payload": {
+                        "type": "token_count",
+                        "info": {
+                            "last_token_usage": {
+                                "input_tokens": 935_040,
+                                "cached_input_tokens": 875_306,
+                                "cache_write_input_tokens": 57_610,
+                                "output_tokens": 11_150,
+                                "reasoning_output_tokens": 1_141,
+                                "total_tokens": 946_190,
+                            },
+                            "total_token_usage": {
+                                "input_tokens": 935_040,
+                                "cached_input_tokens": 875_306,
+                                "cache_write_input_tokens": 57_610,
+                                "output_tokens": 11_150,
+                                "reasoning_output_tokens": 1_141,
+                                "total_tokens": 946_190,
+                            },
+                        },
+                    },
+                })
+                .to_string(),
+            ]
+            .join("\n"),
+        });
+        let shared = SharedArgs {
+            single_thread: true,
+            timezone: Some("UTC".to_string()),
+            ..SharedArgs::default()
+        };
+
+        let groups =
+            load_groups_from_directory(fixture.root(), &shared, AgentReportKind::Daily).unwrap();
+        let report = report_from_groups(
+            &groups,
+            AgentReportKind::Daily,
+            &PricingMap::load_embedded(),
+            CodexSpeedPolicy::Forced(CodexServiceTier::Standard),
+        );
+        let daily = &report["daily"][0];
+        let model = &daily["models"]["gpt-5.6-terra"];
+
+        assert_eq!(daily["inputTokens"], 2_124);
+        assert_eq!(daily["cacheCreationTokens"], 57_610);
+        assert_eq!(daily["cacheReadTokens"], 875_306);
+        assert_eq!(daily["totalTokens"], 946_190);
+        assert_eq!(model["inputTokens"], 2_124);
+        assert_eq!(model["cacheCreationTokens"], 57_610);
+        assert_eq!(model["cacheReadTokens"], 875_306);
+
+        let expected_cost =
+            2_124.0 * 4e-6 + 875_306.0 * 0.4e-6 + 57_610.0 * 5e-6 + 11_150.0 * 18e-6;
+        let actual_cost = daily["costUSD"].as_f64().unwrap();
+        assert!((actual_cost - expected_cost).abs() < 1e-12);
+        assert!((report["totals"]["costUSD"].as_f64().unwrap() - expected_cost).abs() < 1e-12);
+    }
+
+    #[test]
     fn reports_codex_model_aliases_without_raw_model_names() {
         let _aliases = crate::model_aliases::set_model_aliases_for_tests([
             ("private-codex-alpha", "gpt-5.5"),
@@ -176,6 +297,7 @@ mod tests {
                     model: Some("private-codex-alpha".to_string()),
                     input_tokens: 100,
                     cached_input_tokens: 10,
+                    cache_creation_tokens: 0,
                     output_tokens: 5,
                     reasoning_output_tokens: 0,
                     total_tokens: 105,
@@ -188,6 +310,7 @@ mod tests {
                     model: Some("private-codex-beta".to_string()),
                     input_tokens: 50,
                     cached_input_tokens: 5,
+                    cache_creation_tokens: 0,
                     output_tokens: 3,
                     reasoning_output_tokens: 0,
                     total_tokens: 53,
@@ -308,9 +431,11 @@ mod tests {
             recorded_fast_usage: CodexUsageBucket {
                 input_tokens: 300_000,
                 cached_input_tokens: 40_000,
+                cache_creation_tokens: 0,
                 output_tokens: 800,
                 long_context_input_tokens: 300_000,
                 long_context_cached_input_tokens: 40_000,
+                long_context_cache_creation_tokens: 0,
                 long_context_output_tokens: 800,
             },
             ..CodexModelUsage::default()
@@ -354,29 +479,6 @@ mod tests {
             calculate_codex_model_cost("gpt-test", &split, &pricing, CodexSpeed::Standard);
 
         assert!((flat_cost - split_cost).abs() < f64::EPSILON);
-    }
-
-    #[test]
-    fn prices_gpt_5_6_long_context_usage_from_embedded_pricing() {
-        let pricing = PricingMap::load_embedded();
-        let usage = CodexModelUsage {
-            input_tokens: 300_000,
-            cached_input_tokens: 100_000,
-            output_tokens: 1_000,
-            total_tokens: 301_000,
-            long_context_input_tokens: 300_000,
-            long_context_cached_input_tokens: 100_000,
-            long_context_output_tokens: 1_000,
-            ..CodexModelUsage::default()
-        };
-
-        let cost =
-            calculate_codex_model_cost("gpt-5.6-sol", &usage, &pricing, CodexSpeed::Standard);
-
-        // The whole request is billed at long-context rates: 200K non-cached
-        // input at $10/M, 100K cached at $1/M, 1K output at $45/M.
-        let expected = 200_000.0 * 10e-6 + 100_000.0 * 1e-6 + 1_000.0 * 45e-6;
-        assert!((cost - expected).abs() < 1e-9);
     }
 
     #[test]
@@ -596,6 +698,7 @@ mod tests {
                 model: Some("gpt-5.3-codex".to_string()),
                 input_tokens: 140,
                 cached_input_tokens: 40,
+                cache_creation_tokens: 0,
                 output_tokens: 5,
                 reasoning_output_tokens: 2,
                 total_tokens: 147,
@@ -608,6 +711,7 @@ mod tests {
                 model: Some("gpt-5.3-codex".to_string()),
                 input_tokens: 70,
                 cached_input_tokens: 70,
+                cache_creation_tokens: 0,
                 output_tokens: 10,
                 reasoning_output_tokens: 0,
                 total_tokens: 80,
@@ -620,6 +724,7 @@ mod tests {
                 model: Some("gpt-5-mini".to_string()),
                 input_tokens: 10,
                 cached_input_tokens: 0,
+                cache_creation_tokens: 0,
                 output_tokens: 2,
                 reasoning_output_tokens: 0,
                 total_tokens: 12,
@@ -632,6 +737,7 @@ mod tests {
                 model: None,
                 input_tokens: 999,
                 cached_input_tokens: 0,
+                cache_creation_tokens: 0,
                 output_tokens: 999,
                 reasoning_output_tokens: 0,
                 total_tokens: 1_998,

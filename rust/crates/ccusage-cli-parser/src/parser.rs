@@ -318,6 +318,13 @@ fn parse_command(
             STANDARD_AGENT_REPORTS,
             Command::Gemini,
         ),
+        "antigravity" => parse_basic_agent_command(
+            parser,
+            shared,
+            "antigravity",
+            STANDARD_AGENT_REPORTS,
+            Command::Antigravity,
+        ),
         "kimi" => parse_basic_agent_command(
             parser,
             shared,
@@ -343,6 +350,13 @@ fn parse_command(
         "dsh" => {
             parse_basic_agent_command(parser, shared, "dsh", STANDARD_AGENT_REPORTS, Command::Dsh)
         }
+        "zcode" => parse_basic_agent_command(
+            parser,
+            shared,
+            "zcode",
+            STANDARD_AGENT_REPORTS,
+            Command::ZCode,
+        ),
         _ => Err(format!("Unknown command '{command}'")),
     }
 }
@@ -771,10 +785,12 @@ fn is_command(arg: &str) -> bool {
             | "kilo"
             | "copilot"
             | "gemini"
+            | "antigravity"
             | "kimi"
             | "qwen"
             | "grok"
             | "dsh"
+            | "zcode"
     )
 }
 
@@ -931,11 +947,13 @@ fn is_agent_command(command: &str) -> bool {
             | "kilo"
             | "copilot"
             | "gemini"
+            | "antigravity"
             | "kimi"
             | "qwen"
             | "openclaw"
             | "grok"
             | "dsh"
+            | "zcode"
     )
 }
 
@@ -948,7 +966,7 @@ fn agent_report_supported(agent: &str, report: &str) -> bool {
         "codex" => matches!(report, "daily" | "monthly" | "session"),
         "opencode" => matches!(report, "daily" | "weekly" | "monthly" | "session"),
         "amp" | "droid" | "codebuff" | "hermes" | "pi" | "goose" | "kilo" | "copilot"
-        | "gemini" | "kimi" | "qwen" | "openclaw" | "grok" | "dsh" => {
+        | "gemini" | "antigravity" | "kimi" | "qwen" | "openclaw" | "grok" | "dsh" | "zcode" => {
             matches!(report, "daily" | "monthly" | "session")
         }
         _ => false,
@@ -969,11 +987,13 @@ fn agent_display_name(agent: &str) -> &'static str {
         "kilo" => "Kilo",
         "copilot" => "GitHub Copilot CLI",
         "gemini" => "Gemini CLI",
+        "antigravity" => "Antigravity",
         "kimi" => "Kimi",
         "qwen" => "Qwen",
         "openclaw" => "OpenClaw",
         "grok" => "Grok",
         "dsh" => "DeepSeek Harness",
+        "zcode" => "ZCode",
         _ => unreachable!("agent is prevalidated"),
     }
 }
@@ -1051,11 +1071,13 @@ fn last_option_error(command: Option<&Command>, root_shared: &SharedArgs) -> Opt
             | Command::Kilo(args)
             | Command::Copilot(args)
             | Command::Gemini(args)
+            | Command::Antigravity(args)
             | Command::Kimi(args)
             | Command::Qwen(args)
             | Command::OpenClaw(args)
             | Command::Grok(args)
-            | Command::Dsh(args),
+            | Command::Dsh(args)
+            | Command::ZCode(args),
         ) => (&args.shared, args.kind != AgentReportKind::Session),
     };
     shared.last?;

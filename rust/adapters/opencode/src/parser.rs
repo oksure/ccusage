@@ -5,7 +5,8 @@ use serde::Deserialize;
 
 use crate::{
     LoadedEntry, PricingMap, TokenUsageRaw, UsageEntry, UsageMessage, apply_total_token_fallback,
-    calculate_cost_for_usage, cli::CostMode, format_date_tz, missing_pricing_model_for_candidates,
+    calculate_cost_for_usage_at, cli::CostMode, format_date_tz,
+    missing_pricing_model_for_candidates,
 };
 use ccusage_adapter_common::jsonl;
 
@@ -48,6 +49,8 @@ struct OpenCodeTokens {
     input: u64,
     #[serde(default, deserialize_with = "jsonl::lenient_u64")]
     output: u64,
+    #[serde(default, deserialize_with = "jsonl::lenient_u64")]
+    reasoning: u64,
     #[serde(default, deserialize_with = "jsonl::lenient_object")]
     cache: Option<OpenCodeCache>,
     #[serde(default, deserialize_with = "jsonl::lenient_u64")]
@@ -70,6 +73,75 @@ struct OpenCodeTime {
     created: Option<i64>,
 }
 
+#[derive(Debug, Default, Deserialize)]
+struct OpenCodeModelReference {
+    #[serde(default, deserialize_with = "jsonl::non_empty_string")]
+    id: Option<String>,
+    #[serde(
+        rename = "modelID",
+        default,
+        deserialize_with = "jsonl::non_empty_string"
+    )]
+    model_id: Option<String>,
+    #[serde(
+        rename = "providerID",
+        default,
+        deserialize_with = "jsonl::non_empty_string"
+    )]
+    provider_id: Option<String>,
+}
+
+#[derive(Debug, Default, Deserialize)]
+struct OpenCodeV2Message {
+    #[serde(default, deserialize_with = "jsonl::lenient_object")]
+    model: Option<OpenCodeModelReference>,
+    #[serde(
+        rename = "modelID",
+        default,
+        deserialize_with = "jsonl::non_empty_string"
+    )]
+    model_id: Option<String>,
+    #[serde(
+        rename = "providerID",
+        default,
+        deserialize_with = "jsonl::non_empty_string"
+    )]
+    provider_id: Option<String>,
+    #[serde(default, deserialize_with = "jsonl::lenient_object")]
+    tokens: Option<OpenCodeTokens>,
+    #[serde(default, deserialize_with = "jsonl::lenient_object")]
+    time: Option<OpenCodeTime>,
+    #[serde(default, deserialize_with = "jsonl::lenient_f64")]
+    cost: Option<f64>,
+}
+
+impl OpenCodeV2Message {
+    fn into_legacy_message(self, id: String, session_id: String, created: i64) -> OpenCodeMessage {
+        let model_id = self
+            .model
+            .as_ref()
+            .and_then(|model| model.id.clone().or_else(|| model.model_id.clone()))
+            .or(self.model_id);
+        let provider_id = self
+            .model
+            .and_then(|model| model.provider_id)
+            .or(self.provider_id);
+        let time = Some(OpenCodeTime {
+            created: self.time.and_then(|time| time.created).or(Some(created)),
+        });
+
+        OpenCodeMessage {
+            tokens: self.tokens,
+            model_id,
+            provider_id,
+            time,
+            id: Some(id),
+            session_id: Some(session_id),
+            cost: self.cost,
+        }
+    }
+}
+
 pub fn message_value_to_entry(
     value: &OpenCodeMessage,
     id: Option<String>,
@@ -77,6 +149,34 @@ pub fn message_value_to_entry(
     tz: Option<&JiffTimeZone>,
     mode: CostMode,
     pricing: Option<&PricingMap>,
+) -> Option<LoadedEntry> {
+    message_value_to_entry_inner(
+        value,
+        id,
+        session_id,
+        tz,
+        mode,
+        pricing,
+        MessageEntryOptions {
+            allow_cost_only: false,
+            pricing_timestamp: open_code_timestamp(value),
+        },
+    )
+}
+
+struct MessageEntryOptions {
+    allow_cost_only: bool,
+    pricing_timestamp: Option<crate::TimestampMs>,
+}
+
+fn message_value_to_entry_inner(
+    value: &OpenCodeMessage,
+    id: Option<String>,
+    session_id: Option<String>,
+    tz: Option<&JiffTimeZone>,
+    mode: CostMode,
+    pricing: Option<&PricingMap>,
+    options: MessageEntryOptions,
 ) -> Option<LoadedEntry> {
     let tokens = value.tokens.as_ref()?;
     let cache = tokens.cache.as_ref();
@@ -89,23 +189,20 @@ pub fn message_value_to_entry(
         cache_creation: None,
     };
     let total_tokens = tokens.total;
-    let (usage, extra_total_tokens) = apply_total_token_fallback(usage, 0, total_tokens);
+    let (usage, extra_total_tokens) =
+        apply_total_token_fallback(usage, tokens.reasoning, total_tokens);
     if usage.input_tokens == 0
         && usage.output_tokens == 0
         && usage.cache_creation_input_tokens == 0
         && usage.cache_read_input_tokens == 0
         && extra_total_tokens == 0
+        && !(options.allow_cost_only && value.cost.is_some_and(|cost| cost > 0.0))
     {
         return None;
     }
     let model = value.model_id.clone()?;
     let provider = value.provider_id.clone()?;
-    let millis = value
-        .time
-        .as_ref()
-        .and_then(|time| time.created)
-        .unwrap_or(0);
-    let timestamp = crate::TimestampMs::from_millis(millis);
+    let timestamp = open_code_timestamp(value).unwrap_or(crate::TimestampMs::UNIX_EPOCH);
     let timestamp_text = crate::format_rfc3339_millis(timestamp);
     let message_id = id.or_else(|| value.id.clone());
     let session_id = session_id.or_else(|| value.session_id.clone());
@@ -128,8 +225,15 @@ pub fn message_value_to_entry(
         cache_creation: None,
         ..usage
     };
-    let cost =
-        calculate_open_code_cost(&model, &provider, cost_usage, data.cost_usd, mode, pricing);
+    let cost = calculate_open_code_cost(
+        &model,
+        &provider,
+        cost_usage,
+        data.cost_usd,
+        options.pricing_timestamp,
+        mode,
+        pricing,
+    );
     // If we already have a usable positive cost (calculated or stored), skip
     // the redundant missing-pricing check — it would iterate through the same
     // model candidates and find nothing missing.
@@ -159,11 +263,97 @@ pub fn message_value_to_entry(
     })
 }
 
+pub(crate) fn session_message_value_to_entry(
+    data: &str,
+    id: String,
+    session_id: String,
+    created: i64,
+    tz: Option<&JiffTimeZone>,
+    mode: CostMode,
+    pricing: Option<&PricingMap>,
+) -> Option<LoadedEntry> {
+    let value = serde_json::from_str::<OpenCodeV2Message>(data).ok()?;
+    let value = value.into_legacy_message(id, session_id, created);
+    message_value_to_entry(&value, None, None, tz, mode, pricing)
+}
+
+pub(crate) struct OpenCodeSessionAggregate {
+    pub(crate) session_id: String,
+    pub(crate) created: i64,
+    pub(crate) model: String,
+    pub(crate) provider: String,
+    pub(crate) input_tokens: u64,
+    pub(crate) output_tokens: u64,
+    pub(crate) reasoning_tokens: u64,
+    pub(crate) cache_read_tokens: u64,
+    pub(crate) cache_write_tokens: u64,
+    pub(crate) cost: Option<f64>,
+}
+
+pub(crate) fn session_value_to_entry(
+    aggregate: OpenCodeSessionAggregate,
+    tz: Option<&JiffTimeZone>,
+    mode: CostMode,
+    pricing: Option<&PricingMap>,
+) -> Option<LoadedEntry> {
+    if aggregate.input_tokens == 0
+        && aggregate.output_tokens == 0
+        && aggregate.reasoning_tokens == 0
+        && aggregate.cache_read_tokens == 0
+        && aggregate.cache_write_tokens == 0
+        && aggregate.cost.unwrap_or(0.0) <= 0.0
+    {
+        return None;
+    }
+    let value = OpenCodeMessage {
+        tokens: Some(OpenCodeTokens {
+            input: aggregate.input_tokens,
+            output: aggregate.output_tokens,
+            reasoning: aggregate.reasoning_tokens,
+            cache: Some(OpenCodeCache {
+                read: aggregate.cache_read_tokens,
+                write: aggregate.cache_write_tokens,
+            }),
+            total: 0,
+        }),
+        model_id: Some(aggregate.model),
+        provider_id: Some(aggregate.provider),
+        time: Some(OpenCodeTime {
+            created: Some(aggregate.created),
+        }),
+        id: Some(format!("session:{}", aggregate.session_id)),
+        session_id: Some(aggregate.session_id),
+        cost: aggregate.cost,
+    };
+    message_value_to_entry_inner(
+        &value,
+        None,
+        None,
+        tz,
+        mode,
+        pricing,
+        MessageEntryOptions {
+            allow_cost_only: true,
+            pricing_timestamp: None,
+        },
+    )
+}
+
+fn open_code_timestamp(value: &OpenCodeMessage) -> Option<crate::TimestampMs> {
+    value
+        .time
+        .as_ref()
+        .and_then(|time| time.created)
+        .filter(|millis| *millis > 0)
+        .map(crate::TimestampMs::from_millis)
+}
+
 fn calculate_open_code_cost(
     model: &str,
     provider: &str,
     usage: TokenUsageRaw,
     cost_usd: Option<f64>,
+    timestamp: Option<crate::TimestampMs>,
     _mode: CostMode,
     pricing: Option<&PricingMap>,
 ) -> f64 {
@@ -171,8 +361,14 @@ fn calculate_open_code_cost(
         return cost;
     }
     for candidate in open_code_model_candidates(model, provider) {
-        let cost =
-            calculate_cost_for_usage(Some(&candidate), usage, None, CostMode::Calculate, pricing);
+        let cost = calculate_cost_for_usage_at(
+            Some(&candidate),
+            usage,
+            None,
+            timestamp,
+            CostMode::Calculate,
+            pricing,
+        );
         if cost > 0.0 {
             return cost;
         }
@@ -251,7 +447,10 @@ fn normalize_open_code_model_name(model: &str) -> String {
 mod tests {
     use serde_json::json;
 
-    use super::{OpenCodeMessage, message_value_to_entry, open_code_model_candidates};
+    use super::{
+        OpenCodeMessage, OpenCodeSessionAggregate, message_value_to_entry,
+        open_code_model_candidates, session_value_to_entry,
+    };
     use crate::{LoadedEntry, PricingMap, cli::CostMode};
 
     fn message(value: serde_json::Value) -> OpenCodeMessage {
@@ -508,5 +707,66 @@ mod tests {
                 "unknownProvider": open_code_model_candidates("gpt-test", "unknown"),
             }
         }));
+    }
+
+    fn deepseek_pricing(input: f64) -> PricingMap {
+        let mut pricing = PricingMap::default();
+        pricing.load_json(&format!(
+            "{{\"deepseek-v4-flash\":{{\"input_cost_per_token\":{input},\"output_cost_per_token\":0.00000028}}}}"
+        ));
+        pricing
+    }
+
+    #[test]
+    fn keeps_epoch_for_display_but_omits_missing_message_timestamp_for_pricing() {
+        let pricing = deepseek_pricing(0.000009);
+        let entry = message_value_to_entry(
+            &message(json!({
+                "id": "message-a",
+                "sessionID": "session-a",
+                "providerID": "deepseek",
+                "modelID": "deepseek-v4-flash",
+                "tokens": { "input": 1_000_000 },
+                "cost": 0
+            })),
+            None,
+            None,
+            None,
+            CostMode::Calculate,
+            Some(&pricing),
+        )
+        .unwrap();
+
+        assert_eq!(entry.timestamp.as_millis(), 0);
+        assert_eq!(entry.cost, 9.0);
+    }
+
+    #[test]
+    fn prices_cumulative_session_aggregates_with_static_rates() {
+        let pricing = deepseek_pricing(0.00000014);
+        let created = crate::parse_ts_timestamp("2026-08-17T01:00:00Z")
+            .unwrap()
+            .as_millis();
+        let entry = session_value_to_entry(
+            OpenCodeSessionAggregate {
+                session_id: "session-a".to_string(),
+                created,
+                model: "deepseek-v4-flash".to_string(),
+                provider: "deepseek".to_string(),
+                input_tokens: 1_000_000,
+                output_tokens: 0,
+                reasoning_tokens: 0,
+                cache_read_tokens: 0,
+                cache_write_tokens: 0,
+                cost: None,
+            },
+            None,
+            CostMode::Calculate,
+            Some(&pricing),
+        )
+        .unwrap();
+
+        assert_eq!(entry.timestamp.as_millis(), created);
+        assert_eq!(entry.cost, 0.14);
     }
 }

@@ -172,11 +172,26 @@ fn agent_json(row: &AllRow) -> Value {
 
 fn totals_json(rows: &[AllRow]) -> Value {
     json!({
-        "inputTokens": rows.iter().map(|row| row.input_tokens).sum::<u64>(),
-        "outputTokens": rows.iter().map(|row| row.output_tokens).sum::<u64>(),
-        "cacheCreationTokens": rows.iter().map(|row| row.cache_creation_tokens).sum::<u64>(),
-        "cacheReadTokens": rows.iter().map(|row| row.cache_read_tokens).sum::<u64>(),
-        "totalTokens": rows.iter().map(|row| row.total_tokens).sum::<u64>(),
+        "inputTokens": rows
+            .iter()
+            .map(|row| row.input_tokens)
+            .fold(0, u64::saturating_add),
+        "outputTokens": rows
+            .iter()
+            .map(|row| row.output_tokens)
+            .fold(0, u64::saturating_add),
+        "cacheCreationTokens": rows
+            .iter()
+            .map(|row| row.cache_creation_tokens)
+            .fold(0, u64::saturating_add),
+        "cacheReadTokens": rows
+            .iter()
+            .map(|row| row.cache_read_tokens)
+            .fold(0, u64::saturating_add),
+        "totalTokens": rows
+            .iter()
+            .map(|row| row.total_tokens)
+            .fold(0, u64::saturating_add),
         "totalCost": json_float(rows.iter().map(|row| row.total_cost).sum::<f64>()),
     })
 }
@@ -234,7 +249,10 @@ pub(super) fn print_table(
     }
     table.separator();
     let totals = totals_json(rows);
-    let table_total_tokens = rows.iter().map(table_total_tokens).sum::<u64>();
+    let table_total_tokens = rows
+        .iter()
+        .map(table_total_tokens)
+        .fold(0, u64::saturating_add);
     if compact {
         let mut total_row = vec![
             color(shared, "Total", Color::Yellow),
@@ -455,8 +473,11 @@ fn push_model_breakdown_rows(
     shared: &SharedArgs,
 ) {
     for b in breakdowns {
-        let total =
-            b.input_tokens + b.output_tokens + b.cache_creation_tokens + b.cache_read_tokens;
+        let total = b
+            .input_tokens
+            .saturating_add(b.output_tokens)
+            .saturating_add(b.cache_creation_tokens)
+            .saturating_add(b.cache_read_tokens);
         let model = color(
             shared,
             format!("- {}", short_model_name(&b.model_name)),
@@ -587,10 +608,12 @@ fn agent_label(agent: &str) -> &str {
         "kilo" => "Kilo",
         "copilot" => "GitHub Copilot CLI",
         "gemini" => "Gemini CLI",
+        "antigravity" => "Antigravity",
         "kimi" => "Kimi",
         "qwen" => "Qwen",
         "grok" => "Grok",
         "dsh" => "DeepSeek Harness",
+        "zcode" => "ZCode",
         _ => agent,
     }
 }

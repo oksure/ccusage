@@ -46,9 +46,11 @@ fn main() -> Result<()> {
         Some(Command::Qwen(args)) => adapter::qwen::run(args),
         Some(Command::Copilot(args)) => adapter::copilot::run(args),
         Some(Command::Gemini(args)) => adapter::gemini::run(args),
+        Some(Command::Antigravity(args)) => adapter::antigravity::run(args),
         Some(Command::Kimi(args)) => adapter::kimi::run(args),
         Some(Command::OpenClaw(args)) => adapter::openclaw::run(args),
         Some(Command::Grok(args)) => adapter::grok::run(args),
+        Some(Command::ZCode(args)) => adapter::zcode::run(args),
         None => {
             let args = AgentCommandArgs {
                 shared: cli.shared,
@@ -87,8 +89,9 @@ mod tests {
 
     #[test]
     fn agent_commands_are_exposed_by_independent_crates() {
-        let runs: [fn(AgentCommandArgs) -> Result<()>; 16] = [
+        let runs: [fn(AgentCommandArgs) -> Result<()>; 18] = [
             ccusage_adapter_amp::run,
+            ccusage_adapter_antigravity::run,
             ccusage_adapter_codebuff::run,
             ccusage_adapter_codex::run,
             ccusage_adapter_copilot::run,
@@ -104,9 +107,10 @@ mod tests {
             ccusage_adapter_opencode::run,
             ccusage_adapter_pi::run,
             ccusage_adapter_qwen::run,
+            ccusage_adapter_zcode::run,
         ];
 
-        assert_eq!(runs.len(), 16);
+        assert_eq!(runs.len(), 18);
     }
 
     #[test]
@@ -280,7 +284,31 @@ mod tests {
     }
 
     #[test]
-    fn dedupes_usage_entries_by_message_id_without_request_id() {
+    fn keeps_reused_message_id_from_distinct_sessions_at_same_timestamp() {
+        let fixture = fs_fixture!({
+            "projects/project1/session1/chat.jsonl": r#"{"timestamp":"2025-01-10T10:00:00.000Z","message":{"id":"msg_123","model":"claude-opus-4-6","usage":{"input_tokens":100,"output_tokens":25,"cache_creation_input_tokens":10,"cache_read_input_tokens":5}},"costUSD":0.001}"#,
+            "projects/project1/session2/chat.jsonl": r#"{"timestamp":"2025-01-10T10:00:00.000Z","message":{"id":"msg_123","model":"claude-opus-4-6","usage":{"input_tokens":100,"output_tokens":250,"cache_creation_input_tokens":10,"cache_read_input_tokens":5,"speed":"standard"}},"costUSD":0.01}"#,
+        });
+
+        let _env = EnvVarGuard::set("CLAUDE_CONFIG_DIR", fixture.root());
+        let shared = SharedArgs {
+            mode: CostMode::Display,
+            ..SharedArgs::default()
+        };
+        let entries = load_entries(&shared, None).unwrap();
+
+        assert_eq!(entries.len(), 2);
+        assert_eq!(
+            entries
+                .iter()
+                .map(|entry| entry.data.message.usage.output_tokens)
+                .sum::<u64>(),
+            275
+        );
+    }
+
+    #[test]
+    fn dedupes_reused_message_id_from_same_session_without_request_id() {
         let fixture = fs_fixture!({
             "projects/project1/session1/chat.jsonl": [
                 r#"{"timestamp":"2025-01-10T10:00:00.000Z","message":{"id":"msg_123","model":"claude-opus-4-6","usage":{"input_tokens":100,"output_tokens":25,"cache_creation_input_tokens":10,"cache_read_input_tokens":5}},"costUSD":0.001}"#,
@@ -545,6 +573,7 @@ mod tests {
             model: Some("gpt-5".to_string()),
             input_tokens: 100,
             cached_input_tokens: 10,
+            cache_creation_tokens: 0,
             output_tokens: 50,
             reasoning_output_tokens: 0,
             total_tokens: 150,
@@ -587,6 +616,7 @@ mod tests {
             model: Some("gpt-5.3-codex".to_string()),
             input_tokens: 120,
             cached_input_tokens: 30,
+            cache_creation_tokens: 0,
             output_tokens: 11,
             reasoning_output_tokens: 3,
             total_tokens: 131,
@@ -625,6 +655,7 @@ mod tests {
             model: Some("gpt-test".to_string()),
             input_tokens: 10,
             cached_input_tokens: 2,
+            cache_creation_tokens: 0,
             output_tokens: 5,
             reasoning_output_tokens: 0,
             total_tokens: 15,
@@ -662,6 +693,7 @@ mod tests {
             model: Some("gpt-5.4".to_string()),
             input_tokens: 100,
             cached_input_tokens: 40,
+            cache_creation_tokens: 0,
             output_tokens: 10,
             reasoning_output_tokens: 0,
             total_tokens: 110,

@@ -33,6 +33,7 @@ let
   ];
   agentNames = [
     "amp"
+    "antigravity"
     "claude"
     "codebuff"
     "codex"
@@ -49,6 +50,7 @@ let
     "opencode"
     "pi"
     "qwen"
+    "zcode"
   ];
   adapterCrates = map (name: "ccusage-adapter-${name}") agentNames ++ [ "ccusage-adapter-all" ];
 
