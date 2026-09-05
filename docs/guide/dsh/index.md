@@ -15,6 +15,11 @@ ccusage dsh monthly
 ccusage dsh session
 ```
 
+When a report period contains more than one model, the table automatically
+adds one row per model with its own token and cost totals. Use
+`--breakdown` when you also want a model row for periods that used only one
+model. JSON reports always include the same data under `modelBreakdowns`.
+
 ## Data Source
 
 The adapter reads session logs below `${DSH_HOME:-~/.dsh}/sessions/`. DSH normally writes checksummed Zstandard frames to `session.jsonl.zstd`; it can also write plain `session.jsonl` when compression is disabled.

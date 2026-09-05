@@ -176,7 +176,7 @@ bunx ccusage monthly --compact  # Compact monthly report
 - ⏰ **5-Hour Blocks Report**: Track usage within Claude's billing windows with active block monitoring
 - 🚀 **Statusline Integration**: Compact usage display for Claude Code status bar hooks (Beta)
 - 🤖 **Model Tracking**: See which models are used across supported sources
-- 📊 **Model Breakdown**: View per-model cost breakdown with `--breakdown` flag
+- 📊 **Model Breakdown**: Multi-model periods expand automatically; use `--breakdown` to force per-model rows for single-model periods
 - 📅 **Date Filtering**: Filter reports by date range using `--since` and `--until`
 - ⏱️ **Recent Periods**: Jump to today, this week, or this month with `--last 1` on any daily, weekly, or monthly report
 - 📁 **Custom Paths**: Support for custom local data directory locations

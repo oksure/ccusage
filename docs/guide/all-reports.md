@@ -32,6 +32,10 @@ ccusage daily --by-agent --json
 
 `--sections` accepts `daily`, `weekly`, `monthly`, and `session`. The invoked report section is always included, and table output prints each requested section as a separate table. `--by-agent` adds an `agents` array to daily, weekly, and monthly JSON rows; session rows are already source-specific.
 
+Tables automatically add per-model rows when a period contains multiple
+models. Add `--breakdown` to force those rows even for single-model periods.
+JSON rows always include per-model values under `modelBreakdowns`.
+
 ## How Unified Views Work
 
 ccusage detects local usage files from Claude Code, Codex, OpenCode, Amp, Droid, Codebuff, Hermes Agent, pi-agent, Goose, OpenClaw, Kilo, Kimi, Qwen, GitHub Copilot CLI, Gemini CLI, Antigravity, Grok Build CLI, DeepSeek Harness, and ZCode. The same daily, weekly, monthly, and session views can run in two modes:

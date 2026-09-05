@@ -234,7 +234,7 @@ pub(super) fn print_table(
         if let Some(agent_breakdowns) = row.agent_breakdowns.as_ref() {
             for breakdown in agent_breakdowns {
                 table.push(all_table_row(breakdown, compact, true, shared.no_cost));
-                if shared.breakdown && !breakdown.model_breakdowns.is_empty() {
+                if should_show_model_breakdown(shared, breakdown.model_breakdowns.len()) {
                     push_model_breakdown_rows(
                         &mut table,
                         &breakdown.model_breakdowns,
@@ -243,7 +243,7 @@ pub(super) fn print_table(
                     );
                 }
             }
-        } else if shared.breakdown && !row.model_breakdowns.is_empty() {
+        } else if should_show_model_breakdown(shared, row.model_breakdowns.len()) {
             push_model_breakdown_rows(&mut table, &row.model_breakdowns, compact, shared);
         }
     }
@@ -332,6 +332,10 @@ pub(super) fn print_table(
         eprintln!("Expand terminal width to see cache metrics and total tokens");
     }
     Ok(())
+}
+
+fn should_show_model_breakdown(shared: &SharedArgs, model_count: usize) -> bool {
+    shared.breakdown || model_count > 1
 }
 
 fn all_rows_as_usage_summaries(rows: &[AllRow]) -> Vec<UsageSummary> {

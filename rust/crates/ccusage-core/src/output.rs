@@ -282,7 +282,7 @@ pub fn print_usage_table_with_options(
             ));
         }
         table.push(values);
-        if shared.breakdown {
+        if should_show_model_breakdown(shared, row.model_breakdowns.len()) {
             push_breakdown_rows(
                 &mut table,
                 row,
@@ -352,6 +352,10 @@ pub fn print_usage_table_with_options(
         eprintln!("Expand terminal width to see cache metrics and total tokens");
     }
     Ok(())
+}
+
+fn should_show_model_breakdown(shared: &SharedArgs, model_count: usize) -> bool {
+    shared.breakdown || model_count > 1
 }
 
 fn usage_table_columns(
@@ -597,6 +601,19 @@ mod tests {
     #[test]
     fn empty_usage_table_message_is_provider_agnostic() {
         assert_eq!(empty_usage_table_message(), "No usage data found.");
+    }
+
+    #[test]
+    fn focused_tables_auto_expand_rows_with_multiple_models() {
+        assert!(should_show_model_breakdown(&SharedArgs::default(), 2));
+        assert!(!should_show_model_breakdown(&SharedArgs::default(), 1));
+        assert!(should_show_model_breakdown(
+            &SharedArgs {
+                breakdown: true,
+                ..SharedArgs::default()
+            },
+            1
+        ));
     }
 
     #[test]
