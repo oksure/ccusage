@@ -346,6 +346,9 @@ fn to_loaded_entry(
         model: Some(model),
         usage_limit_reset_time: None,
         missing_pricing_model,
+        // DSH session logs record tokens, never a cost, so every entry's cost
+        // comes from the pricing table and no part of it is a stored cost.
+        stored_cost: None,
     }
 }
 
@@ -490,5 +493,31 @@ mod tests {
                 "deepseek-ai/DeepSeek-V4-Flash-0731"
             ]
         );
+    }
+
+    /// DSH logs carry tokens but never a cost, so `auto` mode has no stored
+    /// `costUSD` to mix in and breakdowns must not report `storedCost`.
+    #[test]
+    fn entries_carry_no_stored_cost() {
+        let pricing = PricingMap::default();
+        let entry = to_loaded_entry(
+            "session-a",
+            "/workspace/project",
+            StepKey { turn: 1, step: 1 },
+            DshSample {
+                timestamp: TimestampMs::from_millis(1_767_316_800_000),
+                usage: TokenUsageRaw {
+                    input_tokens: 10,
+                    ..TokenUsageRaw::default()
+                },
+                route: None,
+                finalized: true,
+            },
+            None,
+            CostMode::Auto,
+            &pricing,
+        );
+
+        assert_eq!(entry.stored_cost, None);
     }
 }
