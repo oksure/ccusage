@@ -144,9 +144,13 @@ dependencies = [
  "ccusage-cli-parser",
  "ccusage-config",
  "ccusage-core",
+ "ccusage-pricing-snapshots",
  "ccusage-test-support",
  "insta",
  "mimalloc",
+ "ring",
+ "rustls",
+ "rustls-webpki",
  "serde",
  "serde_json",
  "sqlite",
@@ -475,17 +479,27 @@ name = "ccusage-core"
 version = "0.0.0"
 dependencies = [
  "ccusage-cli",
+ "ccusage-pricing-snapshots",
  "ccusage-terminal",
  "ccusage-test-support",
  "insta",
  "jiff",
  "memchr",
  "miniz_oxide",
- "minreq",
  "rustc-hash",
  "serde",
  "serde_json",
  "smallvec",
+]
+
+[[package]]
+name = "ccusage-pricing-snapshots"
+version = "0.0.0"
+dependencies = [
+ "ccusage-core",
+ "miniz_oxide",
+ "minreq",
+ "serde_json",
 ]
 
 [[package]]
@@ -1055,9 +1069,9 @@ dependencies = [
 
 [[package]]
 name = "rustls"
-version = "0.23.45"
+version = "0.23.46"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0d41d731c7d2f962d1ccc364cec258de3c0e93b38c2fb3ba97ac74513048d634"
+checksum = "48e13bd8c0e9365c43cfa5c9e8f9ad49d3c8444926c9aac819e0e4dc503c8fdf"
 dependencies = [
  "aws-lc-rs",
  "log",
