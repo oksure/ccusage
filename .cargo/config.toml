@@ -46,3 +46,8 @@ SQLITE_OMIT_TWOSIZE_LOOKASIDE = "1"
 SQLITE_OMIT_UPSERT = "1"
 SQLITE_OMIT_UTF16 = "1"
 SQLITE_OMIT_XFER_OPT = "1"
+# The LiteLLM snapshot ccusage-pricing-snapshots embeds at build time. Every Nix
+# build and the dev shell set this from the pinned flake input; litellm/ holds
+# the same revision so a plain `cargo test` works without one. A real
+# environment variable still wins over this entry, so Nix keeps its own.
+CCUSAGE_PRICING_JSON_PATH = { value = "litellm/model_prices_and_context_window.json", relative = true }
