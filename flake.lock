@@ -138,11 +138,11 @@
     "litellm": {
       "flake": false,
       "locked": {
-        "lastModified": 1792435256,
-        "narHash": "sha256-Ha38T62ctr/w9kRtjhI/T8DJCzD2/w3lu7VkHI4vvEs=",
+        "lastModified": 1792465149,
+        "narHash": "sha256-zpTBPHlvRuJFxpVplE983mcdg1rtoGQnidaUQYNqLzw=",
         "owner": "BerriAI",
         "repo": "litellm",
-        "rev": "d7620c77a1ebaf30bb55f31030418b9da2f8cd21",
+        "rev": "d56ff281deeb09e42e6d9e4326e96bc4312c1640",
         "type": "github"
       },
       "original": {
@@ -154,11 +154,11 @@
     "models-dev": {
       "flake": false,
       "locked": {
-        "lastModified": 1792437877,
-        "narHash": "sha256-c3FBfRrPbqOqm6/Gbmjz5tpzoNhkmgL1vLQFNokJdU4=",
+        "lastModified": 1792467113,
+        "narHash": "sha256-0QB1Maz2e9wJsqMCEgWDcmmq7pLxyRmS2fdyoTF5IG4=",
         "owner": "anomalyco",
         "repo": "models.dev",
-        "rev": "08c5cae90cc415ac5d866f2830df602379b8d9d0",
+        "rev": "5c8d68157a2189359e3521d91520885e1cb6f6eb",
         "type": "github"
       },
       "original": {
