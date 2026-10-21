@@ -577,10 +577,9 @@
 	},
 	"Intel/Qwen3-Coder-480B-A35B-Instruct-int4-mixed-ar": {
 		"cost": {
-			"cache_read": 0.11,
-			"cache_write": 0.44,
-			"input": 0.22,
-			"output": 0.95
+			"cache_read": 0.230625,
+			"input": 0.46125,
+			"output": 2.29375
 		},
 		"limit": {
 			"context": 106000
@@ -656,6 +655,16 @@
 			"context": 32768
 		}
 	},
+	"LongCat-2.5-Preview": {
+		"cost": {
+			"cache_read": 0.006,
+			"input": 0.3,
+			"output": 1.2
+		},
+		"limit": {
+			"context": 1048576
+		}
+	},
 	"MarinaraSpaghetti/NemoMix-Unleashed-12B": {
 		"cost": {
 			"cache_read": 0.2465,
@@ -674,16 +683,6 @@
 		},
 		"limit": {
 			"context": 128000
-		}
-	},
-	"MiniCPM5-2B": {
-		"cost": {
-			"cache_read": 0.124,
-			"input": 0.124,
-			"output": 0.7425
-		},
-		"limit": {
-			"context": 131072
 		}
 	},
 	"MiniMax-M1": {
@@ -898,17 +897,6 @@
 			"context": 16384
 		}
 	},
-	"NousResearch/Hermes-4-405B": {
-		"cost": {
-			"cache_read": 0.1,
-			"cache_write": 1.25,
-			"input": 1,
-			"output": 3
-		},
-		"limit": {
-			"context": 131072
-		}
-	},
 	"NousResearch/hermes-3-llama-3.1-70b": {
 		"cost": {
 			"cache_read": 0.204,
@@ -917,6 +905,16 @@
 		},
 		"limit": {
 			"context": 65536
+		}
+	},
+	"NousResearch/hermes-4-405b": {
+		"cost": {
+			"cache_read": 0.15,
+			"input": 0.3,
+			"output": 1.2
+		},
+		"limit": {
+			"context": 128000
 		}
 	},
 	"NousResearch/hermes-4-405b:thinking": {
@@ -940,8 +938,9 @@
 	},
 	"Pro/deepseek-ai/DeepSeek-R1": {
 		"cost": {
-			"input": 0.5,
-			"output": 2.18
+			"cache_read": 0.05977899,
+			"input": 0.59778991,
+			"output": 2.39115964
 		},
 		"limit": {
 			"context": 164000
@@ -949,8 +948,9 @@
 	},
 	"Pro/deepseek-ai/DeepSeek-V3": {
 		"cost": {
-			"input": 0.25,
-			"output": 1
+			"cache_read": 0.0298895,
+			"input": 0.29889496,
+			"output": 1.19557982
 		},
 		"limit": {
 			"context": 164000
@@ -958,8 +958,9 @@
 	},
 	"Pro/deepseek-ai/DeepSeek-V3.1-Terminus": {
 		"cost": {
-			"input": 0.27,
-			"output": 1
+			"cache_read": 0.05977899,
+			"input": 0.59778991,
+			"output": 1.79336973
 		},
 		"limit": {
 			"context": 164000
@@ -967,8 +968,9 @@
 	},
 	"Pro/deepseek-ai/DeepSeek-V3.2": {
 		"cost": {
-			"input": 0.27,
-			"output": 0.42
+			"cache_read": 0.05977899,
+			"input": 0.59778991,
+			"output": 0.89668487
 		},
 		"limit": {
 			"context": 164000
@@ -986,9 +988,9 @@
 	},
 	"Pro/moonshotai/Kimi-K2.6": {
 		"cost": {
-			"cache_read": 0.16,
-			"input": 0.95,
-			"output": 4
+			"cache_read": 0.16439223,
+			"input": 0.97140861,
+			"output": 4.0350819
 		},
 		"limit": {
 			"context": 262000
@@ -1005,10 +1007,22 @@
 	},
 	"Pro/zai-org/GLM-5.1": {
 		"cost": {
-			"cache_read": 0.26,
+			"cache_read": 0.19428172,
 			"cache_write": 0,
-			"input": 1.4,
-			"output": 4.4
+			"input": 0.89668487,
+			"output": 3.58673947,
+			"tiers": [
+				{
+					"cache_read": 0.29889496,
+					"cache_write": 0,
+					"input": 1.19557982,
+					"output": 4.18452938,
+					"tier": {
+						"size": 32000,
+						"type": "context"
+					}
+				}
+			]
 		},
 		"limit": {
 			"context": 205000
@@ -1169,19 +1183,18 @@
 	},
 	"Qwen/Qwen3-8B": {
 		"cost": {
-			"cache_read": 0.2,
-			"cache_write": 0.2,
-			"input": 0.2,
-			"output": 0.2
+			"cache_read": 0.039,
+			"input": 0.195,
+			"output": 0.6
 		},
 		"limit": {
-			"context": 40960
+			"context": 32768
 		}
 	},
 	"Qwen/Qwen3-Coder-480B-A35B-Instruct": {
 		"cost": {
-			"input": 0.29,
-			"output": 1.2
+			"input": 0.38,
+			"output": 1.55
 		},
 		"limit": {
 			"context": 262144
@@ -1230,7 +1243,7 @@
 			"output": 0
 		},
 		"limit": {
-			"context": 32000
+			"context": 32768
 		}
 	},
 	"Qwen/Qwen3-Embedding-8B": {
@@ -1265,10 +1278,9 @@
 	},
 	"Qwen/Qwen3-Next-80B-A3B-Instruct": {
 		"cost": {
-			"cache_read": 0.05,
-			"cache_write": 0.2,
-			"input": 0.1,
-			"output": 0.8
+			"cache_read": 0.059375,
+			"input": 0.11875,
+			"output": 1.2625
 		},
 		"limit": {
 			"context": 262144
@@ -1332,7 +1344,7 @@
 	"Qwen/Qwen3-VL-Embedding-8B": {
 		"cost": {
 			"input": 0.09,
-			"output": 0.09
+			"output": 0
 		},
 		"limit": {
 			"context": 32000
@@ -1347,25 +1359,24 @@
 			"context": 200000
 		}
 	},
-	"Qwen/Qwen3.5-35B-A3B": {
+	"Qwen/Qwen3.5-35B-A3B-Base": {
 		"cost": {
-			"cache_read": 0.05,
-			"input": 0.14,
-			"output": 1
+			"cache_read": 0.108,
+			"input": 0.54,
+			"output": 1.335
 		},
 		"limit": {
-			"context": 262144
+			"context": 65536
 		}
 	},
 	"Qwen/Qwen3.5-397B-A17B": {
 		"cost": {
-			"cache_read": 0.06,
-			"cache_write": 0.75,
-			"input": 0.6,
-			"output": 3.6
+			"cache_read": 0.33,
+			"input": 1.65,
+			"output": 7.5
 		},
 		"limit": {
-			"context": 262144
+			"context": 65536
 		}
 	},
 	"Qwen/Qwen3.5-397B-A17B-FP8": {
@@ -1387,15 +1398,64 @@
 			"context": 262144
 		}
 	},
-	"Qwen/Qwen3.5-9B": {
+	"Qwen/Qwen3.5-397B-A17B:peft:262144": {
 		"cost": {
-			"cache_read": 0.3,
-			"cache_write": 0.3,
-			"input": 0.3,
-			"output": 0.3
+			"cache_read": 0.33,
+			"input": 1.65,
+			"output": 7.5
 		},
 		"limit": {
-			"context": 32768
+			"context": 262144
+		}
+	},
+	"Qwen/Qwen3.5-4B": {
+		"cost": {
+			"cache_read": 0.066,
+			"input": 0.33,
+			"output": 1.005
+		},
+		"limit": {
+			"context": 65536
+		}
+	},
+	"Qwen/Qwen3.5-4B:peft:262144": {
+		"cost": {
+			"cache_read": 0.066,
+			"input": 0.33,
+			"output": 1.005
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
+	"Qwen/Qwen3.5-9B": {
+		"cost": {
+			"cache_read": 0.06,
+			"input": 0.3,
+			"output": 0.807
+		},
+		"limit": {
+			"context": 65536
+		}
+	},
+	"Qwen/Qwen3.5-9B-Base": {
+		"cost": {
+			"cache_read": 0.06,
+			"input": 0.3,
+			"output": 0.807
+		},
+		"limit": {
+			"context": 65536
+		}
+	},
+	"Qwen/Qwen3.6-27B": {
+		"cost": {
+			"cache_read": 0.372,
+			"input": 1.86,
+			"output": 5.595
+		},
+		"limit": {
+			"context": 65536
 		}
 	},
 	"Qwen/Qwen3.6-27B-TEE": {
@@ -1408,11 +1468,31 @@
 			"context": 262144
 		}
 	},
+	"Qwen/Qwen3.6-35B-A3B": {
+		"cost": {
+			"cache_read": 0.09,
+			"input": 0.45,
+			"output": 1.335
+		},
+		"limit": {
+			"context": 65536
+		}
+	},
 	"Qwen/Qwen3.6-35B-A3B-FP8": {
 		"cost": {
 			"cache_read": 0.056,
 			"input": 0.17,
 			"output": 1.1
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
+	"Qwen/Qwen3.6-35B-A3B:peft:262144": {
+		"cost": {
+			"cache_read": 0.09,
+			"input": 0.45,
+			"output": 1.335
 		},
 		"limit": {
 			"context": 262144
@@ -1439,6 +1519,16 @@
 			"context": 256000
 		}
 	},
+	"Qwen/Qwen3.8-27B": {
+		"cost": {
+			"cache_read": 0.1395,
+			"input": 0.6975,
+			"output": 5.595
+		},
+		"limit": {
+			"context": 65536
+		}
+	},
 	"Qwen/Qwen3.8-27B-FP8": {
 		"cost": {
 			"input": 0.46,
@@ -1453,6 +1543,16 @@
 			"cache_read": 0.003899999999999999,
 			"input": 0.039,
 			"output": 1.25
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
+	"Qwen/Qwen3.8-27B:peft:262144": {
+		"cost": {
+			"cache_read": 0.1395,
+			"input": 0.6975,
+			"output": 5.595
 		},
 		"limit": {
 			"context": 262144
@@ -1494,17 +1594,6 @@
 			"cache_read": 0.153,
 			"input": 0.306,
 			"output": 0.306
-		},
-		"exactOnly": true,
-		"limit": {
-			"context": 262144
-		}
-	},
-	"Qwen3.8-Flash-Next": {
-		"cost": {
-			"cache_read": 0.016,
-			"input": 0.15,
-			"output": 0.47
 		},
 		"exactOnly": true,
 		"limit": {
@@ -2000,6 +2089,16 @@
 			"context": 65536
 		}
 	},
+	"TheDrummer/skyfall-31b-v4.2": {
+		"cost": {
+			"cache_read": 0.06,
+			"input": 0.12,
+			"output": 0.15
+		},
+		"limit": {
+			"context": 16384
+		}
+	},
 	"VongolaChouko/Starcannon-Unleashed-12B-v1.0": {
 		"cost": {
 			"cache_read": 0.2465,
@@ -2008,15 +2107,6 @@
 		},
 		"limit": {
 			"context": 16384
-		}
-	},
-	"XiaomiMiMo/MiMo-V2-Flash": {
-		"cost": {
-			"input": 0.1,
-			"output": 0.3
-		},
-		"limit": {
-			"context": 262144
 		}
 	},
 	"XiaomiMiMo/MiMo-V2.5": {
@@ -3139,7 +3229,7 @@
 	"amazon--nova-lite": {
 		"cost": {
 			"input": 0.3,
-			"output": 2.37
+			"output": 2.5
 		},
 		"exactOnly": true,
 		"limit": {
@@ -3148,8 +3238,8 @@
 	},
 	"amazon--nova-micro": {
 		"cost": {
-			"input": 0.03,
-			"output": 0.1
+			"input": 0.035,
+			"output": 0.14
 		},
 		"exactOnly": true,
 		"limit": {
@@ -3158,8 +3248,8 @@
 	},
 	"amazon--nova-pro": {
 		"cost": {
-			"input": 0.56,
-			"output": 2.13
+			"input": 0.8,
+			"output": 3.2
 		},
 		"exactOnly": true,
 		"limit": {
@@ -3168,7 +3258,7 @@
 	},
 	"amazon--titan-embed-text": {
 		"cost": {
-			"input": 0.14,
+			"input": 0.02,
 			"output": 0
 		},
 		"exactOnly": true,
@@ -4158,21 +4248,21 @@
 	},
 	"anthropic/claude-fable-5": {
 		"cost": {
-			"cache_read": 1,
-			"cache_write": 12.5,
-			"input": 10,
-			"output": 50
+			"cache_read": 1.3,
+			"cache_write": 16.25,
+			"input": 13,
+			"output": 65
 		},
 		"limit": {
 			"context": 1000000
 		}
 	},
-	"anthropic/claude-fable-5-1": {
+	"anthropic/claude-fable-5.1": {
 		"cost": {
-			"cache_read": 0.25,
-			"cache_write": 12.5,
-			"input": 10,
-			"output": 50
+			"cache_read": 0.325,
+			"cache_write": 16.25,
+			"input": 13,
+			"output": 65
 		},
 		"limit": {
 			"context": 1000000
@@ -4225,10 +4315,10 @@
 	},
 	"anthropic/claude-haiku-4.5": {
 		"cost": {
-			"cache_read": 0.1,
-			"cache_write": 1.25,
-			"input": 1,
-			"output": 5
+			"cache_read": 0.13754,
+			"cache_write": 1.71925,
+			"input": 1.3754,
+			"output": 6.877
 		},
 		"limit": {
 			"context": 200000
@@ -4388,10 +4478,10 @@
 	},
 	"anthropic/claude-opus-4.5": {
 		"cost": {
-			"cache_read": 0.5,
-			"cache_write": 6.25,
-			"input": 5,
-			"output": 25
+			"cache_read": 0.6877,
+			"cache_write": 8.59625,
+			"input": 6.877,
+			"output": 34.385
 		},
 		"limit": {
 			"context": 200000
@@ -4505,10 +4595,10 @@
 	},
 	"anthropic/claude-opus-4.8": {
 		"cost": {
-			"cache_read": 0.5,
-			"cache_write": 6.25,
-			"input": 5,
-			"output": 25
+			"cache_read": 0.6877,
+			"cache_write": 8.59625,
+			"input": 6.877,
+			"output": 34.385
 		},
 		"limit": {
 			"context": 1000000
@@ -4537,21 +4627,10 @@
 	},
 	"anthropic/claude-opus-5": {
 		"cost": {
-			"cache_read": 0.5,
-			"cache_write": 6.25,
-			"input": 5,
-			"output": 25
-		},
-		"limit": {
-			"context": 1000000
-		}
-	},
-	"anthropic/claude-opus-5-5": {
-		"cost": {
-			"cache_read": 0.2,
-			"cache_write": 5,
-			"input": 4,
-			"output": 20
+			"cache_read": 0.65,
+			"cache_write": 8.125,
+			"input": 6.5,
+			"output": 32.5
 		},
 		"limit": {
 			"context": 1000000
@@ -4563,6 +4642,17 @@
 			"cache_write": 12.5,
 			"input": 10,
 			"output": 50
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
+	"anthropic/claude-opus-5.5": {
+		"cost": {
+			"cache_read": 0.26,
+			"cache_write": 6.5,
+			"input": 5.2,
+			"output": 26
 		},
 		"limit": {
 			"context": 1000000
@@ -4725,21 +4815,21 @@
 	},
 	"anthropic/claude-sonnet-5": {
 		"cost": {
-			"cache_read": 0.2,
-			"cache_write": 2.5,
-			"input": 2,
-			"output": 10
+			"cache_read": 0.26,
+			"cache_write": 3.25,
+			"input": 2.6,
+			"output": 13
 		},
 		"limit": {
 			"context": 1000000
 		}
 	},
-	"anthropic/claude-sonnet-5-5": {
+	"anthropic/claude-sonnet-5.5": {
 		"cost": {
-			"cache_read": 0.1,
-			"cache_write": 2.5,
-			"input": 2,
-			"output": 10
+			"cache_read": 0.26,
+			"cache_write": 3.25,
+			"input": 2.6,
+			"output": 13
 		},
 		"limit": {
 			"context": 1000000
@@ -4872,6 +4962,16 @@
 		},
 		"limit": {
 			"context": 128000
+		}
+	},
+	"ateron/gemma-4-dark-thoughts-v2-31b": {
+		"cost": {
+			"cache_read": 0.05,
+			"input": 0.1,
+			"output": 0.45
+		},
+		"limit": {
+			"context": 65536
 		}
 	},
 	"au.anthropic.claude-haiku-4-5-20251001-v1:0": {
@@ -5091,9 +5191,9 @@
 	},
 	"auto/mistralai/mistral-large-4": {
 		"cost": {
-			"cache_read": 0.0732,
-			"input": 0.7112,
-			"output": 2.1859
+			"cache_read": 0.1479,
+			"input": 1.4367,
+			"output": 4.4156
 		},
 		"limit": {
 			"context": 524288
@@ -5511,17 +5611,6 @@
 		},
 		"limit": {
 			"context": 1000000
-		}
-	},
-	"aws-bedrock/claude-opus-4-1-20250805": {
-		"cost": {
-			"cache_read": 1.5,
-			"cache_write": 18.75,
-			"input": 15,
-			"output": 75
-		},
-		"limit": {
-			"context": 200000
 		}
 	},
 	"aws-bedrock/claude-opus-4-5-20251101": {
@@ -6280,7 +6369,17 @@
 	"baidu/ernie-5.0-thinking-preview": {
 		"cost": {
 			"input": 0.84,
-			"output": 3.37
+			"output": 3.37,
+			"tiers": [
+				{
+					"input": 1.41,
+					"output": 5.62,
+					"tier": {
+						"size": 32000,
+						"type": "context"
+					}
+				}
+			]
 		},
 		"limit": {
 			"context": 128000
@@ -6686,7 +6785,7 @@
 	},
 	"bge-multilingual-gemma2": {
 		"cost": {
-			"input": 0.1,
+			"input": 0.11215,
 			"output": 0
 		},
 		"limit": {
@@ -6901,6 +7000,111 @@
 			"context": 131072
 		}
 	},
+	"bytedance/doubao-seed-1.8": {
+		"cost": {
+			"cache_read": 0.023,
+			"input": 0.11,
+			"output": 0.28,
+			"tiers": [
+				{
+					"cache_read": 0.023,
+					"input": 0.17,
+					"output": 2.27,
+					"tier": {
+						"size": 32000,
+						"type": "context"
+					}
+				}
+			]
+		},
+		"limit": {
+			"context": 256000
+		}
+	},
+	"bytedance/doubao-seed-2.0-code": {
+		"cost": {
+			"cache_read": 0.09,
+			"input": 0.45,
+			"output": 2.24,
+			"tiers": [
+				{
+					"cache_read": 0.14,
+					"input": 0.67,
+					"output": 3.36,
+					"tier": {
+						"size": 32000,
+						"type": "context"
+					}
+				}
+			]
+		},
+		"limit": {
+			"context": 256000
+		}
+	},
+	"bytedance/doubao-seed-2.0-lite": {
+		"cost": {
+			"cache_read": 0.02,
+			"input": 0.09,
+			"output": 0.51,
+			"tiers": [
+				{
+					"cache_read": 0.03,
+					"input": 0.13,
+					"output": 0.76,
+					"tier": {
+						"size": 32000,
+						"type": "context"
+					}
+				}
+			]
+		},
+		"limit": {
+			"context": 256000
+		}
+	},
+	"bytedance/doubao-seed-2.0-mini": {
+		"cost": {
+			"cache_read": 0.01,
+			"input": 0.03,
+			"output": 0.28,
+			"tiers": [
+				{
+					"cache_read": 0.02,
+					"input": 0.06,
+					"output": 0.56,
+					"tier": {
+						"size": 32000,
+						"type": "context"
+					}
+				}
+			]
+		},
+		"limit": {
+			"context": 256000
+		}
+	},
+	"bytedance/doubao-seed-2.0-pro": {
+		"cost": {
+			"cache_read": 0.09,
+			"input": 0.45,
+			"output": 2.24,
+			"tiers": [
+				{
+					"cache_read": 0.14,
+					"input": 0.67,
+					"output": 3.36,
+					"tier": {
+						"size": 32000,
+						"type": "context"
+					}
+				}
+			]
+		},
+		"limit": {
+			"context": 256000
+		}
+	},
 	"bytedance/doubao-seed-2.1-pro": {
 		"cost": {
 			"cache_read": 0.5,
@@ -6931,6 +7135,28 @@
 		"exactOnly": true,
 		"limit": {
 			"context": 128000
+		}
+	},
+	"bytedance/doubao-seed-code": {
+		"cost": {
+			"cache_read": 0.034,
+			"input": 0.17,
+			"output": 1.12,
+			"tiers": [
+				{
+					"cache_read": 0.034,
+					"input": 0.2,
+					"output": 1.69,
+					"tier": {
+						"size": 32000,
+						"type": "context"
+					}
+				}
+			]
+		},
+		"exactOnly": true,
+		"limit": {
+			"context": 256000
 		}
 	},
 	"bytedance/glm-4.7": {
@@ -7105,6 +7331,15 @@
 			"context": 128000
 		}
 	},
+	"c4ai-aya-expanse-32b": {
+		"cost": {
+			"input": 0.5,
+			"output": 1.5
+		},
+		"limit": {
+			"context": 128000
+		}
+	},
 	"ca.amazon.nova-lite-v1:0": {
 		"cost": {
 			"cache_read": 0.016,
@@ -7217,8 +7452,8 @@
 	},
 	"cerebras/gpt-oss-120b-cs": {
 		"cost": {
-			"input": 0.35,
-			"output": 0.75
+			"input": 0.3535,
+			"output": 0.7576
 		},
 		"limit": {
 			"context": 128000
@@ -7314,7 +7549,7 @@
 		"cost": {
 			"cache_read": 0.08,
 			"cache_write": 1,
-			"input": 0.7999999999999999,
+			"input": 0.8,
 			"output": 4
 		},
 		"limit": {
@@ -7323,7 +7558,7 @@
 	},
 	"claude-3.5-sonnet-v2": {
 		"cost": {
-			"cache_read": 0.30000000000000004,
+			"cache_read": 0.3,
 			"cache_write": 3.75,
 			"input": 3,
 			"output": 15
@@ -7334,7 +7569,7 @@
 	},
 	"claude-3.7-sonnet": {
 		"cost": {
-			"cache_read": 0.30000000000000004,
+			"cache_read": 0.3,
 			"cache_write": 3.75,
 			"input": 3,
 			"output": 15
@@ -7367,7 +7602,7 @@
 	},
 	"claude-4.5-haiku": {
 		"cost": {
-			"cache_read": 0.09999999999999999,
+			"cache_read": 0.1,
 			"cache_write": 1.25,
 			"input": 1,
 			"output": 5
@@ -7682,19 +7917,7 @@
 			"cache_read": 0.5,
 			"cache_write": 6.25,
 			"input": 5,
-			"output": 25,
-			"tiers": [
-				{
-					"cache_read": 1,
-					"cache_write": 12.5,
-					"input": 10,
-					"output": 37.5,
-					"tier": {
-						"size": 200000,
-						"type": "context"
-					}
-				}
-			]
+			"output": 25
 		},
 		"exactOnly": true,
 		"limit": {
@@ -7741,19 +7964,7 @@
 			"cache_read": 0.5,
 			"cache_write": 6.25,
 			"input": 5,
-			"output": 25,
-			"tiers": [
-				{
-					"cache_read": 1,
-					"cache_write": 12.5,
-					"input": 10,
-					"output": 37.5,
-					"tier": {
-						"size": 200000,
-						"type": "context"
-					}
-				}
-			]
+			"output": 25
 		},
 		"exactOnly": true,
 		"limit": {
@@ -7826,7 +8037,7 @@
 		},
 		"exactOnly": true,
 		"limit": {
-			"context": 200000
+			"context": 1000000
 		}
 	},
 	"claude-opus-4-8@default": {
@@ -7937,6 +8148,8 @@
 	},
 	"claude-opus-5-thinking": {
 		"cost": {
+			"cache_read": 0.5,
+			"cache_write": 5,
 			"input": 5,
 			"output": 25
 		},
@@ -8061,8 +8274,20 @@
 	},
 	"claude-sonnet-4-5-20250929-thinking": {
 		"cost": {
+			"cache_read": 0.3,
+			"cache_write": 3.75,
 			"input": 3,
-			"output": 15
+			"output": 15,
+			"tiers": [
+				{
+					"input": 6,
+					"output": 22.5,
+					"tier": {
+						"size": 200000,
+						"type": "context"
+					}
+				}
+			]
 		},
 		"exactOnly": true,
 		"limit": {
@@ -8090,7 +8315,7 @@
 		},
 		"exactOnly": true,
 		"limit": {
-			"context": 1000000
+			"context": 200000
 		}
 	},
 	"claude-sonnet-4-5@eu": {
@@ -8133,19 +8358,7 @@
 			"cache_read": 0.3,
 			"cache_write": 3.75,
 			"input": 3,
-			"output": 15,
-			"tiers": [
-				{
-					"cache_read": 0.6,
-					"cache_write": 7.5,
-					"input": 6,
-					"output": 22.5,
-					"tier": {
-						"size": 200000,
-						"type": "context"
-					}
-				}
-			]
+			"output": 15
 		},
 		"exactOnly": true,
 		"limit": {
@@ -8154,8 +8367,20 @@
 	},
 	"claude-sonnet-4-6-thinking": {
 		"cost": {
+			"cache_read": 0.3,
+			"cache_write": 3.75,
 			"input": 3,
-			"output": 15
+			"output": 15,
+			"tiers": [
+				{
+					"input": 6,
+					"output": 22.5,
+					"tier": {
+						"size": 200000,
+						"type": "context"
+					}
+				}
+			]
 		},
 		"exactOnly": true,
 		"limit": {
@@ -8347,6 +8572,35 @@
 			"context": 1048576
 		}
 	},
+	"clef": {
+		"cost": {
+			"input": 0.2245,
+			"output": 0
+		},
+		"exactOnly": true,
+		"limit": {
+			"context": 16384
+		}
+	},
+	"clef-flash": {
+		"cost": {
+			"input": 0.033675,
+			"output": 0
+		},
+		"exactOnly": true,
+		"limit": {
+			"context": 16384
+		}
+	},
+	"clef:27b": {
+		"cost": {
+			"input": 0.24,
+			"output": 0
+		},
+		"limit": {
+			"context": 65536
+		}
+	},
 	"cline-pass/deepseek-v4-flash": {
 		"cost": {
 			"cache_read": 0.0028,
@@ -8359,9 +8613,9 @@
 	},
 	"cline-pass/deepseek-v4-pro": {
 		"cost": {
-			"cache_read": 0.0145,
-			"input": 1.74,
-			"output": 3.48
+			"cache_read": 0.022,
+			"input": 0.66,
+			"output": 1.98
 		},
 		"limit": {
 			"context": 1000000
@@ -8487,6 +8741,16 @@
 			"context": 1048576
 		}
 	},
+	"cline-pass/muse-spark-1.3-contributor": {
+		"cost": {
+			"cache_read": 0.002,
+			"input": 0.1,
+			"output": 0.2
+		},
+		"limit": {
+			"context": 1048576
+		}
+	},
 	"cline-pass/qwen3.7-max": {
 		"cost": {
 			"cache_read": 0.5,
@@ -8561,6 +8825,16 @@
 			"context": 1048576
 		}
 	},
+	"cloudflare/@cf/deepseek-ai/deepseek-v4.1-flash-1017": {
+		"cost": {
+			"cache_read": 0.006,
+			"input": 0.3,
+			"output": 1.2
+		},
+		"limit": {
+			"context": 1048576
+		}
+	},
 	"cloudflare/@cf/meta/llama-3.2-1b-instruct": {
 		"cost": {
 			"input": 0.027,
@@ -8568,6 +8842,15 @@
 		},
 		"limit": {
 			"context": 60000
+		}
+	},
+	"cloudflare/@cf/meta/llama-3.2-3b-instruct": {
+		"cost": {
+			"input": 0.0509,
+			"output": 0.335
+		},
+		"limit": {
+			"context": 80000
 		}
 	},
 	"cloudflare/@cf/meta/llama-guard-3-8b": {
@@ -8631,17 +8914,17 @@
 		},
 		"exactOnly": true,
 		"limit": {
-			"context": 65537
+			"context": 1800
 		}
 	},
 	"cloudflare/clef-flash": {
 		"cost": {
-			"input": 0.038,
+			"input": 0.09,
 			"output": 0
 		},
 		"exactOnly": true,
 		"limit": {
-			"context": 24576
+			"context": 1800
 		}
 	},
 	"cloudflare/clef-omni": {
@@ -8734,20 +9017,9 @@
 	},
 	"coding-xiaomi-mimo-v2.5": {
 		"cost": {
-			"cache_read": 0.016,
+			"cache_read": 0.0016,
 			"input": 0.08,
-			"output": 0.4,
-			"tiers": [
-				{
-					"cache_read": 0.032,
-					"input": 0.16,
-					"output": 0.8,
-					"tier": {
-						"size": 256000,
-						"type": "context"
-					}
-				}
-			]
+			"output": 0.16
 		},
 		"limit": {
 			"context": 1048576
@@ -8755,20 +9027,9 @@
 	},
 	"coding-xiaomi-mimo-v2.5-pro": {
 		"cost": {
-			"cache_read": 0.04,
+			"cache_read": 0.0016,
 			"input": 0.2,
-			"output": 0.6,
-			"tiers": [
-				{
-					"cache_read": 0.08,
-					"input": 0.4,
-					"output": 1.2,
-					"tier": {
-						"size": 256000,
-						"type": "context"
-					}
-				}
-			]
+			"output": 0.4
 		},
 		"limit": {
 			"context": 1048576
@@ -8785,8 +9046,8 @@
 	},
 	"cohere--command-a-reasoning": {
 		"cost": {
-			"input": 0.63,
-			"output": 5.05
+			"input": 2.5,
+			"output": 10
 		},
 		"exactOnly": true,
 		"limit": {
@@ -9367,14 +9628,16 @@
 	},
 	"databricks-gpt-5-6-luna": {
 		"cost": {
-			"cache_read": 0.1,
-			"input": 1,
-			"output": 6,
+			"cache_read": 0.02,
+			"cache_write": 0.25,
+			"input": 0.2,
+			"output": 1.2,
 			"tiers": [
 				{
-					"cache_read": 0.2,
-					"input": 2,
-					"output": 9,
+					"cache_read": 0.04,
+					"cache_write": 0.5,
+					"input": 0.4,
+					"output": 1.8,
 					"tier": {
 						"size": 272000,
 						"type": "context"
@@ -9383,19 +9646,21 @@
 			]
 		},
 		"limit": {
-			"context": 400000
+			"context": 1050000
 		}
 	},
 	"databricks-gpt-5-6-sol": {
 		"cost": {
-			"cache_read": 0.5,
-			"input": 5,
-			"output": 30,
+			"cache_read": 0.4,
+			"cache_write": 5,
+			"input": 4,
+			"output": 20,
 			"tiers": [
 				{
-					"cache_read": 1,
-					"input": 10,
-					"output": 45,
+					"cache_read": 0.8,
+					"cache_write": 10,
+					"input": 8,
+					"output": 30,
 					"tier": {
 						"size": 272000,
 						"type": "context"
@@ -9409,14 +9674,16 @@
 	},
 	"databricks-gpt-5-6-terra": {
 		"cost": {
-			"cache_read": 0.25,
-			"input": 2.5,
-			"output": 15,
+			"cache_read": 0.2,
+			"cache_write": 2.5,
+			"input": 2,
+			"output": 12,
 			"tiers": [
 				{
-					"cache_read": 0.5,
-					"input": 5,
-					"output": 22.5,
+					"cache_read": 0.4,
+					"cache_write": 5,
+					"input": 4,
+					"output": 18,
 					"tier": {
 						"size": 272000,
 						"type": "context"
@@ -9450,8 +9717,8 @@
 	},
 	"databricks-gpt-oss-120b": {
 		"cost": {
-			"input": 0.072,
-			"output": 0.28
+			"input": 0.15,
+			"output": 0.6
 		},
 		"limit": {
 			"context": 131072
@@ -9459,8 +9726,8 @@
 	},
 	"databricks-gpt-oss-20b": {
 		"cost": {
-			"input": 0.05,
-			"output": 0.2
+			"input": 0.07,
+			"output": 0.3
 		},
 		"limit": {
 			"context": 131072
@@ -9562,7 +9829,7 @@
 			"output": 1.20001
 		},
 		"limit": {
-			"context": 131072
+			"context": 262144
 		}
 	},
 	"databricks/databricks-qwen3-next-80b-a3b-instruct@eu": {
@@ -9573,7 +9840,7 @@
 			"output": 1.20001
 		},
 		"limit": {
-			"context": 131072
+			"context": 262144
 		}
 	},
 	"deep-deepseek-v4-flash": {
@@ -9653,10 +9920,29 @@
 			"context": 131072
 		}
 	},
+	"deepinfra/Qwen/Qwen2.5-7B-Instruct": {
+		"cost": {
+			"input": 0.04,
+			"output": 0.1
+		},
+		"limit": {
+			"context": 32768
+		}
+	},
 	"deepinfra/Qwen/Qwen3-235B-A22B-Instruct-2507": {
 		"cost": {
 			"input": 0.09,
 			"output": 0.55
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
+	"deepinfra/Qwen/Qwen3-235B-A22B-Thinking-2507": {
+		"cost": {
+			"cache_read": 0.2,
+			"input": 0.23,
+			"output": 2.3
 		},
 		"limit": {
 			"context": 262144
@@ -9892,6 +10178,16 @@
 			"context": 131072
 		}
 	},
+	"deepinfra/ibm-granite/granite-4.2-8b": {
+		"cost": {
+			"cache_read": 0.015,
+			"input": 0.06,
+			"output": 0.25
+		},
+		"limit": {
+			"context": 131072
+		}
+	},
 	"deepinfra/inkling": {
 		"cost": {
 			"cache_read": 0.16,
@@ -9932,6 +10228,15 @@
 			"context": 131072
 		}
 	},
+	"deepinfra/meta-llama/Llama-3.2-3B-Instruct": {
+		"cost": {
+			"input": 0.02,
+			"output": 0.02
+		},
+		"limit": {
+			"context": 131072
+		}
+	},
 	"deepinfra/meta-llama/Llama-3.3-70B-Instruct": {
 		"cost": {
 			"input": 0.1,
@@ -9948,6 +10253,15 @@
 		},
 		"limit": {
 			"context": 131072
+		}
+	},
+	"deepinfra/meta-llama/Llama-Guard-4-12B": {
+		"cost": {
+			"input": 0.18,
+			"output": 0.18
+		},
+		"limit": {
+			"context": 163840
 		}
 	},
 	"deepinfra/meta-models/Muse-Glimmer-30B": {
@@ -9993,6 +10307,15 @@
 		"cost": {
 			"input": 0.05,
 			"output": 0.08
+		},
+		"limit": {
+			"context": 32768
+		}
+	},
+	"deepinfra/mistralai/Mixtral-8x7B-Instruct-v0.1": {
+		"cost": {
+			"input": 0.4,
+			"output": 0.4
 		},
 		"limit": {
 			"context": 32768
@@ -10225,22 +10548,22 @@
 	},
 	"deepseek-ai/DeepSeek-R1": {
 		"cost": {
-			"input": 3,
-			"output": 7
+			"cache_read": 0.05977899,
+			"input": 0.59778991,
+			"output": 2.39115964
 		},
 		"limit": {
-			"context": 128000
+			"context": 164000
 		}
 	},
 	"deepseek-ai/DeepSeek-R1-0528": {
 		"cost": {
-			"cache_read": 1,
-			"cache_write": 4,
-			"input": 2,
-			"output": 8.75
+			"cache_read": 0.35,
+			"input": 0.5,
+			"output": 2.15
 		},
 		"limit": {
-			"context": 128000
+			"context": 163840
 		}
 	},
 	"deepseek-ai/DeepSeek-V3": {
@@ -10266,13 +10589,12 @@
 	},
 	"deepseek-ai/DeepSeek-V3.1": {
 		"cost": {
-			"cache_read": 0.56,
-			"cache_write": 0.56,
-			"input": 0.56,
-			"output": 1.68
+			"cache_read": 0.339,
+			"input": 1.695,
+			"output": 4.215
 		},
 		"limit": {
-			"context": 163840
+			"context": 32768
 		}
 	},
 	"deepseek-ai/DeepSeek-V3.1-Terminus": {
@@ -10315,6 +10637,16 @@
 			"context": 163840
 		}
 	},
+	"deepseek-ai/DeepSeek-V3.2-Exp": {
+		"cost": {
+			"cache_read": 0.13,
+			"input": 0.26,
+			"output": 0.38
+		},
+		"limit": {
+			"context": 164000
+		}
+	},
 	"deepseek-ai/DeepSeek-V3.2-TEE": {
 		"cost": {
 			"cache_read": 0.09999999999999998,
@@ -10325,12 +10657,23 @@
 			"context": 131072
 		}
 	},
+	"deepseek-ai/DeepSeek-V4-Flash": {
+		"cost": {
+			"cache_read": 0.0197,
+			"cache_write": 0.1,
+			"input": 0.1,
+			"output": 0.2
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
 	"deepseek-ai/DeepSeek-V4-Flash-0731": {
 		"cost": {
-			"cache_read": 0.03,
+			"cache_read": 0.027,
 			"cache_write": 0,
-			"input": 0.13,
-			"output": 0.28
+			"input": 0.11,
+			"output": 0.3666
 		},
 		"limit": {
 			"context": 1048576
@@ -10356,11 +10699,22 @@
 			"context": 1048576
 		}
 	},
+	"deepseek-ai/DeepSeek-V4-Pro": {
+		"cost": {
+			"cache_read": 0.003625,
+			"cache_write": 0.435,
+			"input": 0.435,
+			"output": 0.87
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
 	"deepseek-ai/DeepSeek-V4-Pro-0813": {
 		"cost": {
-			"cache_read": 0.1,
-			"input": 1.3,
-			"output": 2.6
+			"cache_read": 0.132,
+			"input": 1.32,
+			"output": 3.96
 		},
 		"limit": {
 			"context": 1048576
@@ -10368,9 +10722,9 @@
 	},
 	"deepseek-ai/DeepSeek-V4.1-Flash-1017": {
 		"cost": {
-			"cache_read": 0.006,
-			"input": 0.2,
-			"output": 0.6
+			"cache_read": 0.007,
+			"input": 0.3,
+			"output": 1.2
 		},
 		"limit": {
 			"context": 1048576
@@ -10378,6 +10732,7 @@
 	},
 	"deepseek-ai/DeepSeek-V4.1-Flash-1017-Fast": {
 		"cost": {
+			"cache_read": 0.014,
 			"input": 0.6,
 			"output": 2.4
 		},
@@ -10385,13 +10740,34 @@
 			"context": 1048576
 		}
 	},
+	"deepseek-ai/DeepSeek-V4.1-Flash-1017:peft:262144": {
+		"cost": {
+			"cache_read": 0.12,
+			"input": 0.6,
+			"output": 3.6
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
 	"deepseek-ai/DeepSeek-V4.1-Flash-Fast": {
 		"cost": {
+			"cache_read": 0.014,
 			"input": 0.6,
 			"output": 2.4
 		},
 		"limit": {
 			"context": 1048576
+		}
+	},
+	"deepseek-ai/DeepSeek-V4.1-Flash:peft:262144": {
+		"cost": {
+			"cache_read": 0.12,
+			"input": 0.6,
+			"output": 3.6
+		},
+		"limit": {
+			"context": 262144
 		}
 	},
 	"deepseek-ai/deepseek-ocr/models/DeepSeek-OCR": {
@@ -10423,16 +10799,6 @@
 			"context": 163840
 		}
 	},
-	"deepseek-ai/deepseek-v3.2-exp": {
-		"cost": {
-			"cache_read": 0.14,
-			"input": 0.28,
-			"output": 0.42
-		},
-		"limit": {
-			"context": 163840
-		}
-	},
 	"deepseek-ai/deepseek-v3.2-exp-thinking": {
 		"cost": {
 			"cache_read": 0.14,
@@ -10451,26 +10817,6 @@
 		},
 		"limit": {
 			"context": 163840
-		}
-	},
-	"deepseek-ai/deepseek-v4-flash": {
-		"cost": {
-			"cache_read": 0.0028,
-			"input": 0.14,
-			"output": 0.28
-		},
-		"limit": {
-			"context": 1048576
-		}
-	},
-	"deepseek-ai/deepseek-v4-pro": {
-		"cost": {
-			"cache_read": 0.003625,
-			"input": 0.435,
-			"output": 0.87
-		},
-		"limit": {
-			"context": 1048576
 		}
 	},
 	"deepseek-ai/deepseek-v4.1-flash": {
@@ -10586,33 +10932,11 @@
 			"context": 32768
 		}
 	},
-	"deepseek-r1-sambanova": {
-		"cost": {
-			"cache_read": 2.499,
-			"input": 4.998,
-			"output": 6.987
-		},
-		"exactOnly": true,
-		"limit": {
-			"context": 128000
-		}
-	},
 	"deepseek-reasoner": {
 		"cost": {
 			"cache_read": 0.07,
 			"input": 0.56,
 			"output": 1.68
-		},
-		"exactOnly": true,
-		"limit": {
-			"context": 128000
-		}
-	},
-	"deepseek-reasoner-cheaper": {
-		"cost": {
-			"cache_read": 0.2,
-			"input": 0.4,
-			"output": 1.7
 		},
 		"exactOnly": true,
 		"limit": {
@@ -10671,7 +10995,7 @@
 	},
 	"deepseek-v3.1-terminus": {
 		"cost": {
-			"cache_read": 0.21600000000000003,
+			"cache_read": 0.216,
 			"input": 0.27,
 			"output": 1
 		},
@@ -10682,6 +11006,7 @@
 	},
 	"deepseek-v3.2": {
 		"cost": {
+			"cache_read": 0.03,
 			"input": 0.28,
 			"output": 0.42
 		},
@@ -10722,9 +11047,9 @@
 	},
 	"deepseek-v4-flash-0731": {
 		"cost": {
-			"cache_read": 0.04,
-			"input": 0.2,
-			"output": 0.4
+			"cache_read": 0.088,
+			"input": 0.44,
+			"output": 1.32
 		},
 		"exactOnly": true,
 		"limit": {
@@ -10905,9 +11230,9 @@
 	},
 	"deepseek-v4.1-flash-552b": {
 		"cost": {
-			"cache_read": 0.1,
-			"input": 0.25,
-			"output": 1
+			"cache_read": 0.11215,
+			"input": 0.280375,
+			"output": 1.1215
 		},
 		"exactOnly": true,
 		"limit": {
@@ -10916,9 +11241,9 @@
 	},
 	"deepseek-v4.1-flash-fast": {
 		"cost": {
-			"cache_read": 0,
-			"cache_write": 0.09,
-			"input": 0.01,
+			"cache_read": 0.005,
+			"cache_write": 0,
+			"input": 0.25,
 			"output": 1.2
 		},
 		"exactOnly": true,
@@ -10949,6 +11274,7 @@
 	},
 	"deepseek-v4.1-flash:fast": {
 		"cost": {
+			"cache_read": 0.012,
 			"input": 0.6,
 			"output": 2.4
 		},
@@ -11031,9 +11357,9 @@
 	},
 	"deepseek/deepseek-latest": {
 		"cost": {
-			"cache_read": 0.022,
-			"input": 0.66,
-			"output": 1.98
+			"cache_read": 0.00462,
+			"input": 0.1452,
+			"output": 0.4356
 		},
 		"exactOnly": true,
 		"limit": {
@@ -11089,9 +11415,9 @@
 	},
 	"deepseek/deepseek-reasoner": {
 		"cost": {
-			"cache_read": 0.028,
-			"input": 0.147,
-			"output": 0.295
+			"cache_read": 0.0077,
+			"input": 0.242,
+			"output": 0.726
 		},
 		"exactOnly": true,
 		"limit": {
@@ -11109,6 +11435,7 @@
 	},
 	"deepseek/deepseek-v3-0324": {
 		"cost": {
+			"cache_read": 0.14,
 			"input": 0.28,
 			"output": 1.14
 		},
@@ -11135,6 +11462,15 @@
 			"context": 163840
 		}
 	},
+	"deepseek/deepseek-v3.1-terminus-thinking": {
+		"cost": {
+			"input": 0.57971014,
+			"output": 1.73913043
+		},
+		"limit": {
+			"context": 128000
+		}
+	},
 	"deepseek/deepseek-v3.2": {
 		"cost": {
 			"cache_read": 0.075,
@@ -11146,6 +11482,16 @@
 			"context": 163840
 		}
 	},
+	"deepseek/deepseek-v3.2-251201": {
+		"cost": {
+			"cache_read": 0.02898551,
+			"input": 0.28985507,
+			"output": 0.43478261
+		},
+		"limit": {
+			"context": 128000
+		}
+	},
 	"deepseek/deepseek-v3.2-exp": {
 		"cost": {
 			"input": 0.27,
@@ -11153,6 +11499,15 @@
 		},
 		"limit": {
 			"context": 163840
+		}
+	},
+	"deepseek/deepseek-v3.2-exp-thinking": {
+		"cost": {
+			"input": 0.28985507,
+			"output": 0.43478261
+		},
+		"limit": {
+			"context": 128000
 		}
 	},
 	"deepseek/deepseek-v3.2-thinking": {
@@ -11228,9 +11583,9 @@
 	},
 	"deepseek/deepseek-v4-flash-0731:thinking": {
 		"cost": {
-			"cache_read": 0.013,
-			"input": 0.05,
-			"output": 0.16
+			"cache_read": 0.001414,
+			"input": 0.04444,
+			"output": 0.13332
 		},
 		"limit": {
 			"context": 1048576
@@ -11310,9 +11665,9 @@
 	},
 	"deepseek/deepseek-v4-pro-0813:thinking": {
 		"cost": {
-			"cache_read": 0.022,
-			"input": 0.66,
-			"output": 1.98
+			"cache_read": 0.00462,
+			"input": 0.1452,
+			"output": 0.4356
 		},
 		"limit": {
 			"context": 1048576
@@ -11382,9 +11737,9 @@
 	},
 	"deepseek/deepseek-v4.1-flash:thinking": {
 		"cost": {
-			"cache_read": 0.0042,
-			"input": 0.14,
-			"output": 0.42
+			"cache_read": 0.000684,
+			"input": 0.0342,
+			"output": 0.1368
 		},
 		"limit": {
 			"context": 1000000
@@ -11517,6 +11872,24 @@
 			"context": 32000
 		}
 	},
+	"doubao-1.5-thinking-pro": {
+		"cost": {
+			"input": 0.57971014,
+			"output": 2.31884058
+		},
+		"limit": {
+			"context": 128000
+		}
+	},
+	"doubao-1.5-vision-pro": {
+		"cost": {
+			"input": 0.43478261,
+			"output": 1.30434783
+		},
+		"limit": {
+			"context": 128000
+		}
+	},
 	"doubao-1.5-vision-pro-32k": {
 		"cost": {
 			"cache_read": 0.2295,
@@ -11601,8 +11974,18 @@
 	},
 	"doubao-seed-1-8-251215": {
 		"cost": {
-			"input": 0.114,
-			"output": 0.286
+			"input": 0.1143,
+			"output": 0.286,
+			"tiers": [
+				{
+					"input": 0.1715,
+					"output": 2.286,
+					"tier": {
+						"size": 32000,
+						"type": "context"
+					}
+				}
+			]
 		},
 		"limit": {
 			"context": 224000
@@ -11629,16 +12012,73 @@
 			"context": 256000
 		}
 	},
+	"doubao-seed-1.6": {
+		"cost": {
+			"input": 0.11594203,
+			"output": 1.15942029,
+			"tiers": [
+				{
+					"input": 0.17391304,
+					"output": 2.31884058,
+					"tier": {
+						"size": 32000,
+						"type": "context"
+					}
+				}
+			]
+		},
+		"limit": {
+			"context": 256000
+		}
+	},
+	"doubao-seed-1.6-flash": {
+		"cost": {
+			"input": 0.02173913,
+			"output": 0.2173913,
+			"tiers": [
+				{
+					"input": 0.04347826,
+					"output": 0.43478261,
+					"tier": {
+						"size": 32000,
+						"type": "context"
+					}
+				}
+			]
+		},
+		"limit": {
+			"context": 256000
+		}
+	},
+	"doubao-seed-1.6-thinking": {
+		"cost": {
+			"input": 0.11594203,
+			"output": 1.15942029,
+			"tiers": [
+				{
+					"input": 0.17391304,
+					"output": 2.31884058,
+					"tier": {
+						"size": 32000,
+						"type": "context"
+					}
+				}
+			]
+		},
+		"limit": {
+			"context": 256000
+		}
+	},
 	"doubao-seed-2-0-code-preview": {
 		"cost": {
 			"cache_read": 0.09644,
-			"input": 0.48,
-			"output": 2.41,
+			"input": 0.4822,
+			"output": 2.411,
 			"tiers": [
 				{
 					"cache_read": 0.144656,
-					"input": 0.72,
-					"output": 3.62,
+					"input": 0.72328,
+					"output": 3.6164,
 					"tier": {
 						"size": 32000,
 						"type": "context"
@@ -11683,15 +12123,14 @@
 	},
 	"doubao-seed-2-0-lite-260428": {
 		"cost": {
-			"cache_read": 0.01692,
-			"input": 0.08,
-			"output": 0.51,
+			"cache_read": 0.018082,
+			"input": 0.09041,
+			"output": 0.54246,
 			"tiers": [
 				{
-					"cache_read": 0.02536,
-					"input": 0.13,
-					"input_audio": 1.902,
-					"output": 0.76,
+					"cache_read": 0.0271232,
+					"input": 0.135616,
+					"output": 0.813696,
 					"tier": {
 						"size": 32000,
 						"type": "context"
@@ -11715,15 +12154,14 @@
 	},
 	"doubao-seed-2-0-mini-260428": {
 		"cost": {
-			"cache_read": 0.00564,
-			"input": 0.03,
-			"output": 0.28,
+			"cache_read": 0.0060272,
+			"input": 0.030136,
+			"output": 0.30136,
 			"tiers": [
 				{
-					"cache_read": 0.01128,
-					"input": 0.06,
-					"input_audio": 0.846,
-					"output": 0.56,
+					"cache_read": 0.0120548,
+					"input": 0.060274,
+					"output": 0.60274,
 					"tier": {
 						"size": 32000,
 						"type": "context"
@@ -11737,14 +12175,14 @@
 	},
 	"doubao-seed-2-0-pro": {
 		"cost": {
-			"cache_read": 0.09644,
-			"input": 0.48,
-			"output": 2.41,
+			"cache_read": 0.09916,
+			"input": 0.4958,
+			"output": 2.479,
 			"tiers": [
 				{
-					"cache_read": 0.144656,
-					"input": 0.72,
-					"output": 3.62,
+					"cache_read": 0.14872,
+					"input": 0.7436,
+					"output": 3.718,
 					"tier": {
 						"size": 32000,
 						"type": "context"
@@ -11792,6 +12230,69 @@
 			"cache_read": 0.08906,
 			"input": 0.4453,
 			"output": 2.22651
+		},
+		"limit": {
+			"context": 256000
+		}
+	},
+	"doubao-seed-2.0-code": {
+		"cost": {
+			"cache_read": 0.09275362,
+			"input": 0.46376812,
+			"output": 2.31884058,
+			"tiers": [
+				{
+					"cache_read": 0.13913043,
+					"input": 0.69565217,
+					"output": 3.47826087,
+					"tier": {
+						"size": 32000,
+						"type": "context"
+					}
+				}
+			]
+		},
+		"limit": {
+			"context": 256000
+		}
+	},
+	"doubao-seed-2.0-lite": {
+		"cost": {
+			"cache_read": 0.0173913,
+			"input": 0.08695652,
+			"output": 0.52173913,
+			"tiers": [
+				{
+					"cache_read": 0.02608696,
+					"input": 0.13043478,
+					"output": 0.7826087,
+					"tier": {
+						"size": 32000,
+						"type": "context"
+					}
+				}
+			]
+		},
+		"limit": {
+			"context": 256000
+		}
+	},
+	"doubao-seed-2.0-mini": {
+		"cost": {
+			"cache_read": 0.0057971,
+			"input": 0.02898551,
+			"output": 0.28985507,
+			"tiers": [
+				{
+					"cache_read": 0.0115942,
+					"input": 0.05797101,
+					"output": 0.57971014,
+					"tier": {
+						"size": 32000,
+						"type": "context"
+					}
+				}
+			]
 		},
 		"limit": {
 			"context": 256000
@@ -12316,10 +12817,10 @@
 	},
 	"fastino/GLiNER-2.5-Decide": {
 		"cost": {
-			"cache_read": 0.15,
-			"cache_write": 0.15,
-			"input": 0.15,
-			"output": 0.15
+			"cache_read": 0.03,
+			"cache_write": 0.03,
+			"input": 0.03,
+			"output": 0
 		},
 		"limit": {
 			"context": 8192
@@ -12350,10 +12851,10 @@
 	},
 	"fastino/gliner2-base-v1": {
 		"cost": {
-			"cache_read": 0.15,
-			"cache_write": 0.15,
-			"input": 0.15,
-			"output": 0.15
+			"cache_read": 0.03,
+			"cache_write": 0.03,
+			"input": 0.03,
+			"output": 0
 		},
 		"limit": {
 			"context": 8192
@@ -12361,10 +12862,10 @@
 	},
 	"fastino/gliner2-large-v1": {
 		"cost": {
-			"cache_read": 0.15,
-			"cache_write": 0.15,
-			"input": 0.15,
-			"output": 0.15
+			"cache_read": 0.03,
+			"cache_write": 0.03,
+			"input": 0.03,
+			"output": 0
 		},
 		"limit": {
 			"context": 8192
@@ -12372,10 +12873,10 @@
 	},
 	"fastino/gliner2-multi-large-v1": {
 		"cost": {
-			"cache_read": 0.15,
-			"cache_write": 0.15,
-			"input": 0.15,
-			"output": 0.15
+			"cache_read": 0.03,
+			"cache_write": 0.03,
+			"input": 0.03,
+			"output": 0
 		},
 		"limit": {
 			"context": 8192
@@ -12383,10 +12884,10 @@
 	},
 	"fastino/gliner2-multi-v1": {
 		"cost": {
-			"cache_read": 0.15,
-			"cache_write": 0.15,
-			"input": 0.15,
-			"output": 0.15
+			"cache_read": 0.03,
+			"cache_write": 0.03,
+			"input": 0.03,
+			"output": 0
 		},
 		"limit": {
 			"context": 8192
@@ -12394,10 +12895,10 @@
 	},
 	"fastino/gliner2-privacy-filter-PII-multi": {
 		"cost": {
-			"cache_read": 0.15,
-			"cache_write": 0.15,
-			"input": 0.15,
-			"output": 0.15
+			"cache_read": 0.03,
+			"cache_write": 0.03,
+			"input": 0.03,
+			"output": 0
 		},
 		"limit": {
 			"context": 8192
@@ -12416,10 +12917,10 @@
 	},
 	"fastino/gliner2.5-multi-v1": {
 		"cost": {
-			"cache_read": 0.15,
-			"cache_write": 0.15,
-			"input": 0.15,
-			"output": 0.15
+			"cache_read": 0.03,
+			"cache_write": 0.03,
+			"input": 0.03,
+			"output": 0
 		},
 		"limit": {
 			"context": 4096
@@ -12525,6 +13026,16 @@
 			"context": 1040384
 		}
 	},
+	"fireworks_ai/accounts/fireworks/models/ember-1": {
+		"cost": {
+			"cache_read": 0.3,
+			"input": 3,
+			"output": 15
+		},
+		"limit": {
+			"context": 1048576
+		}
+	},
 	"fireworks_ai/accounts/fireworks/models/gpt-oss-120b": {
 		"cost": {
 			"cache_read": 0.015,
@@ -12589,9 +13100,9 @@
 	},
 	"flexai/DeepSeek-V4.1-Flash": {
 		"cost": {
-			"cache_read": 0.015,
-			"input": 0.1,
-			"output": 0.66
+			"cache_read": 0.0154,
+			"input": 0.103,
+			"output": 0.715
 		},
 		"limit": {
 			"context": 1048576
@@ -12918,13 +13429,13 @@
 	},
 	"gemini-2.5-flash-preview-05-20": {
 		"cost": {
-			"cache_read": 0.015,
-			"input": 0.15,
-			"output": 0.6
+			"cache_read": 0.0285,
+			"input": 0.1425,
+			"output": 3.325
 		},
 		"exactOnly": true,
 		"limit": {
-			"context": 1048000
+			"context": 1048576
 		}
 	},
 	"gemini-2.5-flash-preview-05-20:thinking": {
@@ -13028,9 +13539,9 @@
 	},
 	"gemini-2.5-pro-preview-06-05": {
 		"cost": {
-			"cache_read": 0.25,
-			"input": 2.5,
-			"output": 10
+			"cache_read": 0.1187,
+			"input": 1.1875,
+			"output": 9.5
 		},
 		"exactOnly": true,
 		"limit": {
@@ -13126,12 +13637,21 @@
 	},
 	"gemini-3-pro-preview": {
 		"cost": {
-			"cache_read": 0.19999999999999998,
 			"input": 2,
-			"output": 12
+			"output": 12,
+			"tiers": [
+				{
+					"input": 4,
+					"output": 18,
+					"tier": {
+						"size": 200000,
+						"type": "context"
+					}
+				}
+			]
 		},
 		"limit": {
-			"context": 1048576
+			"context": 1000000
 		}
 	},
 	"gemini-3.1-flash-lite": {
@@ -13403,7 +13923,18 @@
 		"cost": {
 			"cache_read": 0.2,
 			"input": 2,
-			"output": 12
+			"output": 12,
+			"tiers": [
+				{
+					"cache_read": 0.4,
+					"input": 4,
+					"output": 18,
+					"tier": {
+						"size": 200000,
+						"type": "context"
+					}
+				}
+			]
 		},
 		"exactOnly": true,
 		"limit": {
@@ -13566,8 +14097,8 @@
 	},
 	"gemma-3-12b-it": {
 		"cost": {
-			"input": 0.049999999999999996,
-			"output": 0.09999999999999999
+			"input": 0.05,
+			"output": 0.1
 		},
 		"limit": {
 			"context": 131072
@@ -13732,6 +14263,16 @@
 			"context": 262144
 		}
 	},
+	"gemma-4-31B-it": {
+		"cost": {
+			"cache_read": 0.036,
+			"input": 0.18,
+			"output": 0.5
+		},
+		"limit": {
+			"context": 256000
+		}
+	},
 	"gemma-4-31b": {
 		"cost": {
 			"cache_read": 0.0144,
@@ -13740,16 +14281,6 @@
 		},
 		"limit": {
 			"context": 262128
-		}
-	},
-	"gemma-4-31b-it": {
-		"cost": {
-			"cache_read": 0.02,
-			"input": 0.1,
-			"output": 0.3
-		},
-		"limit": {
-			"context": 262144
 		}
 	},
 	"gemma-4-31b-it-darkidol": {
@@ -13869,8 +14400,8 @@
 	},
 	"gemma4-26b": {
 		"cost": {
-			"input": 0.1,
-			"output": 0.5
+			"input": 0.11215,
+			"output": 0.56075
 		},
 		"limit": {
 			"context": 256000
@@ -14232,9 +14763,9 @@
 	},
 	"glm-5.2-caveman": {
 		"cost": {
-			"cache_read": 0.3135,
-			"input": 1.254,
-			"output": 5.016
+			"cache_read": 0.4486,
+			"input": 1.738325,
+			"output": 5.1589
 		},
 		"exactOnly": true,
 		"limit": {
@@ -14243,9 +14774,9 @@
 	},
 	"glm-5.2-caveman-lite": {
 		"cost": {
-			"cache_read": 0.3135,
-			"input": 1.254,
-			"output": 5.016
+			"cache_read": 0.4486,
+			"input": 1.738325,
+			"output": 5.1589
 		},
 		"exactOnly": true,
 		"limit": {
@@ -14254,9 +14785,9 @@
 	},
 	"glm-5.2-caveman-ultra": {
 		"cost": {
-			"cache_read": 0.3135,
-			"input": 1.254,
-			"output": 5.016
+			"cache_read": 0.4486,
+			"input": 1.738325,
+			"output": 5.1589
 		},
 		"exactOnly": true,
 		"limit": {
@@ -14287,9 +14818,9 @@
 	},
 	"glm-5.2-honey": {
 		"cost": {
-			"cache_read": 0.3135,
-			"input": 1.254,
-			"output": 5.016
+			"cache_read": 0.4486,
+			"input": 1.738325,
+			"output": 5.1589
 		},
 		"exactOnly": true,
 		"limit": {
@@ -14298,9 +14829,9 @@
 	},
 	"glm-5.2-honey-lite": {
 		"cost": {
-			"cache_read": 0.3135,
-			"input": 1.254,
-			"output": 5.016
+			"cache_read": 0.4486,
+			"input": 1.738325,
+			"output": 5.1589
 		},
 		"exactOnly": true,
 		"limit": {
@@ -14309,9 +14840,9 @@
 	},
 	"glm-5.2-honey-ultra": {
 		"cost": {
-			"cache_read": 0.3135,
-			"input": 1.254,
-			"output": 5.016
+			"cache_read": 0.4486,
+			"input": 1.738325,
+			"output": 5.1589
 		},
 		"exactOnly": true,
 		"limit": {
@@ -14330,9 +14861,9 @@
 	},
 	"glm-5.2-ponytail": {
 		"cost": {
-			"cache_read": 0.3135,
-			"input": 1.254,
-			"output": 5.016
+			"cache_read": 0.4486,
+			"input": 1.738325,
+			"output": 5.1589
 		},
 		"exactOnly": true,
 		"limit": {
@@ -14341,9 +14872,9 @@
 	},
 	"glm-5.2-ponytail-lite": {
 		"cost": {
-			"cache_read": 0.3135,
-			"input": 1.254,
-			"output": 5.016
+			"cache_read": 0.4486,
+			"input": 1.738325,
+			"output": 5.1589
 		},
 		"exactOnly": true,
 		"limit": {
@@ -14352,9 +14883,9 @@
 	},
 	"glm-5.2-ponytail-ultra": {
 		"cost": {
-			"cache_read": 0.3135,
-			"input": 1.254,
-			"output": 5.016
+			"cache_read": 0.4486,
+			"input": 1.738325,
+			"output": 5.1589
 		},
 		"exactOnly": true,
 		"limit": {
@@ -14464,8 +14995,9 @@
 	},
 	"glm-5.3-flash:fast": {
 		"cost": {
-			"input": 0.15,
-			"output": 0.5
+			"cache_read": 0.06,
+			"input": 0.3,
+			"output": 1
 		},
 		"exactOnly": true,
 		"limit": {
@@ -14508,6 +15040,7 @@
 	},
 	"glm-5.3:fast": {
 		"cost": {
+			"cache_read": 0.52,
 			"input": 2.8,
 			"output": 8.8
 		},
@@ -14614,9 +15147,9 @@
 	},
 	"glm5.3-754b": {
 		"cost": {
-			"cache_read": 0.25,
-			"input": 1,
-			"output": 3.5
+			"cache_read": 0.280375,
+			"input": 1.1215,
+			"output": 3.92525
 		},
 		"limit": {
 			"context": 524288
@@ -15371,10 +15904,10 @@
 	},
 	"google/gemini-2.5-flash": {
 		"cost": {
-			"cache_read": 0.03,
-			"cache_write": 0.083333,
-			"input": 0.3,
-			"output": 2.5
+			"cache_read": 0.015,
+			"cache_write": 0.041667,
+			"input": 0.15,
+			"output": 1.25
 		},
 		"limit": {
 			"context": 1048576
@@ -15382,10 +15915,10 @@
 	},
 	"google/gemini-2.5-flash-lite": {
 		"cost": {
-			"cache_read": 0.01,
-			"cache_write": 0.083333,
-			"input": 0.1,
-			"output": 0.4
+			"cache_read": 0.005,
+			"cache_write": 0.041667,
+			"input": 0.05,
+			"output": 0.2
 		},
 		"limit": {
 			"context": 1048576
@@ -15437,12 +15970,12 @@
 	},
 	"google/gemini-3-flash": {
 		"cost": {
-			"cache_read": 0.0404,
-			"input": 0.404,
-			"output": 2.4242
+			"cache_read": 0.05,
+			"input": 0.5,
+			"output": 3
 		},
 		"limit": {
-			"context": 1048576
+			"context": 1000000
 		}
 	},
 	"google/gemini-3-flash-preview": {
@@ -15520,23 +16053,34 @@
 	},
 	"google/gemini-3.1-flash-lite-preview": {
 		"cost": {
-			"cache_read": 0.025,
-			"cache_write": 0.083333,
-			"input": 0.25,
-			"output": 1.5
+			"cache_read": 0.034385,
+			"cache_write": 0.114617,
+			"input": 0.34385,
+			"output": 2.0631
 		},
 		"limit": {
-			"context": 1048576
+			"context": 1000000
 		}
 	},
 	"google/gemini-3.1-pro": {
 		"cost": {
-			"cache_read": 0.202,
-			"input": 2.0202,
-			"output": 12.1212
+			"cache_read": 0.2,
+			"input": 2,
+			"output": 12,
+			"tiers": [
+				{
+					"cache_read": 0.4,
+					"input": 4,
+					"output": 18,
+					"tier": {
+						"size": 200000,
+						"type": "context"
+					}
+				}
+			]
 		},
 		"limit": {
-			"context": 1048576
+			"context": 1000000
 		}
 	},
 	"google/gemini-3.1-pro-preview": {
@@ -15619,7 +16163,7 @@
 	"google/gemini-3.5-flash-lite": {
 		"cost": {
 			"cache_read": 0.03,
-			"cache_write": 0.083333,
+			"cache_write": 0.03,
 			"input": 0.3,
 			"output": 2.5
 		},
@@ -15640,10 +16184,10 @@
 	},
 	"google/gemini-3.6-flash": {
 		"cost": {
-			"cache_read": 0.075,
-			"cache_write": 0.041667,
-			"input": 0.75,
-			"output": 3.75
+			"cache_read": 0.15,
+			"cache_write": 1.5,
+			"input": 1.5,
+			"output": 7.5
 		},
 		"limit": {
 			"context": 1048576
@@ -15712,10 +16256,10 @@
 	},
 	"google/gemini-flash-latest": {
 		"cost": {
-			"cache_read": 0.15,
-			"cache_write": 0.083333,
-			"input": 1.5,
-			"output": 7.5
+			"cache_read": 0.20631,
+			"cache_write": 0.114617,
+			"input": 2.0631,
+			"output": 12.3786
 		},
 		"exactOnly": true,
 		"limit": {
@@ -15805,13 +16349,12 @@
 	},
 	"google/gemma-3-27b-it": {
 		"cost": {
-			"cache_read": 0.01,
-			"cache_write": 0.125,
-			"input": 0.1,
-			"output": 0.3
+			"cache_read": 0.103155,
+			"input": 0.20631,
+			"output": 0.632684
 		},
 		"limit": {
-			"context": 110000
+			"context": 128000
 		}
 	},
 	"google/gemma-3-4b-it": {
@@ -15878,9 +16421,9 @@
 	},
 	"google/gemma-4-26b-a4b-it:thinking": {
 		"cost": {
-			"cache_read": 0.0425,
-			"input": 0.0765,
-			"output": 0.255
+			"cache_read": 0.05,
+			"input": 0.09,
+			"output": 0.3
 		},
 		"limit": {
 			"context": 262144
@@ -16042,9 +16585,9 @@
 	},
 	"gpt-4.1-mini-2025-04-14": {
 		"cost": {
-			"cache_read": 0.09999999999999999,
-			"input": 0.39999999999999997,
-			"output": 1.5999999999999999
+			"cache_read": 0.1,
+			"input": 0.4,
+			"output": 1.6
 		},
 		"exactOnly": true,
 		"limit": {
@@ -16191,7 +16734,7 @@
 	},
 	"gpt-5-chat-latest": {
 		"cost": {
-			"cache_read": 0.12500000000000003,
+			"cache_read": 0.125,
 			"input": 1.25,
 			"output": 10
 		},
@@ -16288,7 +16831,7 @@
 	},
 	"gpt-5.1-chat-latest": {
 		"cost": {
-			"cache_read": 0.12500000000000003,
+			"cache_read": 0.125,
 			"input": 1.25,
 			"output": 10
 		},
@@ -16626,6 +17169,7 @@
 	},
 	"gpt-5.6-luna-pro": {
 		"cost": {
+			"cache_read": 0.02,
 			"input": 0.2,
 			"output": 1.2
 		},
@@ -16684,6 +17228,7 @@
 	},
 	"gpt-5.6-sol-pro": {
 		"cost": {
+			"cache_read": 0.5,
 			"input": 5,
 			"output": 30
 		},
@@ -16742,6 +17287,7 @@
 	},
 	"gpt-5.6-terra-pro": {
 		"cost": {
+			"cache_read": 0.2,
 			"input": 2,
 			"output": 12
 		},
@@ -16998,19 +17544,19 @@
 	},
 	"gpt-oss-120b": {
 		"cost": {
-			"cache_read": 0.01,
-			"input": 0.089,
-			"output": 0.446
+			"cache_read": 0.35,
+			"input": 0.35,
+			"output": 0.75
 		},
 		"limit": {
-			"context": 131000
+			"context": 131072
 		}
 	},
 	"gpt-oss-20b": {
 		"cost": {
-			"cache_read": 0.01,
-			"input": 0.04,
-			"output": 0.19
+			"cache_read": 0.00371429,
+			"input": 0.036,
+			"output": 0.15428571
 		},
 		"limit": {
 			"context": 131072
@@ -17105,6 +17651,16 @@
 			"context": 1048576
 		}
 	},
+	"greenference/glm-5.3-flash": {
+		"cost": {
+			"cache_read": 0.028,
+			"input": 0.14,
+			"output": 0.49
+		},
+		"limit": {
+			"context": 1048576
+		}
+	},
 	"greenference/gpt-oss-20b": {
 		"cost": {
 			"cache_read": 0.0045,
@@ -17115,11 +17671,38 @@
 			"context": 131072
 		}
 	},
+	"greenference/qwen3-14b": {
+		"cost": {
+			"input": 0.076,
+			"output": 0.228
+		},
+		"limit": {
+			"context": 16384
+		}
+	},
+	"greenference/qwen3-30b-a3b": {
+		"cost": {
+			"input": 0.095,
+			"output": 0.285
+		},
+		"limit": {
+			"context": 8192
+		}
+	},
+	"greenference/qwen3.6-27b": {
+		"cost": {
+			"input": 0.15,
+			"output": 1.35
+		},
+		"limit": {
+			"context": 16384
+		}
+	},
 	"greenpt/deepseek-v4-flash-0731": {
 		"cost": {
-			"cache_read": 0.0449,
-			"input": 0.15715,
-			"output": 0.392875
+			"cache_read": 0.044936,
+			"input": 0.157276,
+			"output": 0.39319
 		},
 		"limit": {
 			"context": 1000000
@@ -17127,9 +17710,9 @@
 	},
 	"greenpt/deepseek-v4.1-flash": {
 		"cost": {
-			"cache_read": 0.012347,
-			"input": 0.24695,
-			"output": 1.234749
+			"cache_read": 0.012357,
+			"input": 0.247148,
+			"output": 1.23574
 		},
 		"limit": {
 			"context": 1000000
@@ -17137,8 +17720,8 @@
 	},
 	"greenpt/gpt-oss-120b": {
 		"cost": {
-			"input": 0.2245,
-			"output": 0.78575
+			"input": 0.22468,
+			"output": 0.78638
 		},
 		"limit": {
 			"context": 128000
@@ -17146,8 +17729,8 @@
 	},
 	"greenpt/llama-3.3-70b-instruct": {
 		"cost": {
-			"input": 1.234749,
-			"output": 1.234749
+			"input": 1.23574,
+			"output": 1.23574
 		},
 		"limit": {
 			"context": 128000
@@ -17155,52 +17738,11 @@
 	},
 	"greenpt/qwen3-235b-a22b-instruct-2507": {
 		"cost": {
-			"input": 1.01025,
-			"output": 3.030749
+			"input": 1.01106,
+			"output": 3.03318
 		},
 		"limit": {
 			"context": 250000
-		}
-	},
-	"greg-1-mini": {
-		"cost": {
-			"cache_read": 0.01,
-			"input": 0.07,
-			"output": 0.15
-		},
-		"limit": {
-			"context": 229376
-		}
-	},
-	"greg-2-super": {
-		"cost": {
-			"cache_read": 0.25,
-			"input": 1.5,
-			"output": 5
-		},
-		"limit": {
-			"context": 229376
-		}
-	},
-	"greg-2-ultra": {
-		"cost": {
-			"cache_read": 0.5,
-			"input": 3,
-			"output": 10
-		},
-		"limit": {
-			"context": 229376
-		}
-	},
-	"greg-rp": {
-		"cost": {
-			"cache_read": 0.02,
-			"input": 0.1,
-			"output": 0.3
-		},
-		"exactOnly": true,
-		"limit": {
-			"context": 229376
 		}
 	},
 	"grok-3": {
@@ -17368,8 +17910,8 @@
 	},
 	"grok-4-fast-non-reasoning": {
 		"cost": {
-			"cache_read": 0.049999999999999996,
-			"input": 0.19999999999999998,
+			"cache_read": 0.05,
+			"input": 0.2,
 			"output": 0.5
 		},
 		"limit": {
@@ -17378,8 +17920,8 @@
 	},
 	"grok-4-fast-reasoning": {
 		"cost": {
-			"cache_read": 0.049999999999999996,
-			"input": 0.19999999999999998,
+			"cache_read": 0.05,
+			"input": 0.2,
 			"output": 0.5
 		},
 		"limit": {
@@ -17619,9 +18161,20 @@
 	},
 	"grok/grok-4.5": {
 		"cost": {
-			"cache_read": 0.5,
+			"cache_read": 0.3,
 			"input": 2,
-			"output": 6
+			"output": 6,
+			"tiers": [
+				{
+					"cache_read": 0.6,
+					"input": 4,
+					"output": 12,
+					"tier": {
+						"size": 200000,
+						"type": "context"
+					}
+				}
+			]
 		},
 		"limit": {
 			"context": 500000
@@ -17631,7 +18184,18 @@
 		"cost": {
 			"cache_read": 0.5,
 			"input": 2,
-			"output": 6
+			"output": 6,
+			"tiers": [
+				{
+					"cache_read": 1,
+					"input": 4,
+					"output": 12,
+					"tier": {
+						"size": 200000,
+						"type": "context"
+					}
+				}
+			]
 		},
 		"limit": {
 			"context": 500000
@@ -17655,6 +18219,26 @@
 		},
 		"limit": {
 			"context": 131072
+		}
+	},
+	"groq/meta-llama/llama-prompt-guard-2-22m": {
+		"cost": {
+			"cache_read": 0.015,
+			"input": 0.03,
+			"output": 0.03
+		},
+		"limit": {
+			"context": 512
+		}
+	},
+	"groq/meta-llama/llama-prompt-guard-2-86m": {
+		"cost": {
+			"cache_read": 0.02,
+			"input": 0.04,
+			"output": 0.04
+		},
+		"limit": {
+			"context": 512
 		}
 	},
 	"groq/openai/gpt-oss-120b": {
@@ -17689,6 +18273,7 @@
 	},
 	"groq/qwen/qwen3.8-27b": {
 		"cost": {
+			"cache_read": 0.4,
 			"input": 0.8,
 			"output": 4
 		},
@@ -17827,6 +18412,16 @@
 			"context": 524288
 		}
 	},
+	"hf:deepseek-ai/DeepSeek-V4.1-Flash-1017": {
+		"cost": {
+			"cache_read": 0.03,
+			"input": 0.6,
+			"output": 1.2
+		},
+		"limit": {
+			"context": 524288
+		}
+	},
 	"hf:moonshotai/Kimi-K2.7-Code": {
 		"cost": {
 			"cache_read": 0.95,
@@ -17849,7 +18444,7 @@
 	},
 	"hf:nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-NVFP4": {
 		"cost": {
-			"cache_read": 0.3,
+			"cache_read": 0.06,
 			"input": 0.3,
 			"output": 1
 		},
@@ -17859,7 +18454,7 @@
 	},
 	"hf:openai/gpt-oss-120b": {
 		"cost": {
-			"cache_read": 0.1,
+			"cache_read": 0.02,
 			"input": 0.1,
 			"output": 0.1
 		},
@@ -17869,7 +18464,7 @@
 	},
 	"hf:zai-org/GLM-4.7-Flash": {
 		"cost": {
-			"cache_read": 0.1,
+			"cache_read": 0.02,
 			"input": 0.1,
 			"output": 0.5
 		},
@@ -18275,9 +18870,9 @@
 	},
 	"inclusionai/ring-2.6-1t": {
 		"cost": {
-			"cache_read": 0.06,
-			"input": 0.3,
-			"output": 2.5
+			"cache_read": 0.0263631,
+			"input": 0.1318155,
+			"output": 1.0984625
 		},
 		"limit": {
 			"context": 262000
@@ -18376,8 +18971,8 @@
 	},
 	"infomaniak/mistralai/Ministral-3-14B-Instruct-2512": {
 		"cost": {
-			"input": 0.33675,
-			"output": 0.449
+			"input": 0.33702,
+			"output": 0.44936
 		},
 		"limit": {
 			"context": 100000
@@ -18417,8 +19012,8 @@
 	},
 	"intfloat/e5-mistral-7b-instruct": {
 		"cost": {
-			"input": 0.02,
-			"output": 0.02
+			"input": 0.02243,
+			"output": 0
 		},
 		"limit": {
 			"context": 4096
@@ -18435,8 +19030,8 @@
 	},
 	"ionos/Qwen/Qwen3-Coder-Next": {
 		"cost": {
-			"input": 0.168375,
-			"output": 0.898
+			"input": 0.16851,
+			"output": 0.89872
 		},
 		"limit": {
 			"context": 128000
@@ -18444,8 +19039,8 @@
 	},
 	"ionos/meta-llama/Llama-3.3-70B-Instruct": {
 		"cost": {
-			"input": 0.729625,
-			"output": 0.729625
+			"input": 0.73021,
+			"output": 0.73021
 		},
 		"limit": {
 			"context": 128000
@@ -18453,8 +19048,8 @@
 	},
 	"ionos/openai/gpt-oss-120b": {
 		"cost": {
-			"input": 0.168375,
-			"output": 0.729625
+			"input": 0.16851,
+			"output": 0.73021
 		},
 		"limit": {
 			"context": 128000
@@ -18491,7 +19086,7 @@
 	},
 	"jev": {
 		"cost": {
-			"input": 0.042,
+			"input": 0.084,
 			"output": 0
 		},
 		"exactOnly": true,
@@ -18699,7 +19294,7 @@
 	},
 	"kimi-k2-0711": {
 		"cost": {
-			"input": 0.5700000000000001,
+			"input": 0.57,
 			"output": 2.3
 		},
 		"exactOnly": true,
@@ -18709,7 +19304,7 @@
 	},
 	"kimi-k2-0905": {
 		"cost": {
-			"cache_read": 0.39999999999999997,
+			"cache_read": 0.4,
 			"input": 0.5,
 			"output": 2
 		},
@@ -18720,8 +19315,8 @@
 	},
 	"kimi-k2-0905-preview": {
 		"cost": {
-			"input": 0.632,
-			"output": 2.53
+			"input": 0.62854,
+			"output": 2.5146
 		},
 		"exactOnly": true,
 		"limit": {
@@ -18900,17 +19495,6 @@
 			"context": 1048576
 		}
 	},
-	"kimi-k3-eco": {
-		"cost": {
-			"cache_read": 0.1,
-			"input": 1,
-			"output": 4
-		},
-		"exactOnly": true,
-		"limit": {
-			"context": 1000000
-		}
-	},
 	"kimi-k3-fast": {
 		"cost": {
 			"cache_read": 0.45,
@@ -18946,6 +19530,7 @@
 	},
 	"kimi-k3:fast": {
 		"cost": {
+			"cache_read": 0.6,
 			"input": 6,
 			"output": 30
 		},
@@ -19008,9 +19593,9 @@
 	},
 	"kimi/kimi-k3": {
 		"cost": {
-			"cache_read": 0.33,
-			"input": 3.3,
-			"output": 16.5
+			"cache_read": 0.3,
+			"input": 3,
+			"output": 15
 		},
 		"limit": {
 			"context": 1048576
@@ -19042,6 +19627,15 @@
 		},
 		"limit": {
 			"context": 32768
+		}
+	},
+	"lightonocr-3-0.8b": {
+		"cost": {
+			"input": 2.464,
+			"output": 0
+		},
+		"limit": {
+			"context": 262144
 		}
 	},
 	"ling-2.6-1t": {
@@ -19163,7 +19757,7 @@
 	"llama-3.1-8b-instruct": {
 		"cost": {
 			"input": 0.02,
-			"output": 0.049999999999999996
+			"output": 0.05
 		},
 		"limit": {
 			"context": 16384
@@ -19363,16 +19957,6 @@
 			"context": 1000000
 		}
 	},
-	"longcat-2.5-preview": {
-		"cost": {
-			"cache_read": 0.015,
-			"input": 0.75,
-			"output": 2.95
-		},
-		"limit": {
-			"context": 1000000
-		}
-	},
 	"lucidnova-rf1-100b": {
 		"cost": {
 			"input": 2,
@@ -19384,8 +19968,8 @@
 	},
 	"lucidquery-agi-01-frontier": {
 		"cost": {
-			"input": 4.5,
-			"output": 22
+			"input": 5.04675,
+			"output": 24.673
 		},
 		"limit": {
 			"context": 300000
@@ -19393,8 +19977,8 @@
 	},
 	"lucidquery-agi-01-swift": {
 		"cost": {
-			"input": 2.5,
-			"output": 15
+			"input": 2.80375,
+			"output": 16.8225
 		},
 		"limit": {
 			"context": 300000
@@ -19563,9 +20147,9 @@
 	},
 	"mercury-2.5": {
 		"cost": {
-			"cache_read": 0.004,
-			"input": 0.04,
-			"output": 0.15
+			"cache_read": 0.02,
+			"input": 0.2,
+			"output": 0.75
 		},
 		"exactOnly": true,
 		"limit": {
@@ -19718,13 +20302,13 @@
 	},
 	"meta-llama/Llama-3.3-70B-Instruct": {
 		"cost": {
-			"cache_read": 0.065,
-			"cache_write": 0.26,
-			"input": 0.13,
-			"output": 0.38
+			"cache_read": 0.9,
+			"cache_write": 0.9,
+			"input": 0.9,
+			"output": 0.9
 		},
 		"limit": {
-			"context": 128000
+			"context": 16384
 		}
 	},
 	"meta-llama/Llama-3.3-70B-Instruct-Turbo": {
@@ -19738,10 +20322,9 @@
 	},
 	"meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8": {
 		"cost": {
-			"cache_read": 0.075,
-			"cache_write": 0.3,
-			"input": 0.15,
-			"output": 0.6
+			"cache_read": 0.134375,
+			"input": 0.26875,
+			"output": 0.82625
 		},
 		"limit": {
 			"context": 430000
@@ -19754,6 +20337,15 @@
 		},
 		"limit": {
 			"context": 327680
+		}
+	},
+	"meta-llama/Llama-Guard-4-12B": {
+		"cost": {
+			"input": 0.18,
+			"output": 0.18
+		},
+		"limit": {
+			"context": 163840
 		}
 	},
 	"meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo": {
@@ -19810,15 +20402,6 @@
 		},
 		"limit": {
 			"context": 328000
-		}
-	},
-	"meta-llama/llama-guard-4-12b": {
-		"cost": {
-			"input": 0.144,
-			"output": 0.144
-		},
-		"limit": {
-			"context": 163840
 		}
 	},
 	"meta-llama/llama-prompt-guard-2-22m": {
@@ -19986,6 +20569,15 @@
 			"context": 16000
 		}
 	},
+	"meta/llama-3.3-70b": {
+		"cost": {
+			"input": 0.72,
+			"output": 0.72
+		},
+		"limit": {
+			"context": 128000
+		}
+	},
 	"meta/llama-3.3-70b-instruct": {
 		"cost": {
 			"cache_read": 0.11,
@@ -20005,6 +20597,15 @@
 			"context": 128000
 		}
 	},
+	"meta/llama-4-maverick": {
+		"cost": {
+			"input": 0.24,
+			"output": 0.97
+		},
+		"limit": {
+			"context": 128000
+		}
+	},
 	"meta/llama-4-maverick-17b-128e-instruct-maas": {
 		"cost": {
 			"input": 0.35,
@@ -20012,6 +20613,15 @@
 		},
 		"limit": {
 			"context": 524288
+		}
+	},
+	"meta/llama-4-scout": {
+		"cost": {
+			"input": 0.17,
+			"output": 0.66
+		},
+		"limit": {
+			"context": 128000
 		}
 	},
 	"meta/llama-4-scout-17b-16e-instruct-maas": {
@@ -20368,6 +20978,7 @@
 	},
 	"minimax-m3:fast": {
 		"cost": {
+			"cache_read": 0.12,
 			"input": 0.6,
 			"output": 2.4
 		},
@@ -20840,6 +21451,15 @@
 			"context": 262144
 		}
 	},
+	"mistral-large2": {
+		"cost": {
+			"input": 2,
+			"output": 6
+		},
+		"limit": {
+			"context": 128000
+		}
+	},
 	"mistral-medium": {
 		"cost": {
 			"cache_read": 0.4,
@@ -21045,8 +21665,8 @@
 	},
 	"mistral-small-4-119b": {
 		"cost": {
-			"input": 0.75,
-			"output": 3
+			"input": 0.56075,
+			"output": 2.35515
 		},
 		"limit": {
 			"context": 256000
@@ -21519,8 +22139,8 @@
 	},
 	"mistral4-119b": {
 		"cost": {
-			"input": 0.2,
-			"output": 0.6
+			"input": 0.2243,
+			"output": 0.6729
 		},
 		"limit": {
 			"context": 262144
@@ -21528,8 +22148,8 @@
 	},
 	"mistralai--mistral-medium-instruct": {
 		"cost": {
-			"input": 0.36,
-			"output": 1.22
+			"input": 0.4,
+			"output": 2
 		},
 		"exactOnly": true,
 		"limit": {
@@ -21538,8 +22158,8 @@
 	},
 	"mistralai--mistral-small": {
 		"cost": {
-			"input": 0.07,
-			"output": 0.28
+			"input": 0.15,
+			"output": 0.6
 		},
 		"exactOnly": true,
 		"limit": {
@@ -21632,10 +22252,10 @@
 	},
 	"mistralai/Mistral-Nemo-Instruct-2407": {
 		"cost": {
-			"cache_read": 0.01,
-			"cache_write": 0.04,
+			"cache_read": 0.02,
+			"cache_write": 0.02,
 			"input": 0.02,
-			"output": 0.04
+			"output": 0.03
 		},
 		"limit": {
 			"context": 128000
@@ -21643,8 +22263,8 @@
 	},
 	"mistralai/Mistral-Small-3.2-24B-Instruct-2506": {
 		"cost": {
-			"input": 0.33,
-			"output": 0.33
+			"input": 0.33645,
+			"output": 0.33645
 		},
 		"limit": {
 			"context": 32000
@@ -21803,9 +22423,9 @@
 	},
 	"mistralai/mistral-large-4-0": {
 		"cost": {
-			"cache_read": 0.07,
-			"input": 0.68,
-			"output": 2.09
+			"cache_read": 0.14,
+			"input": 1.36,
+			"output": 4.18
 		},
 		"limit": {
 			"context": 1048576
@@ -22120,21 +22740,19 @@
 	},
 	"moonshotai/Kimi-K2-Instruct-0905": {
 		"cost": {
-			"cache_read": 0.195,
-			"cache_write": 0.78,
-			"input": 0.39,
-			"output": 1.9
+			"cache_read": 0.285,
+			"input": 0.57,
+			"output": 2.3
 		},
 		"limit": {
 			"context": 32768
 		}
 	},
-	"moonshotai/Kimi-K2-Thinking": {
+	"moonshotai/Kimi-K2.6": {
 		"cost": {
-			"cache_read": 0.275,
-			"cache_write": 1.1,
-			"input": 0.55,
-			"output": 2.25
+			"cache_read": 0.441,
+			"input": 2.205,
+			"output": 5.49
 		},
 		"limit": {
 			"context": 32768
@@ -22148,6 +22766,16 @@
 		},
 		"limit": {
 			"context": 262144
+		}
+	},
+	"moonshotai/Kimi-K2.6:peft:131072": {
+		"cost": {
+			"cache_read": 0.441,
+			"input": 2.205,
+			"output": 5.49
+		},
+		"limit": {
+			"context": 131072
 		}
 	},
 	"moonshotai/Kimi-K2.7-Code-Highspeed": {
@@ -22229,6 +22857,16 @@
 			"context": 128000
 		}
 	},
+	"moonshotai/kimi-k2-thinking": {
+		"cost": {
+			"cache_read": 0.20631,
+			"input": 0.82524,
+			"output": 3.4385
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
 	"moonshotai/kimi-k2-thinking-maas": {
 		"cost": {
 			"cache_read": 0.06,
@@ -22270,22 +22908,11 @@
 			"context": 262144
 		}
 	},
-	"moonshotai/kimi-k2.6": {
-		"cost": {
-			"cache_read": 0.2,
-			"cache_write": 0,
-			"input": 0.95,
-			"output": 4
-		},
-		"limit": {
-			"context": 262144
-		}
-	},
 	"moonshotai/kimi-k2.6:thinking": {
 		"cost": {
-			"cache_read": 0.045,
-			"input": 0.45,
-			"output": 1.95
+			"cache_read": 0.07568,
+			"input": 0.44935,
+			"output": 1.892
 		},
 		"limit": {
 			"context": 262144
@@ -22315,9 +22942,9 @@
 	},
 	"moonshotai/kimi-latest": {
 		"cost": {
-			"cache_read": 0.165,
-			"input": 1.65,
-			"output": 8.25
+			"cache_read": 0.2,
+			"input": 1.2,
+			"output": 5.5
 		},
 		"exactOnly": true,
 		"limit": {
@@ -22484,6 +23111,16 @@
 			"context": 1048576
 		}
 	},
+	"nace-ai/drex-max": {
+		"cost": {
+			"input": 0.06,
+			"output": 0
+		},
+		"exactOnly": true,
+		"limit": {
+			"context": 262144
+		}
+	},
 	"nace-ai/drex-v1.5": {
 		"cost": {
 			"input": 0.04,
@@ -22557,11 +23194,31 @@
 			"context": 1000000
 		}
 	},
+	"nbeerbower/gemma4-gutenberg-31b": {
+		"cost": {
+			"cache_read": 0.05,
+			"input": 0.1,
+			"output": 0.45
+		},
+		"limit": {
+			"context": 65536
+		}
+	},
 	"nebius/Qwen/Qwen3-235B-A22B-Instruct-2507": {
 		"cost": {
 			"cache_read": 0.2,
 			"input": 0.2,
 			"output": 0.6
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
+	"nebius/Qwen/Qwen3-30B-A3B-Instruct-2507": {
+		"cost": {
+			"cache_read": 0.1,
+			"input": 0.1,
+			"output": 0.3
 		},
 		"limit": {
 			"context": 262144
@@ -22696,6 +23353,16 @@
 			"context": 262144
 		}
 	},
+	"nemotron-3-super-120b-a12b": {
+		"cost": {
+			"cache_read": 0.00971429,
+			"input": 0.09714286,
+			"output": 0.48
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
 	"nemotron-3-ultra": {
 		"cost": {
 			"cache_read": 0.1,
@@ -22714,6 +23381,16 @@
 		},
 		"limit": {
 			"context": 131072
+		}
+	},
+	"nemotron-3-ultra-550b-a55b": {
+		"cost": {
+			"cache_read": 0.06857143,
+			"input": 0.68571429,
+			"output": 4.28571429
+		},
+		"limit": {
+			"context": 1000000
 		}
 	},
 	"nemotron-3-ultra-nvfp4": {
@@ -22860,6 +23537,26 @@
 		},
 		"limit": {
 			"context": 262144
+		}
+	},
+	"nimbz/gemma-4-giftige-blume-31b-v2": {
+		"cost": {
+			"cache_read": 0.05,
+			"input": 0.1,
+			"output": 0.45
+		},
+		"limit": {
+			"context": 65536
+		}
+	},
+	"nimbz/schattenblume-31b": {
+		"cost": {
+			"cache_read": 0.05,
+			"input": 0.1,
+			"output": 0.45
+		},
+		"limit": {
+			"context": 65536
 		}
 	},
 	"nomic-embed-text": {
@@ -23044,6 +23741,15 @@
 		},
 		"limit": {
 			"context": 204800
+		}
+	},
+	"novita/glm-4.7-flash": {
+		"cost": {
+			"input": 0.0707,
+			"output": 0.404
+		},
+		"limit": {
+			"context": 200000
 		}
 	},
 	"novita/glm-5": {
@@ -23459,15 +24165,6 @@
 			"context": 262144
 		}
 	},
-	"nvidia--llama-3.2-nv-embedqa-1b": {
-		"cost": {
-			"input": 0.07,
-			"output": 0
-		},
-		"limit": {
-			"context": 8192
-		}
-	},
 	"nvidia-nemotron-3-5-super-vl-120b-a12b": {
 		"cost": {
 			"cache_read": 0.125,
@@ -23561,6 +24258,16 @@
 			"context": 262144
 		}
 	},
+	"nvidia/GLM-5.3-Flash-NVFP4": {
+		"cost": {
+			"cache_read": 0.03,
+			"input": 0.15,
+			"output": 0.5
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
 	"nvidia/Llama-3.1-Nemotron-70B-Instruct-HF": {
 		"cost": {
 			"cache_read": 0.1785,
@@ -23611,13 +24318,12 @@
 	},
 	"nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-BF16": {
 		"cost": {
-			"cache_read": 0.05,
-			"cache_write": 0.05,
-			"input": 0.05,
-			"output": 0.2
+			"cache_read": 0.039,
+			"input": 0.195,
+			"output": 0.495
 		},
 		"limit": {
-			"context": 262144
+			"context": 65536
 		}
 	},
 	"nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-FP8": {
@@ -23634,6 +24340,26 @@
 			"cache_read": 0.15,
 			"input": 0.3,
 			"output": 2.4
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
+	"nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-BF16": {
+		"cost": {
+			"cache_read": 0.114,
+			"input": 0.57,
+			"output": 1.44
+		},
+		"limit": {
+			"context": 65536
+		}
+	},
+	"nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-BF16:peft:262144": {
+		"cost": {
+			"cache_read": 0.114,
+			"input": 0.57,
+			"output": 1.44
 		},
 		"limit": {
 			"context": 262144
@@ -23662,13 +24388,22 @@
 	},
 	"nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16": {
 		"cost": {
-			"cache_read": 0.15,
-			"cache_write": 0.5,
-			"input": 0.5,
-			"output": 2.5
+			"cache_read": 0.36,
+			"input": 1.8,
+			"output": 6.225
 		},
 		"limit": {
-			"context": 1000000
+			"context": 65536
+		}
+	},
+	"nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16:peft:262144": {
+		"cost": {
+			"cache_read": 0.36,
+			"input": 1.8,
+			"output": 6.225
+		},
+		"limit": {
+			"context": 262144
 		}
 	},
 	"nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B": {
@@ -23683,13 +24418,22 @@
 	},
 	"nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16": {
 		"cost": {
-			"cache_read": 0.5,
-			"cache_write": 0.5,
-			"input": 0.5,
-			"output": 0.5
+			"cache_read": 0.0368,
+			"input": 0.184,
+			"output": 0.495
 		},
 		"limit": {
-			"context": 8192
+			"context": 65536
+		}
+	},
+	"nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16:peft:262144": {
+		"cost": {
+			"cache_read": 0.0368,
+			"input": 0.184,
+			"output": 0.495
+		},
+		"limit": {
+			"context": 262144
 		}
 	},
 	"nvidia/NVIDIA-Nemotron-3.5-Super-VL": {
@@ -23710,6 +24454,26 @@
 		},
 		"limit": {
 			"context": 1048576
+		}
+	},
+	"nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-BF16": {
+		"cost": {
+			"cache_read": 0.114,
+			"input": 0.57,
+			"output": 1.44
+		},
+		"limit": {
+			"context": 65536
+		}
+	},
+	"nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-BF16:peft:262144": {
+		"cost": {
+			"cache_read": 0.114,
+			"input": 0.57,
+			"output": 1.44
+		},
+		"limit": {
+			"context": 262144
 		}
 	},
 	"nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-NVFP4": {
@@ -23804,9 +24568,9 @@
 	},
 	"nvidia/nemotron-3-ultra-550b-a55b": {
 		"cost": {
-			"cache_read": 0.15,
-			"input": 0.5,
-			"output": 2.5
+			"cache_read": 0.12,
+			"input": 0.6,
+			"output": 2.4
 		},
 		"limit": {
 			"context": 1000000
@@ -24061,6 +24825,16 @@
 		},
 		"limit": {
 			"context": 400000
+		}
+	},
+	"openai-gpt-5.1": {
+		"cost": {
+			"cache_read": 0.13,
+			"input": 1.25,
+			"output": 10
+		},
+		"limit": {
+			"context": 272000
 		}
 	},
 	"openai-gpt-5.1-codex-max": {
@@ -24741,6 +25515,17 @@
 			"context": 131072
 		}
 	},
+	"openai/chat-latest": {
+		"cost": {
+			"cache_read": 0.5,
+			"input": 5,
+			"output": 30
+		},
+		"exactOnly": true,
+		"limit": {
+			"context": 400000
+		}
+	},
 	"openai/chatgpt-4o-latest": {
 		"cost": {
 			"input": 4.5,
@@ -24934,9 +25719,9 @@
 	},
 	"openai/gpt-4o-aug": {
 		"cost": {
-			"cache_read": 1.1,
-			"input": 2.2,
-			"output": 9
+			"cache_read": 1.1364,
+			"input": 2.2727,
+			"output": 9.0909
 		},
 		"limit": {
 			"context": 128000
@@ -25003,8 +25788,8 @@
 	},
 	"openai/gpt-4o-search": {
 		"cost": {
-			"input": 2.2,
-			"output": 9
+			"input": 2.2727,
+			"output": 9.0909
 		},
 		"limit": {
 			"context": 128000
@@ -26087,13 +26872,12 @@
 	},
 	"openai/gpt-oss-120b": {
 		"cost": {
-			"cache_read": 0.02,
-			"cache_write": 0.08,
-			"input": 0.04,
-			"output": 0.4
+			"cache_read": 0.066,
+			"input": 0.33,
+			"output": 0.84
 		},
 		"limit": {
-			"context": 131072
+			"context": 32768
 		}
 	},
 	"openai/gpt-oss-120b-maas": {
@@ -26105,15 +26889,24 @@
 			"context": 131072
 		}
 	},
-	"openai/gpt-oss-20b": {
+	"openai/gpt-oss-120b:peft:131072": {
 		"cost": {
-			"cache_read": 0.015,
-			"cache_write": 0.06,
-			"input": 0.03,
-			"output": 0.14
+			"cache_read": 0.066,
+			"input": 0.33,
+			"output": 0.84
 		},
 		"limit": {
-			"context": 64000
+			"context": 131072
+		}
+	},
+	"openai/gpt-oss-20b": {
+		"cost": {
+			"cache_read": 0.036,
+			"input": 0.18,
+			"output": 0.45
+		},
+		"limit": {
+			"context": 32768
 		}
 	},
 	"openai/gpt-oss-20b-maas": {
@@ -26333,6 +27126,16 @@
 			"context": 200000
 		}
 	},
+	"ornith-ai/ornith-1.5-122b": {
+		"cost": {
+			"cache_read": 0.02,
+			"input": 0.2,
+			"output": 0.8
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
 	"ornith-ai/ornith-1.5-35b-a3b": {
 		"cost": {
 			"cache_read": 0.05,
@@ -26417,6 +27220,56 @@
 		},
 		"limit": {
 			"context": 36864
+		}
+	},
+	"perplexity/deepseek-v4-pro-0813": {
+		"cost": {
+			"cache_read": 0.044,
+			"input": 1.32,
+			"output": 3.96
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
+	"perplexity/glm-5.3": {
+		"cost": {
+			"cache_read": 0.26,
+			"input": 1.4,
+			"output": 4.4
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
+	"perplexity/glm-5.3-flash": {
+		"cost": {
+			"cache_read": 0.03,
+			"input": 0.15,
+			"output": 0.5
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
+	"perplexity/kimi-k3": {
+		"cost": {
+			"cache_read": 0.3,
+			"input": 3,
+			"output": 15
+		},
+		"limit": {
+			"context": 1048576
+		}
+	},
+	"perplexity/nemotron-3.5-super-120b-a12b": {
+		"cost": {
+			"cache_read": 0.04,
+			"input": 0.2,
+			"output": 0.5
+		},
+		"limit": {
+			"context": 1048576
 		}
 	},
 	"perplexity/pplx-decider-flash-v1.2": {
@@ -26615,8 +27468,8 @@
 	},
 	"pixtral-12b-2409": {
 		"cost": {
-			"input": 0.223,
-			"output": 0.223
+			"input": 0.285,
+			"output": 0.285
 		},
 		"exactOnly": true,
 		"limit": {
@@ -26921,7 +27774,17 @@
 	"qwen-flash": {
 		"cost": {
 			"input": 0.05,
-			"output": 0.4
+			"output": 0.4,
+			"tiers": [
+				{
+					"input": 0.25,
+					"output": 2,
+					"tier": {
+						"size": 256000,
+						"type": "context"
+					}
+				}
+			]
 		},
 		"exactOnly": true,
 		"limit": {
@@ -26968,6 +27831,16 @@
 			"context": 32768
 		}
 	},
+	"qwen-max-2025-01-25": {
+		"cost": {
+			"input": 0.34782609,
+			"output": 1.39130435
+		},
+		"exactOnly": true,
+		"limit": {
+			"context": 128000
+		}
+	},
 	"qwen-mt-plus": {
 		"cost": {
 			"input": 2.46,
@@ -26991,7 +27864,18 @@
 	"qwen-plus": {
 		"cost": {
 			"input": 0.4,
-			"output": 1.2
+			"output": 1.2,
+			"tiers": [
+				{
+					"input": 1.2,
+					"output": 3.6,
+					"reasoning": 12,
+					"tier": {
+						"size": 256000,
+						"type": "context"
+					}
+				}
+			]
 		},
 		"exactOnly": true,
 		"limit": {
@@ -27048,6 +27932,16 @@
 		"exactOnly": true,
 		"limit": {
 			"context": 131072
+		}
+	},
+	"qwen-vl-max-2025-01-25": {
+		"cost": {
+			"input": 0.43478261,
+			"output": 1.30434783
+		},
+		"exactOnly": true,
+		"limit": {
+			"context": 128000
 		}
 	},
 	"qwen-vl-ocr": {
@@ -27582,10 +28476,18 @@
 	},
 	"qwen/qwen3.5-122b-a10b": {
 		"cost": {
-			"cache_read": 0.125,
-			"cache_write": 0.625,
-			"input": 0.5,
-			"output": 3.5
+			"input": 0.115,
+			"output": 0.917,
+			"tiers": [
+				{
+					"input": 0.287,
+					"output": 2.294,
+					"tier": {
+						"size": 128000,
+						"type": "context"
+					}
+				}
+			]
 		},
 		"limit": {
 			"context": 262144
@@ -27603,12 +28505,21 @@
 	},
 	"qwen/qwen3.5-27b": {
 		"cost": {
-			"cache_read": 0.0172,
 			"input": 0.086,
-			"output": 0.688
+			"output": 0.688,
+			"tiers": [
+				{
+					"input": 0.258,
+					"output": 2.064,
+					"tier": {
+						"size": 128000,
+						"type": "context"
+					}
+				}
+			]
 		},
 		"limit": {
-			"context": 131072
+			"context": 262144
 		}
 	},
 	"qwen/qwen3.5-27b:thinking": {
@@ -27619,6 +28530,25 @@
 		},
 		"limit": {
 			"context": 260096
+		}
+	},
+	"qwen/qwen3.5-35b-a3b": {
+		"cost": {
+			"input": 0.057,
+			"output": 0.459,
+			"tiers": [
+				{
+					"input": 0.229,
+					"output": 1.835,
+					"tier": {
+						"size": 128000,
+						"type": "context"
+					}
+				}
+			]
+		},
+		"limit": {
+			"context": 262144
 		}
 	},
 	"qwen/qwen3.5-35b-a3b:thinking": {
@@ -27673,10 +28603,22 @@
 	},
 	"qwen/qwen3.5-plus": {
 		"cost": {
-			"cache_read": 0.0115,
-			"cache_write": 0.14375,
-			"input": 0.115,
-			"output": 0.688
+			"cache_read": 0.08,
+			"cache_write": 0.5,
+			"input": 0.4,
+			"output": 2.4,
+			"tiers": [
+				{
+					"cache_read": 0.1,
+					"cache_write": 0.625,
+					"input": 0.5,
+					"output": 3,
+					"tier": {
+						"size": 256000,
+						"type": "context"
+					}
+				}
+			]
 		},
 		"limit": {
 			"context": 1000000
@@ -27732,33 +28674,11 @@
 			"context": 983616
 		}
 	},
-	"qwen/qwen3.6-27b": {
-		"cost": {
-			"cache_read": 0.16,
-			"cache_write": 0,
-			"input": 0.32,
-			"output": 3.2
-		},
-		"limit": {
-			"context": 32768
-		}
-	},
 	"qwen/qwen3.6-27b:thinking": {
 		"cost": {
 			"cache_read": 0.1015,
 			"input": 0.203,
 			"output": 2.24
-		},
-		"limit": {
-			"context": 262144
-		}
-	},
-	"qwen/qwen3.6-35b-a3b": {
-		"cost": {
-			"cache_read": 0.15,
-			"cache_write": 0,
-			"input": 0.15,
-			"output": 1
 		},
 		"limit": {
 			"context": 262144
@@ -27919,17 +28839,6 @@
 		},
 		"limit": {
 			"context": 1000000
-		}
-	},
-	"qwen/qwen3.8-27b": {
-		"cost": {
-			"cache_read": 0.16,
-			"cache_write": 0,
-			"input": 0.32,
-			"output": 3.2
-		},
-		"limit": {
-			"context": 32768
 		}
 	},
 	"qwen/qwen3.8-27b-antislop": {
@@ -28343,7 +29252,7 @@
 	"qwen3-235b-a22b-thinking": {
 		"cost": {
 			"input": 0.3,
-			"output": 2.9000000000000004
+			"output": 2.9
 		},
 		"exactOnly": true,
 		"limit": {
@@ -28379,6 +29288,16 @@
 			"context": 262000
 		}
 	},
+	"qwen3-30b-a3b-thinking-2507": {
+		"cost": {
+			"input": 0.10869565,
+			"output": 1.08695652
+		},
+		"exactOnly": true,
+		"limit": {
+			"context": 126000
+		}
+	},
 	"qwen3-32b": {
 		"cost": {
 			"input": 0.7,
@@ -28393,6 +29312,16 @@
 			"cache_read": 0.02,
 			"input": 0.04,
 			"output": 0.07
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
+	"qwen3-5-9b": {
+		"cost": {
+			"cache_read": 0.045,
+			"input": 0.09,
+			"output": 0.13
 		},
 		"limit": {
 			"context": 262144
@@ -28479,7 +29408,17 @@
 	"qwen3-coder-flash": {
 		"cost": {
 			"input": 0.3,
-			"output": 1.5
+			"output": 1.5,
+			"tiers": [
+				{
+					"input": 0.5,
+					"output": 2.5,
+					"tier": {
+						"size": 32000,
+						"type": "context"
+					}
+				}
+			]
 		},
 		"limit": {
 			"context": 1000000
@@ -28543,11 +29482,41 @@
 	"qwen3-max-2025-09-23": {
 		"cost": {
 			"input": 0.86,
-			"output": 3.43
+			"output": 3.43,
+			"tiers": [
+				{
+					"input": 1.43,
+					"output": 5.72,
+					"tier": {
+						"size": 32000,
+						"type": "context"
+					}
+				}
+			]
 		},
 		"exactOnly": true,
 		"limit": {
 			"context": 258048
+		}
+	},
+	"qwen3-max-preview": {
+		"cost": {
+			"input": 0.86956522,
+			"output": 3.47826087,
+			"tiers": [
+				{
+					"input": 1.44927536,
+					"output": 5.79710145,
+					"tier": {
+						"size": 32000,
+						"type": "context"
+					}
+				}
+			]
+		},
+		"exactOnly": true,
+		"limit": {
+			"context": 256000
 		}
 	},
 	"qwen3-next-80b": {
@@ -28634,10 +29603,29 @@
 			"context": 262144
 		}
 	},
+	"qwen3-vl-30b-a3b-thinking": {
+		"cost": {
+			"input": 0.10869565,
+			"output": 1.08695652
+		},
+		"limit": {
+			"context": 128000
+		}
+	},
 	"qwen3-vl-plus": {
 		"cost": {
 			"input": 0.2,
-			"output": 1.6
+			"output": 1.6,
+			"tiers": [
+				{
+					"input": 0.3,
+					"output": 2.4,
+					"tier": {
+						"size": 32000,
+						"type": "context"
+					}
+				}
+			]
 		},
 		"limit": {
 			"context": 262144
@@ -28645,8 +29633,8 @@
 	},
 	"qwen3.5-122b": {
 		"cost": {
-			"input": 0.9,
-			"output": 3.6
+			"input": 1.1215,
+			"output": 4.7103
 		},
 		"limit": {
 			"context": 262144
@@ -28697,16 +29685,6 @@
 			"context": 262144
 		}
 	},
-	"qwen3.5-9b": {
-		"cost": {
-			"cache_read": 0.008,
-			"input": 0.04,
-			"output": 0.15
-		},
-		"limit": {
-			"context": 262144
-		}
-	},
 	"qwen3.5-flash": {
 		"cost": {
 			"cache_read": 0.01,
@@ -28721,7 +29699,17 @@
 	"qwen3.5-plus": {
 		"cost": {
 			"input": 0.4,
-			"output": 2.4
+			"output": 2.4,
+			"tiers": [
+				{
+					"input": 0.5,
+					"output": 3,
+					"tier": {
+						"size": 256000,
+						"type": "context"
+					}
+				}
+			]
 		},
 		"limit": {
 			"context": 1000000
@@ -28767,8 +29755,8 @@
 	},
 	"qwen3.6-35b-a3b": {
 		"cost": {
-			"input": 0.248,
-			"output": 1.485
+			"input": 0.375,
+			"output": 2.25
 		},
 		"limit": {
 			"context": 262144
@@ -28796,9 +29784,22 @@
 	},
 	"qwen3.6-flash": {
 		"cost": {
-			"cache_write": 0.234375,
-			"input": 0.1875,
-			"output": 1.125
+			"cache_read": 0.025,
+			"cache_write": 0.3125,
+			"input": 0.25,
+			"output": 1.5,
+			"tiers": [
+				{
+					"cache_read": 0.1,
+					"cache_write": 1.25,
+					"input": 1,
+					"output": 4,
+					"tier": {
+						"size": 256000,
+						"type": "context"
+					}
+				}
+			]
 		},
 		"limit": {
 			"context": 1000000
@@ -28928,9 +29929,9 @@
 	},
 	"qwen3.8-27b": {
 		"cost": {
-			"cache_read": 0.1,
-			"input": 0.3,
-			"output": 2.2
+			"cache_read": 0.11215,
+			"input": 0.33645,
+			"output": 2.4673
 		},
 		"limit": {
 			"context": 262144
@@ -28945,6 +29946,17 @@
 		},
 		"limit": {
 			"context": 1000000
+		}
+	},
+	"qwen3.8-flash-next": {
+		"cost": {
+			"cache_read": 0.05,
+			"input": 0.201,
+			"output": 0.5
+		},
+		"exactOnly": true,
+		"limit": {
+			"context": 262144
 		}
 	},
 	"qwen3.8-flash-next@eu": {
@@ -29038,6 +30050,17 @@
 			"context": 1000000
 		}
 	},
+	"reflection-beam": {
+		"cost": {
+			"cache_read": 0.04,
+			"input": 0.4,
+			"output": 1.2
+		},
+		"exactOnly": true,
+		"limit": {
+			"context": 1048576
+		}
+	},
 	"reflection/beam": {
 		"cost": {
 			"cache_read": 0.25,
@@ -29061,8 +30084,8 @@
 	},
 	"reflection/beam-1.0-501b-a23b": {
 		"cost": {
-			"cache_read": 0.04,
-			"input": 0.3,
+			"cache_read": 0.05,
+			"input": 0.25,
 			"output": 1
 		},
 		"limit": {
@@ -29193,8 +30216,9 @@
 	},
 	"route-llm": {
 		"cost": {
-			"input": 3,
-			"output": 15
+			"cache_read": 0.1,
+			"input": 2,
+			"output": 10
 		},
 		"exactOnly": true,
 		"limit": {
@@ -29445,15 +30469,6 @@
 			"context": 131072
 		}
 	},
-	"sap-abap-1": {
-		"cost": {
-			"input": 0.48,
-			"output": 1.7
-		},
-		"limit": {
-			"context": 32768
-		}
-	},
 	"sapiens-ai/agnes-1.5-lite": {
 		"cost": {
 			"input": 0.12,
@@ -29474,9 +30489,9 @@
 	},
 	"sarvam-105b": {
 		"cost": {
-			"cache_read": 0.0336,
-			"input": 0.054,
-			"output": 0.2124
+			"cache_read": 0.05263423,
+			"input": 0.15790269,
+			"output": 0.63161075
 		},
 		"limit": {
 			"context": 131072
@@ -29484,6 +30499,7 @@
 	},
 	"sarvam/sarvam-105b": {
 		"cost": {
+			"cache_read": 0.025,
 			"input": 0.04,
 			"output": 0.16
 		},
@@ -29528,6 +30544,24 @@
 			"context": 0
 		}
 	},
+	"scaledown/scaledown-extract-1": {
+		"cost": {
+			"input": 0.05,
+			"output": 0
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
+	"scaledown/scaledown-summarize-1": {
+		"cost": {
+			"input": 0.05,
+			"output": 0
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
 	"scaledown/summarize": {
 		"cost": {
 			"input": 0.05,
@@ -29540,9 +30574,9 @@
 	},
 	"scaleway/deepseek-v4-flash-0731": {
 		"cost": {
-			"cache_read": 0.0898,
-			"input": 0.449,
-			"output": 0.898
+			"cache_read": 0.089872,
+			"input": 0.44936,
+			"output": 0.89872
 		},
 		"limit": {
 			"context": 256000
@@ -29550,9 +30584,9 @@
 	},
 	"scaleway/deepseek-v4.1-flash": {
 		"cost": {
-			"cache_read": 0.1347,
-			"input": 0.6735,
-			"output": 2.020499
+			"cache_read": 0.134808,
+			"input": 0.67404,
+			"output": 2.02212
 		},
 		"limit": {
 			"context": 256000
@@ -29569,8 +30603,8 @@
 	},
 	"scaleway/gpt-oss-120b": {
 		"cost": {
-			"input": 0.168375,
-			"output": 0.6735
+			"input": 0.16851,
+			"output": 0.67404
 		},
 		"limit": {
 			"context": 128000
@@ -29578,8 +30612,8 @@
 	},
 	"scaleway/llama-3.3-70b-instruct": {
 		"cost": {
-			"input": 1.01025,
-			"output": 1.01025
+			"input": 1.01106,
+			"output": 1.01106
 		},
 		"limit": {
 			"context": 128000
@@ -29587,8 +30621,8 @@
 	},
 	"scaleway/qwen3-235b-a22b-instruct-2507": {
 		"cost": {
-			"input": 0.841875,
-			"output": 2.525624
+			"input": 0.84255,
+			"output": 2.52765
 		},
 		"limit": {
 			"context": 250000
@@ -29601,6 +30635,16 @@
 		},
 		"limit": {
 			"context": 128000
+		}
+	},
+	"sciforium/deepseek-v4.1-flash": {
+		"cost": {
+			"cache_read": 0.012,
+			"input": 0.246,
+			"output": 0.944
+		},
+		"limit": {
+			"context": 1048576
 		}
 	},
 	"scx-ai-gp/deepseek-v4.1-flash": {
@@ -30437,9 +31481,9 @@
 	},
 	"step-3.5-flash": {
 		"cost": {
-			"cache_read": 0.02,
-			"input": 0.1,
-			"output": 0.3
+			"cache_read": 0.02092,
+			"input": 0.10461,
+			"output": 0.31384
 		},
 		"limit": {
 			"context": 256000
@@ -30447,9 +31491,9 @@
 	},
 	"step-3.5-flash-2603": {
 		"cost": {
-			"cache_read": 0.02,
-			"input": 0.1,
-			"output": 0.3
+			"cache_read": 0.02092,
+			"input": 0.10461,
+			"output": 0.31384
 		},
 		"exactOnly": true,
 		"limit": {
@@ -30458,9 +31502,9 @@
 	},
 	"step-3.7-flash": {
 		"cost": {
-			"cache_read": 0.037,
-			"input": 0.185,
-			"output": 1.11
+			"cache_read": 0.04035,
+			"input": 0.20175,
+			"output": 1.21052
 		},
 		"limit": {
 			"context": 256000
@@ -30468,9 +31512,9 @@
 	},
 	"step-5-preview": {
 		"cost": {
-			"cache_read": 0.048,
-			"input": 0.959,
-			"output": 2.741
+			"cache_read": 0.10461,
+			"input": 1.04613,
+			"output": 2.98895
 		},
 		"limit": {
 			"context": 1000000
@@ -30831,27 +31875,6 @@
 			"context": 1048576
 		}
 	},
-	"tencent/mimo-v2.5-pro": {
-		"cost": {
-			"cache_read": 0.0036,
-			"input": 0.435,
-			"output": 0.87,
-			"tiers": [
-				{
-					"cache_read": 0.4,
-					"input": 2,
-					"output": 6,
-					"tier": {
-						"size": 256000,
-						"type": "context"
-					}
-				}
-			]
-		},
-		"limit": {
-			"context": 1000000
-		}
-	},
 	"tencent/minimax-m2.7": {
 		"cost": {
 			"cache_read": 0.06,
@@ -30867,6 +31890,16 @@
 			"cache_read": 0.06,
 			"input": 0.3,
 			"output": 1.2
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
+	"tencent/step-5-preview": {
+		"cost": {
+			"cache_read": 0.05,
+			"input": 1,
+			"output": 2.7
 		},
 		"limit": {
 			"context": 1000000
@@ -31009,6 +32042,37 @@
 			"context": 1048576
 		}
 	},
+	"thinkingmachines/Inkling-Small": {
+		"cost": {
+			"cache_read": 0.116,
+			"input": 0.58,
+			"output": 1.44
+		},
+		"exactOnly": true,
+		"limit": {
+			"context": 65536
+		}
+	},
+	"thinkingmachines/Inkling-Small:peft:262144": {
+		"cost": {
+			"cache_read": 0.116,
+			"input": 0.58,
+			"output": 1.44
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
+	"thinkingmachines/Inkling-Small:peft:262144:sampling-nvfp4": {
+		"cost": {
+			"cache_read": 0.06,
+			"input": 0.3,
+			"output": 1.2
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
 	"thinkingmachines/Inkling-Small:thinking": {
 		"cost": {
 			"cache_read": 0.1,
@@ -31022,24 +32086,22 @@
 	},
 	"thinkingmachines/Inkling:peft:262144": {
 		"cost": {
-			"cache_read": 0.748,
-			"input": 3.74,
-			"output": 9.36
+			"cache_read": 0.374,
+			"input": 1.87,
+			"output": 4.68
 		},
 		"limit": {
 			"context": 262144
 		}
 	},
-	"thinkingmachines/inkling-small": {
+	"thinkingmachines/Inkling:peft:262144:sampling-nvfp4": {
 		"cost": {
-			"cache_read": 0.1,
-			"cache_write": 0.5,
-			"input": 0.5,
-			"output": 1.2
+			"cache_read": 0.17,
+			"input": 1,
+			"output": 4.05
 		},
-		"exactOnly": true,
 		"limit": {
-			"context": 1000000
+			"context": 262144
 		}
 	},
 	"thinkingmachines/inkling:thinking": {
@@ -31230,6 +32292,16 @@
 			"context": 131072
 		}
 	},
+	"together_ai/reflection/Beam-1.0-501B-A23B": {
+		"cost": {
+			"cache_read": 0.04,
+			"input": 0.4,
+			"output": 1.2
+		},
+		"limit": {
+			"context": 1048576
+		}
+	},
 	"together_ai/thinkingmachines/Inkling": {
 		"cost": {
 			"cache_read": 0.17,
@@ -31380,6 +32452,16 @@
 		}
 	},
 	"umans-deepseek-v4.1-flash": {
+		"cost": {
+			"cache_read": 0.028,
+			"input": 0.15,
+			"output": 0.6
+		},
+		"limit": {
+			"context": 1048576
+		}
+	},
+	"umans-deepseek-v4.1-flash-1017": {
 		"cost": {
 			"cache_read": 0.028,
 			"input": 0.15,
@@ -31586,6 +32668,7 @@
 	},
 	"upstage/solar-pro2": {
 		"cost": {
+			"cache_read": 0.015,
 			"input": 0.15,
 			"output": 0.6
 		},
@@ -31595,6 +32678,7 @@
 	},
 	"upstage/solar-pro3": {
 		"cost": {
+			"cache_read": 0.015,
 			"input": 0.15,
 			"output": 0.6
 		},
@@ -32274,35 +33358,6 @@
 			"context": 1000000
 		}
 	},
-	"vertex-openai/deepseek-v3.2": {
-		"cost": {
-			"cache_read": 0.056,
-			"input": 0.56,
-			"output": 1.68
-		},
-		"limit": {
-			"context": 163840
-		}
-	},
-	"vertex-openai/glm-4.7": {
-		"cost": {
-			"input": 0.6,
-			"output": 2.2
-		},
-		"limit": {
-			"context": 202752
-		}
-	},
-	"vertex-openai/glm-5": {
-		"cost": {
-			"cache_read": 0.1,
-			"input": 1,
-			"output": 3.2
-		},
-		"limit": {
-			"context": 202752
-		}
-	},
 	"vertex-openai/grok-4-20-non-reasoning": {
 		"cost": {
 			"cache_read": 0.2,
@@ -32363,53 +33418,6 @@
 		},
 		"limit": {
 			"context": 524288
-		}
-	},
-	"vertex-openai/kimi-k2-thinking": {
-		"cost": {
-			"cache_read": 0.06,
-			"input": 0.6,
-			"output": 2.5
-		},
-		"limit": {
-			"context": 262144
-		}
-	},
-	"vertex-openai/qwen3-235b-a22b-instruct-2507": {
-		"cost": {
-			"input": 0.22,
-			"output": 0.88
-		},
-		"limit": {
-			"context": 262144
-		}
-	},
-	"vertex-openai/qwen3-coder-480b-a35b-instruct": {
-		"cost": {
-			"cache_read": 0.022,
-			"input": 0.22,
-			"output": 1.8
-		},
-		"limit": {
-			"context": 262144
-		}
-	},
-	"vertex-openai/qwen3-next-80b-a3b-instruct": {
-		"cost": {
-			"input": 0.15,
-			"output": 1.2
-		},
-		"limit": {
-			"context": 131072
-		}
-	},
-	"vertex-openai/qwen3-next-80b-a3b-thinking": {
-		"cost": {
-			"input": 0.15,
-			"output": 1.2
-		},
-		"limit": {
-			"context": 131072
 		}
 	},
 	"vertex/gemini-3-flash-preview": {
@@ -33436,9 +34444,9 @@
 	},
 	"xai/grok-4.20-multi-agent": {
 		"cost": {
-			"cache_read": 0.2,
-			"input": 2,
-			"output": 6
+			"cache_read": 0.202,
+			"input": 1.2626,
+			"output": 2.5253
 		},
 		"limit": {
 			"context": 128000
@@ -33764,7 +34772,7 @@
 			]
 		},
 		"limit": {
-			"context": 1048576
+			"context": 1050000
 		}
 	},
 	"xiaomi/mimo-v2.5-pro": {
@@ -33785,7 +34793,7 @@
 			]
 		},
 		"limit": {
-			"context": 1048576
+			"context": 1050000
 		}
 	},
 	"xiaomi/mimo-v2.5-pro:thinking": {
@@ -33871,6 +34879,16 @@
 		},
 		"limit": {
 			"context": 1048576
+		}
+	},
+	"xiaomimimo/mimo-v2-flash": {
+		"cost": {
+			"cache_read": 0.02,
+			"input": 0.1,
+			"output": 0.3
+		},
+		"limit": {
+			"context": 262144
 		}
 	},
 	"xpersona-frieren-coder": {
@@ -34595,13 +35613,12 @@
 	},
 	"zai-org/GLM-4.6": {
 		"cost": {
-			"cache_read": 0.2,
-			"cache_write": 0.8,
-			"input": 0.4,
-			"output": 1.75
+			"cache_read": 0.1,
+			"input": 0.5,
+			"output": 2
 		},
 		"limit": {
-			"context": 200000
+			"context": 202752
 		}
 	},
 	"zai-org/GLM-4.6V-Flash": {
@@ -34687,10 +35704,10 @@
 	},
 	"zai-org/GLM-5.2": {
 		"cost": {
-			"cache_read": 0.12,
+			"cache_read": 0.14,
 			"cache_write": 0,
-			"input": 0.71,
-			"output": 2.35
+			"input": 0.69,
+			"output": 2.52
 		},
 		"limit": {
 			"context": 1048576
@@ -34730,17 +35747,18 @@
 	},
 	"zai-org/GLM-5.3": {
 		"cost": {
-			"cache_read": 0.26,
+			"cache_read": 0.18,
 			"cache_write": 0,
-			"input": 1.4,
-			"output": 4.4
+			"input": 0.55,
+			"output": 1.4
 		},
 		"limit": {
-			"context": 1049000
+			"context": 1048576
 		}
 	},
 	"zai-org/GLM-5.3-Fast": {
 		"cost": {
+			"cache_read": 0.21,
 			"input": 2.1,
 			"output": 6.6
 		},
@@ -34750,13 +35768,33 @@
 	},
 	"zai-org/GLM-5.3-Flash": {
 		"cost": {
-			"cache_read": 0.03,
+			"cache_read": 0.075,
 			"cache_write": 0,
 			"input": 0.15,
-			"output": 0.5
+			"output": 0.69
 		},
 		"limit": {
-			"context": 1049000
+			"context": 1048576
+		}
+	},
+	"zai-org/GLM-5.3-Flash:peft:262144": {
+		"cost": {
+			"cache_read": 0.168,
+			"input": 0.84,
+			"output": 2.11
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
+	"zai-org/GLM-5.3:peft:262144": {
+		"cost": {
+			"cache_read": 0.756,
+			"input": 3.78,
+			"output": 12.15
+		},
+		"limit": {
+			"context": 262144
 		}
 	},
 	"zai-org/GLM-5V-Turbo": {
@@ -35171,9 +36209,9 @@
 	},
 	"~deepseek/deepseek-flash-latest": {
 		"cost": {
-			"cache_read": 0.01,
-			"input": 0.05,
-			"output": 0.024
+			"cache_read": 0.001176,
+			"input": 0.049,
+			"output": 0.375
 		},
 		"exactOnly": true,
 		"limit": {
@@ -35182,8 +36220,8 @@
 	},
 	"~deepseek/deepseek-pro-latest": {
 		"cost": {
-			"cache_read": 0.2,
-			"input": 0.2016,
+			"cache_read": 0.13,
+			"input": 0.1307,
 			"output": 8
 		},
 		"exactOnly": true,
@@ -35193,9 +36231,9 @@
 	},
 	"~deepseek/deepseek-v4-flash-latest": {
 		"cost": {
-			"cache_read": 0.0086,
-			"input": 0.0086,
-			"output": 0.45
+			"cache_read": 0.0275,
+			"input": 0.0422,
+			"output": 0.1729
 		},
 		"limit": {
 			"context": 1048576
@@ -35419,9 +36457,9 @@
 	},
 	"~z-ai/glm-flash-latest": {
 		"cost": {
-			"cache_read": 0.006,
-			"input": 0.059076,
-			"output": 0.16
+			"cache_read": 0.00375,
+			"input": 0.051691,
+			"output": 0.12
 		},
 		"exactOnly": true,
 		"limit": {
