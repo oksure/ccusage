@@ -36,6 +36,8 @@ Tables automatically add per-model rows when a period contains multiple
 models. Add `--breakdown` to force those rows even for single-model periods.
 JSON rows always include per-model values under `modelBreakdowns`.
 
+Every section uses the options resolved for the invoked command. For example, `ccusage daily --sections weekly,monthly` applies the `daily` configuration to all three sections; each source's configured date window and timezone are applied while its data is loaded.
+
 ## How Unified Views Work
 
 ccusage detects local usage files from Claude Code, Codex, OpenCode, Amp, Droid, Codebuff, Hermes Agent, pi-agent, Goose, OpenClaw, Kilo, Kimi, Qwen, GitHub Copilot CLI, Gemini CLI, Antigravity, Grok Build CLI, DeepSeek Harness, and ZCode. The same daily, weekly, monthly, and session views can run in two modes:

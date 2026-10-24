@@ -1,4 +1,4 @@
-use std::{ffi::OsString, path::PathBuf};
+use std::{collections::BTreeMap, ffi::OsString, path::PathBuf};
 
 use crate::arg_parser::ArgParser;
 use crate::help::{print_help_and_exit, print_version_and_exit};
@@ -48,6 +48,7 @@ impl RootAllOptions {
             open_claw_path: None,
             codex_speed: CodexSpeed::Auto,
             start_of_week: WeekDay::Monday,
+            sources: BTreeMap::new(),
         }
     }
 }
@@ -447,6 +448,7 @@ fn parse_all_command(
         open_claw_path: None,
         codex_speed: CodexSpeed::Auto,
         start_of_week,
+        sources: BTreeMap::new(),
     }))
 }
 
@@ -492,6 +494,7 @@ fn parse_top_level_session_command(
         open_claw_path: None,
         codex_speed: CodexSpeed::Auto,
         start_of_week: WeekDay::Monday,
+        sources: BTreeMap::new(),
     }))
 }
 
@@ -655,6 +658,7 @@ fn parse_codex_command(
         open_claw_path: None,
         codex_speed,
         start_of_week: WeekDay::Monday,
+        sources: BTreeMap::new(),
     }))
 }
 
@@ -686,6 +690,7 @@ fn parse_pi_command(
         open_claw_path: None,
         codex_speed,
         start_of_week: WeekDay::Monday,
+        sources: BTreeMap::new(),
     }))
 }
 
@@ -717,6 +722,7 @@ fn parse_openclaw_command(
         open_claw_path,
         codex_speed,
         start_of_week: WeekDay::Monday,
+        sources: BTreeMap::new(),
     }))
 }
 
@@ -749,6 +755,7 @@ fn agent_command_args(shared: SharedArgs, kind: AgentReportKind) -> AgentCommand
         open_claw_path: None,
         codex_speed: CodexSpeed::Auto,
         start_of_week: WeekDay::Monday,
+        sources: BTreeMap::new(),
     }
 }
 
