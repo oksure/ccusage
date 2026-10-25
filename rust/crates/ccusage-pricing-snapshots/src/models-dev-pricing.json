@@ -474,6 +474,33 @@
 			"context": 262144
 		}
 	},
+	"Gemma-4-31B-Agares-v1": {
+		"cost": {
+			"input": 0.306,
+			"output": 0.306
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
+	"Gemma-4-31B-Animus-V14.1": {
+		"cost": {
+			"input": 0.306,
+			"output": 0.306
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
+	"Gemma-4-31B-AssGuard": {
+		"cost": {
+			"input": 0.306,
+			"output": 0.306
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
 	"Gemma-4-31B-Claude-4.6-Opus-Reasoning-Distilled": {
 		"cost": {
 			"cache_read": 0.0306,
@@ -494,6 +521,15 @@
 			"context": 262144
 		}
 	},
+	"Gemma-4-31B-Dark-Gemistry": {
+		"cost": {
+			"input": 0.306,
+			"output": 0.306
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
 	"Gemma-4-31B-DarkIdol": {
 		"cost": {
 			"cache_read": 0.153,
@@ -504,9 +540,63 @@
 			"context": 262144
 		}
 	},
+	"Gemma-4-31B-Fabled": {
+		"cost": {
+			"input": 0.306,
+			"output": 0.306
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
 	"Gemma-4-31B-GarnetV2": {
 		"cost": {
 			"cache_read": 0.153,
+			"input": 0.306,
+			"output": 0.306
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
+	"Gemma-4-31B-Gembrain-X-Core": {
+		"cost": {
+			"input": 0.306,
+			"output": 0.306
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
+	"Gemma-4-31B-Gembrain-uncensored-heretic": {
+		"cost": {
+			"input": 0.306,
+			"output": 0.306
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
+	"Gemma-4-31B-Isometry-RP": {
+		"cost": {
+			"input": 0.306,
+			"output": 0.306
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
+	"Gemma-4-31B-K1-v5": {
+		"cost": {
+			"input": 0.306,
+			"output": 0.306
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
+	"Gemma-4-31B-MeroMero": {
+		"cost": {
 			"input": 0.306,
 			"output": 0.306
 		},
@@ -534,9 +624,36 @@
 			"context": 262144
 		}
 	},
+	"Gemma-4-31B-Novelist": {
+		"cost": {
+			"input": 0.306,
+			"output": 0.306
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
 	"Gemma-4-31B-Queen": {
 		"cost": {
 			"cache_read": 0.153,
+			"input": 0.306,
+			"output": 0.306
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
+	"Gemma-4-31B-SDFT-Heretic-RP": {
+		"cost": {
+			"input": 0.306,
+			"output": 0.306
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
+	"Gemma-4-31B-StyleTune": {
+		"cost": {
 			"input": 0.306,
 			"output": 0.306
 		},
@@ -848,6 +965,16 @@
 					}
 				}
 			]
+		},
+		"limit": {
+			"context": 1048576
+		}
+	},
+	"MiniMaxAI/MiniMax-M3.1-Flash": {
+		"cost": {
+			"cache_read": 0.015,
+			"input": 0.15,
+			"output": 0.6
 		},
 		"limit": {
 			"context": 1048576
@@ -1489,9 +1616,41 @@
 			"context": 131072
 		}
 	},
+	"Qwen3.5-27B-Blossom-V6.4-Derestricted": {
+		"cost": {
+			"input": 0.306,
+			"output": 0.306
+		},
+		"exactOnly": true,
+		"limit": {
+			"context": 262144
+		}
+	},
 	"Qwen3.5-27B-BlueStar-v3-Derestricted": {
 		"cost": {
 			"cache_read": 0.153,
+			"input": 0.306,
+			"output": 0.306
+		},
+		"exactOnly": true,
+		"limit": {
+			"context": 262144
+		}
+	},
+	"Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled-Derestricted": {
+		"cost": {
+			"cache_read": 0.0306,
+			"input": 0.306,
+			"output": 0.306
+		},
+		"exactOnly": true,
+		"limit": {
+			"context": 262144
+		}
+	},
+	"Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled-Derestricted-Lite": {
+		"cost": {
+			"cache_read": 0.0306,
 			"input": 0.306,
 			"output": 0.306
 		},
@@ -2583,6 +2742,25 @@
 		},
 		"limit": {
 			"context": 131072
+		}
+	},
+	"aisingapore/Qwen-SEA-LION-v4-32B-IT": {
+		"cost": {
+			"input": 0.3,
+			"output": 0.6
+		},
+		"limit": {
+			"context": 131072
+		}
+	},
+	"aleph-alpha/kolibri-1": {
+		"cost": {
+			"cache_read": 0.078,
+			"input": 0.13,
+			"output": 0.51
+		},
+		"limit": {
+			"context": 1048576
 		}
 	},
 	"alibaba/deepseek-v4-flash": {
@@ -6861,29 +7039,29 @@
 	},
 	"bytedance/dola-seed-2.0-lite": {
 		"cost": {
-			"input": 0.25,
-			"output": 2
+			"input": 0.31,
+			"output": 2.5
 		},
 		"limit": {
-			"context": 131072
+			"context": 256000
 		}
 	},
 	"bytedance/dola-seed-2.0-mini": {
 		"cost": {
-			"input": 0.1,
-			"output": 0.4
+			"input": 0.12,
+			"output": 0.5
 		},
 		"limit": {
-			"context": 131072
+			"context": 256000
 		}
 	},
 	"bytedance/dola-seed-2.0-pro": {
 		"cost": {
-			"input": 0.5,
-			"output": 3
+			"input": 0.63,
+			"output": 3.79
 		},
 		"limit": {
-			"context": 131072
+			"context": 256000
 		}
 	},
 	"bytedance/doubao-seed-1.8": {
@@ -11053,9 +11231,9 @@
 	},
 	"deepseek-v4.1-flash-1017": {
 		"cost": {
-			"cache_read": 0.111,
-			"input": 0.279,
-			"output": 1.114
+			"cache_read": 0.006,
+			"input": 0.203,
+			"output": 0.609
 		},
 		"exactOnly": true,
 		"limit": {
@@ -13968,6 +14146,17 @@
 		}
 	},
 	"gemma-4-12b-it-semancer": {
+		"cost": {
+			"cache_read": 0.025,
+			"input": 0.05,
+			"output": 0.25
+		},
+		"exactOnly": true,
+		"limit": {
+			"context": 131072
+		}
+	},
+	"gemma-4-12b-it-starry-ocean": {
 		"cost": {
 			"cache_read": 0.025,
 			"input": 0.05,
@@ -18027,7 +18216,7 @@
 			"output": 3
 		},
 		"limit": {
-			"context": 1048576
+			"context": 524288
 		}
 	},
 	"hermes-2-pro-llama-3-8b": {
@@ -19422,9 +19611,9 @@
 	},
 	"liquid/lfm-2.5-2.6b": {
 		"cost": {
-			"cache_read": 0.05,
-			"input": 0.1,
-			"output": 0.2
+			"cache_read": 0.04,
+			"input": 0.35,
+			"output": 0.5
 		},
 		"limit": {
 			"context": 128000
@@ -25091,11 +25280,11 @@
 	},
 	"openai/gpt-3.5-turbo-instruct": {
 		"cost": {
-			"input": 1.5,
-			"output": 2
+			"input": 1.4,
+			"output": 1.8
 		},
 		"limit": {
-			"context": 4095
+			"context": 3500
 		}
 	},
 	"openai/gpt-3.5-turbo-raw": {
@@ -26674,8 +26863,8 @@
 	},
 	"perceptron/perceptron-mk1.5": {
 		"cost": {
-			"input": 0.15,
-			"output": 1.5
+			"input": 0.1587,
+			"output": 1.587
 		},
 		"limit": {
 			"context": 36864
@@ -30520,6 +30709,15 @@
 			"context": 128000
 		}
 	},
+	"soob3123/GrayLine-Qwen3-8B": {
+		"cost": {
+			"input": 0.3,
+			"output": 0.3
+		},
+		"limit": {
+			"context": 32768
+		}
+	},
 	"soob3123/Veiled-Calla-12B": {
 		"cost": {
 			"cache_read": 0.15,
@@ -30995,6 +31193,33 @@
 		},
 		"limit": {
 			"context": 100000
+		}
+	},
+	"swiss-ai/apertus-v1.5-8b": {
+		"cost": {
+			"input": 0.12,
+			"output": 0.24
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
+	"synth-2.5-flash": {
+		"cost": {
+			"input": 0.03,
+			"output": 0.1
+		},
+		"limit": {
+			"context": 30000
+		}
+	},
+	"synth-2.5-pro": {
+		"cost": {
+			"input": 0.1,
+			"output": 0.2
+		},
+		"limit": {
+			"context": 30000
 		}
 	},
 	"tencent/deepseek-v4-flash": {
@@ -34250,9 +34475,9 @@
 	},
 	"z-ai/GLM-4.5-Air:thinking": {
 		"cost": {
-			"cache_read": 0.06,
-			"input": 0.12,
-			"output": 0.8
+			"cache_read": 0.025,
+			"input": 0.13,
+			"output": 0.85
 		},
 		"limit": {
 			"context": 128000
@@ -35535,9 +35760,9 @@
 	},
 	"~deepseek/deepseek-v4-flash-latest": {
 		"cost": {
-			"cache_read": 0.027,
+			"cache_read": 0.028,
 			"input": 0.0422,
-			"output": 0.1763
+			"output": 0.1694
 		},
 		"limit": {
 			"context": 1048576
@@ -35761,9 +35986,9 @@
 	},
 	"~z-ai/glm-flash-latest": {
 		"cost": {
-			"cache_read": 0.03,
-			"input": 0.0511,
-			"output": 0.0702
+			"cache_read": 0.0287,
+			"input": 0.0287,
+			"output": 0.0914
 		},
 		"exactOnly": true,
 		"limit": {
@@ -35772,9 +35997,9 @@
 	},
 	"~z-ai/glm-latest": {
 		"cost": {
-			"cache_read": 0.075,
-			"input": 0.075,
-			"output": 4.295
+			"cache_read": 0.0703,
+			"input": 0.0703,
+			"output": 4.3843
 		},
 		"exactOnly": true,
 		"limit": {
