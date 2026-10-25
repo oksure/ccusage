@@ -6861,29 +6861,29 @@
 	},
 	"bytedance/dola-seed-2.0-lite": {
 		"cost": {
-			"input": 0.25,
-			"output": 2
+			"input": 0.31,
+			"output": 2.5
 		},
 		"limit": {
-			"context": 131072
+			"context": 256000
 		}
 	},
 	"bytedance/dola-seed-2.0-mini": {
 		"cost": {
-			"input": 0.1,
-			"output": 0.4
+			"input": 0.12,
+			"output": 0.5
 		},
 		"limit": {
-			"context": 131072
+			"context": 256000
 		}
 	},
 	"bytedance/dola-seed-2.0-pro": {
 		"cost": {
-			"input": 0.5,
-			"output": 3
+			"input": 0.63,
+			"output": 3.79
 		},
 		"limit": {
-			"context": 131072
+			"context": 256000
 		}
 	},
 	"bytedance/doubao-seed-1.8": {
@@ -18027,7 +18027,7 @@
 			"output": 3
 		},
 		"limit": {
-			"context": 1048576
+			"context": 524288
 		}
 	},
 	"hermes-2-pro-llama-3-8b": {
@@ -25091,11 +25091,11 @@
 	},
 	"openai/gpt-3.5-turbo-instruct": {
 		"cost": {
-			"input": 1.5,
-			"output": 2
+			"input": 1.4,
+			"output": 1.8
 		},
 		"limit": {
-			"context": 4095
+			"context": 3500
 		}
 	},
 	"openai/gpt-3.5-turbo-raw": {
@@ -35054,7 +35054,7 @@
 			"cache_read": 0.12,
 			"cache_write": 0,
 			"input": 0.6,
-			"output": 2.8
+			"output": 3.22
 		},
 		"limit": {
 			"context": 1048576
@@ -35762,7 +35762,7 @@
 	"~z-ai/glm-flash-latest": {
 		"cost": {
 			"cache_read": 0.03,
-			"input": 0.0511,
+			"input": 0.0507,
 			"output": 0.0702
 		},
 		"exactOnly": true,
