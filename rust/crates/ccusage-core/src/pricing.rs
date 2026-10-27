@@ -5500,6 +5500,7 @@ mod tests {
         for model in [
             "gpt-6-astra",
             "gpt-6.1-sol",
+            "gpt-6.1-terra",
             "gpt-6-luna",
             "gpt-6-sol",
             "gpt-5.6-sol",
@@ -5529,6 +5530,7 @@ mod tests {
 
         for (model, expected) in [
             ("gpt-6-astra-2026-09-24", 2.0),
+            ("gpt-6.1-terra", 2.0),
             ("gpt-5.4-2026-03-05", 2.0),
             ("openai/gpt-5.6-sol-20261001", 2.0),
             ("gpt-5.6-terra-2026-10-01", 2.0),
@@ -5560,6 +5562,7 @@ mod tests {
         for (model, expected) in [
             ("gpt-6-astra-2026-09-24", 0.5),
             ("gpt-6.1-sol-20260924", 0.5),
+            ("gpt-6.1-terra", 0.5),
             ("openai/gpt-5.5", 0.5),
             ("openrouter/openai/gpt-5.4-2026-03-05", 0.5),
             ("azure/gpt-5.2", 0.5),
