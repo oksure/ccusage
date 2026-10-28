@@ -1000,16 +1000,6 @@
 			"context": 65536
 		}
 	},
-	"NousResearch/hermes-4-405b": {
-		"cost": {
-			"cache_read": 0.15,
-			"input": 0.3,
-			"output": 1.2
-		},
-		"limit": {
-			"context": 128000
-		}
-	},
 	"NousResearch/hermes-4-405b:thinking": {
 		"cost": {
 			"cache_read": 0.15,
@@ -3264,7 +3254,7 @@
 			"output": 0.47
 		},
 		"limit": {
-			"context": 1000000
+			"context": 983616
 		}
 	},
 	"alibaba/qwen35-397b-a17b": {
@@ -6397,6 +6387,16 @@
 			"context": 1048576
 		}
 	},
+	"baidu/deepseek-v4.1-flash-1017": {
+		"cost": {
+			"cache_read": 0.006,
+			"input": 0.28,
+			"output": 1.13
+		},
+		"limit": {
+			"context": 1048576
+		}
+	},
 	"baidu/ernie-4.5-21B-a3b": {
 		"cost": {
 			"input": 0.07,
@@ -6468,6 +6468,16 @@
 			"cache_read": 0.26,
 			"input": 1.4,
 			"output": 4.4
+		},
+		"limit": {
+			"context": 1048576
+		}
+	},
+	"baidu/glm-5.3-flash": {
+		"cost": {
+			"cache_read": 0.03,
+			"input": 0.15,
+			"output": 0.5
 		},
 		"limit": {
 			"context": 1048576
@@ -7542,15 +7552,6 @@
 		},
 		"limit": {
 			"context": 131072
-		}
-	},
-	"cerebras/qwen3-235b-a22b-instruct-2507": {
-		"cost": {
-			"input": 0.6,
-			"output": 1.2
-		},
-		"limit": {
-			"context": 262000
 		}
 	},
 	"chatgpt-4o-latest": {
@@ -10699,7 +10700,7 @@
 			"cache_read": 0.027,
 			"cache_write": 0,
 			"input": 0.13,
-			"output": 0.4125
+			"output": 0.4312
 		},
 		"limit": {
 			"context": 1048576
@@ -11049,6 +11050,17 @@
 		"exactOnly": true,
 		"limit": {
 			"context": 128000
+		}
+	},
+	"deepseek-v4-1-flash-1017-uncensored": {
+		"cost": {
+			"cache_read": 0.00825,
+			"input": 0.33,
+			"output": 1.32
+		},
+		"exactOnly": true,
+		"limit": {
+			"context": 1000000
 		}
 	},
 	"deepseek-v4-1-flash-uncensored": {
@@ -11661,9 +11673,9 @@
 	},
 	"deepseek/deepseek-v4-pro-0423": {
 		"cost": {
-			"cache_read": 0.15,
-			"input": 1.32,
-			"output": 3.96
+			"cache_read": 0.145,
+			"input": 1.74,
+			"output": 3.48
 		},
 		"limit": {
 			"context": 1000000
@@ -11710,6 +11722,26 @@
 			"context": 1000000
 		}
 	},
+	"deepseek/deepseek-v4.1-flash-0910-uncensored": {
+		"cost": {
+			"cache_read": 0.00825,
+			"input": 0.33,
+			"output": 1.32
+		},
+		"limit": {
+			"context": 524288
+		}
+	},
+	"deepseek/deepseek-v4.1-flash-0910-uncensored:thinking": {
+		"cost": {
+			"cache_read": 0.00825,
+			"input": 0.33,
+			"output": 1.32
+		},
+		"limit": {
+			"context": 524288
+		}
+	},
 	"deepseek/deepseek-v4.1-flash-1017": {
 		"cost": {
 			"cache_read": 0.006,
@@ -11731,9 +11763,29 @@
 			"context": 1048576
 		}
 	},
+	"deepseek/deepseek-v4.1-flash-1017-uncensored": {
+		"cost": {
+			"cache_read": 0.00825,
+			"input": 0.33,
+			"output": 1.32
+		},
+		"limit": {
+			"context": 1048576
+		}
+	},
+	"deepseek/deepseek-v4.1-flash-1017-uncensored:thinking": {
+		"cost": {
+			"cache_read": 0.00825,
+			"input": 0.33,
+			"output": 1.32
+		},
+		"limit": {
+			"context": 1048576
+		}
+	},
 	"deepseek/deepseek-v4.1-flash-1017:thinking": {
 		"cost": {
-			"cache_read": 0.003,
+			"cache_read": 0.005,
 			"input": 0.1,
 			"output": 0.6
 		},
@@ -12353,96 +12405,6 @@
 			"output": 3
 		},
 		"exactOnly": true,
-		"limit": {
-			"context": 262144
-		}
-	},
-	"embercloud/glm-4.5": {
-		"cost": {
-			"cache_read": 0.11,
-			"input": 0.6,
-			"output": 2.2
-		},
-		"limit": {
-			"context": 131000
-		}
-	},
-	"embercloud/glm-4.5-air": {
-		"cost": {
-			"cache_read": 0.025,
-			"input": 0.13,
-			"output": 0.85
-		},
-		"limit": {
-			"context": 131000
-		}
-	},
-	"embercloud/glm-4.7": {
-		"cost": {
-			"cache_read": 0.19,
-			"input": 0.38,
-			"output": 1.98
-		},
-		"limit": {
-			"context": 200000
-		}
-	},
-	"embercloud/glm-4.7-flash": {
-		"cost": {
-			"cache_read": 0.01,
-			"input": 0.06,
-			"output": 0.4
-		},
-		"limit": {
-			"context": 200000
-		}
-	},
-	"embercloud/glm-5": {
-		"cost": {
-			"cache_read": 0.144,
-			"input": 0.72,
-			"output": 2.3
-		},
-		"limit": {
-			"context": 203000
-		}
-	},
-	"embercloud/glm-5.1": {
-		"cost": {
-			"cache_read": 0.173,
-			"input": 0.931,
-			"output": 2.93
-		},
-		"limit": {
-			"context": 203000
-		}
-	},
-	"embercloud/glm-5.2": {
-		"cost": {
-			"cache_read": 0.234,
-			"input": 1.26,
-			"output": 3.96
-		},
-		"limit": {
-			"context": 203000
-		}
-	},
-	"embercloud/kimi-k2.5": {
-		"cost": {
-			"cache_read": 0.225,
-			"input": 0.405,
-			"output": 1.98
-		},
-		"limit": {
-			"context": 262144
-		}
-	},
-	"embercloud/qwen3-coder-next": {
-		"cost": {
-			"cache_read": 0.06,
-			"input": 0.108,
-			"output": 0.675
-		},
 		"limit": {
 			"context": 262144
 		}
@@ -14652,14 +14614,12 @@
 	},
 	"glm-4.7-flash": {
 		"cost": {
-			"cache_read": 0.01,
-			"cache_write": 0,
-			"input": 0.06,
-			"output": 0.4
+			"input": 0.08,
+			"output": 0.478
 		},
 		"exactOnly": true,
 		"limit": {
-			"context": 200000
+			"context": 203000
 		}
 	},
 	"glm-4.7-flashx": {
@@ -16318,9 +16278,9 @@
 	},
 	"google/gemma-4-26b-a4b-it:thinking": {
 		"cost": {
-			"cache_read": 0.0425,
-			"input": 0.0765,
-			"output": 0.255
+			"cache_read": 0.046,
+			"input": 0.07,
+			"output": 0.24
 		},
 		"limit": {
 			"context": 262144
@@ -18762,7 +18722,7 @@
 			"output": 0.9
 		},
 		"limit": {
-			"context": 262144
+			"context": 1000000
 		}
 	},
 	"inclusionai/ring-2.6-1t": {
@@ -19635,6 +19595,16 @@
 		},
 		"limit": {
 			"context": 32768
+		}
+	},
+	"liquid/d1.1": {
+		"cost": {
+			"cache_read": 0.02,
+			"input": 0.02,
+			"output": 0
+		},
+		"limit": {
+			"context": 65536
 		}
 	},
 	"liquid/lfm-2.5-2.6b": {
@@ -20977,7 +20947,7 @@
 	},
 	"minimax/minimax-m1": {
 		"cost": {
-			"input": 0.4,
+			"input": 0.55,
 			"output": 2.2
 		},
 		"limit": {
@@ -23020,8 +22990,8 @@
 	},
 	"nace-ai/drex-max": {
 		"cost": {
-			"cache_read": 0.12,
-			"input": 0.12,
+			"cache_read": 0.06,
+			"input": 0.06,
 			"output": 0
 		},
 		"exactOnly": true,
@@ -23495,6 +23465,16 @@
 			"context": 131072
 		}
 	},
+	"nousresearch/hermes-4-405b": {
+		"cost": {
+			"cache_read": 0.2,
+			"input": 1,
+			"output": 3
+		},
+		"limit": {
+			"context": 131072
+		}
+	},
 	"nova-2-lite": {
 		"cost": {
 			"input": 0.373,
@@ -23863,15 +23843,6 @@
 			"context": 40960
 		}
 	},
-	"novita/qwen3-235b-a22b-instruct-2507": {
-		"cost": {
-			"input": 0.09,
-			"output": 0.58
-		},
-		"limit": {
-			"context": 131072
-		}
-	},
 	"novita/qwen3-235b-a22b-thinking-2507": {
 		"cost": {
 			"input": 0.3,
@@ -23912,24 +23883,6 @@
 		"cost": {
 			"input": 0.15,
 			"output": 1.5
-		},
-		"limit": {
-			"context": 131072
-		}
-	},
-	"novita/qwen3-vl-235b-a22b-instruct": {
-		"cost": {
-			"input": 0.3,
-			"output": 1.5
-		},
-		"limit": {
-			"context": 131072
-		}
-	},
-	"novita/qwen3-vl-235b-a22b-thinking": {
-		"cost": {
-			"input": 0.98,
-			"output": 3.95
 		},
 		"limit": {
 			"context": 131072
@@ -24033,9 +23986,9 @@
 	},
 	"nvidia-nemotron-3-5-super-vl-120b-a12b": {
 		"cost": {
-			"cache_read": 0.125,
-			"input": 0.25,
-			"output": 1.25
+			"cache_read": 0.04,
+			"input": 0.2,
+			"output": 0.5
 		},
 		"limit": {
 			"context": 262144
@@ -26363,10 +26316,22 @@
 	},
 	"openai/gpt-6-luna-decisions": {
 		"cost": {
-			"cache_read": 0,
-			"cache_write": 0,
+			"cache_read": 0.01,
+			"cache_write": 0.125,
 			"input": 0.1,
-			"output": 0
+			"output": 0,
+			"tiers": [
+				{
+					"cache_read": 0.02,
+					"cache_write": 0.25,
+					"input": 0.2,
+					"output": 0,
+					"tier": {
+						"size": 272001,
+						"type": "context"
+					}
+				}
+			]
 		},
 		"limit": {
 			"context": 1050000
@@ -26659,7 +26624,7 @@
 	},
 	"openai/gpt-chat-latest": {
 		"cost": {
-			"cache_read": 0.2,
+			"cache_read": 0.1,
 			"cache_write": 2.5,
 			"input": 2,
 			"output": 10
@@ -29185,12 +29150,11 @@
 	},
 	"qwen3-coder-next": {
 		"cost": {
-			"cache_read": 0.06,
-			"input": 0.108,
-			"output": 0.675
+			"input": 0.167,
+			"output": 0.891
 		},
 		"limit": {
-			"context": 262144
+			"context": 256000
 		}
 	},
 	"qwen3-coder-plus": {
@@ -29837,21 +29801,11 @@
 			"context": 1048576
 		}
 	},
-	"reka-ai/deepseek-v4-pro": {
-		"cost": {
-			"cache_read": 0.07,
-			"input": 0.9,
-			"output": 1.9
-		},
-		"limit": {
-			"context": 1048576
-		}
-	},
 	"reka-ai/deepseek-v4.1-flash": {
 		"cost": {
-			"cache_read": 0.0025,
-			"input": 0.1,
-			"output": 0.3
+			"cache_read": 0.009,
+			"input": 0.15,
+			"output": 0.6
 		},
 		"limit": {
 			"context": 1048576
@@ -29859,9 +29813,9 @@
 	},
 	"reka-ai/deepseek-v4.1-flash-1017": {
 		"cost": {
-			"cache_read": 0.003,
-			"input": 0.15,
-			"output": 0.6
+			"cache_read": 0.006,
+			"input": 0.16,
+			"output": 0.64
 		},
 		"limit": {
 			"context": 1048576
@@ -29879,7 +29833,7 @@
 	},
 	"reka-ai/glm-5.3-flash": {
 		"cost": {
-			"cache_read": 0.02,
+			"cache_read": 0.027,
 			"input": 0.15,
 			"output": 0.5
 		},
@@ -31425,6 +31379,16 @@
 		}
 	},
 	"tencent/deepseek-v4.1-flash": {
+		"cost": {
+			"cache_read": 0.003,
+			"input": 0.15,
+			"output": 0.6
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
+	"tencent/deepseek-v4.1-flash-1017": {
 		"cost": {
 			"cache_read": 0.003,
 			"input": 0.15,
@@ -35902,8 +35866,8 @@
 	"~deepseek/deepseek-flash-latest": {
 		"cost": {
 			"cache_read": 0.015,
-			"input": 0.02,
-			"output": 0.137854
+			"input": 0.0151,
+			"output": 1.8
 		},
 		"exactOnly": true,
 		"limit": {
@@ -35912,8 +35876,8 @@
 	},
 	"~deepseek/deepseek-pro-latest": {
 		"cost": {
-			"cache_read": 0.22,
-			"input": 0.2211,
+			"cache_read": 0.25,
+			"input": 0.2542,
 			"output": 8
 		},
 		"exactOnly": true,
@@ -35966,10 +35930,30 @@
 			"context": 1048576
 		}
 	},
+	"~liquid/d1-latest": {
+		"cost": {
+			"cache_read": 0.02,
+			"input": 0.02,
+			"output": 0
+		},
+		"limit": {
+			"context": 65536
+		}
+	},
+	"~liquid/d1-ultra-latest": {
+		"cost": {
+			"cache_read": 0.042,
+			"input": 0.042,
+			"output": 0
+		},
+		"limit": {
+			"context": 32768
+		}
+	},
 	"~moonshotai/kimi-latest": {
 		"cost": {
-			"cache_read": 0.19,
-			"input": 0.19,
+			"cache_read": 0.15,
+			"input": 0.151,
 			"output": 8.94
 		},
 		"exactOnly": true,
@@ -36150,8 +36134,8 @@
 	"~z-ai/glm-flash-latest": {
 		"cost": {
 			"cache_read": 0.03,
-			"input": 0.0513,
-			"output": 0.0701
+			"input": 0.0453,
+			"output": 0.0745
 		},
 		"exactOnly": true,
 		"limit": {
