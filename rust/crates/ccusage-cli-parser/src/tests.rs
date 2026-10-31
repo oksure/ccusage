@@ -446,7 +446,7 @@ fn checks_the_date_window_after_config_and_flags_are_merged() {
             std::iter::once(OsString::from("ccusage"))
                 .chain(args.iter().map(|arg| OsString::from(arg.as_str()))),
             &config,
-            ccusage_core::DEFAULT_SESSION_DURATION_HOURS,
+            ccusage_cli::DEFAULT_SESSION_DURATION_HOURS,
             env!("CARGO_PKG_VERSION"),
         )
     };
@@ -483,7 +483,7 @@ fn statusline_ignores_reversed_default_date_window() {
     let result = Cli::parse_from_with_config(
         std::iter::once(OsString::from("ccusage")).chain(args.iter().map(OsString::from)),
         &config,
-        ccusage_core::DEFAULT_SESSION_DURATION_HOURS,
+        ccusage_cli::DEFAULT_SESSION_DURATION_HOURS,
         env!("CARGO_PKG_VERSION"),
     );
 
@@ -1602,7 +1602,7 @@ fn named_pi_store_validation_does_not_break_statusline() {
                 .map(|arg| std::ffi::OsString::from(arg.as_str())),
         ),
         &config,
-        ccusage_core::DEFAULT_SESSION_DURATION_HOURS,
+        ccusage_cli::DEFAULT_SESSION_DURATION_HOURS,
         env!("CARGO_PKG_VERSION"),
     );
 
@@ -1628,7 +1628,7 @@ fn named_pi_store_validation_does_not_break_agent_commands() {
                 .map(|arg| std::ffi::OsString::from(arg.as_str())),
         ),
         &config,
-        ccusage_core::DEFAULT_SESSION_DURATION_HOURS,
+        ccusage_cli::DEFAULT_SESSION_DURATION_HOURS,
         env!("CARGO_PKG_VERSION"),
     );
 
@@ -1653,7 +1653,7 @@ fn reports_named_pi_store_validation_through_cli_config_error_path() {
                 .map(|arg| std::ffi::OsString::from(arg.as_str())),
         ),
         &config,
-        ccusage_core::DEFAULT_SESSION_DURATION_HOURS,
+        ccusage_cli::DEFAULT_SESSION_DURATION_HOURS,
         env!("CARGO_PKG_VERSION"),
     );
     let Err(error) = result else {
