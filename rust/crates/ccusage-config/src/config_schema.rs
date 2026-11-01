@@ -164,6 +164,7 @@ pub struct DshConfig {
 #[serde(rename_all = "camelCase")]
 pub struct DshCommandsConfig {
     pub daily: Option<SharedOptions>,
+    pub weekly: Option<SharedOptions>,
     pub monthly: Option<SharedOptions>,
     pub session: Option<SharedOptions>,
 }
