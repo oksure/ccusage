@@ -47,7 +47,7 @@ ccusage-test-support = { path = "crates/ccusage-test-support" }
 assert_fs = "1.1.4"
 compact_str = "0.10.0"
 insta = { version = "1.49.0", features = ["json"] }
-jiff = { version = "0.2.38", default-features = false, features = [
+jiff = { version = "0.2.39", default-features = false, features = [
 	"std",
 	"tz-system",
 	"tzdb-zoneinfo",
@@ -73,7 +73,7 @@ sqlite = { version = "0.37.4", default-features = false, features = ["bundled", 
 terminal_size = "0.4.4"
 toml = { version = "1.1.8", default-features = false, features = ["parse", "serde", "std"] }
 unicode-width = "0.2.3"
-ureq = { version = "3.5.0", default-features = false, features = [
+ureq = { version = "3.5.1", default-features = false, features = [
 	"gzip",
 	"rustls-no-provider",
 	"rustls-webpki-roots",
