@@ -2031,6 +2031,16 @@
 			"context": 8192
 		}
 	},
+	"TheDrummer/artemis-31b-v1.2": {
+		"cost": {
+			"cache_read": 0.05,
+			"input": 0.1,
+			"output": 0.45
+		},
+		"limit": {
+			"context": 65536
+		}
+	},
 	"VongolaChouko/Starcannon-Unleashed-12B-v1.0": {
 		"cost": {
 			"cache_read": 0.2465,
@@ -3683,12 +3693,12 @@
 	},
 	"anthracite-org/magnum-v4-72b": {
 		"cost": {
-			"cache_read": 1.003,
-			"input": 2.006,
-			"output": 2.992
+			"cache_read": 2.5,
+			"input": 2.5,
+			"output": 5
 		},
 		"limit": {
-			"context": 16384
+			"context": 32768
 		}
 	},
 	"anthropic--claude-3-haiku": {
@@ -5796,36 +5806,6 @@
 			"context": 1050000
 		}
 	},
-	"azure-ai-foundry/grok-4-1-fast-reasoning": {
-		"cost": {
-			"input": 0.2,
-			"output": 0.5
-		},
-		"limit": {
-			"context": 128000
-		}
-	},
-	"azure-ai-foundry/grok-4-3": {
-		"cost": {
-			"cache_read": 0.2,
-			"input": 1.25,
-			"output": 2.5,
-			"tiers": [
-				{
-					"cache_read": 0.4,
-					"input": 2.5,
-					"output": 5,
-					"tier": {
-						"size": 200000,
-						"type": "context"
-					}
-				}
-			]
-		},
-		"limit": {
-			"context": 20000
-		}
-	},
 	"azure-anthropic/claude-fable-5": {
 		"cost": {
 			"cache_read": 1,
@@ -5970,6 +5950,16 @@
 			"cache_read": 1.25,
 			"input": 2.5,
 			"output": 10
+		},
+		"limit": {
+			"context": 128000
+		}
+	},
+	"azure/gpt-4o-mini": {
+		"cost": {
+			"cache_read": 0.075,
+			"input": 0.15,
+			"output": 0.6
 		},
 		"limit": {
 			"context": 128000
@@ -11659,9 +11649,9 @@
 	},
 	"deepseek/deepseek-v4-flash-0731:thinking": {
 		"cost": {
-			"cache_read": 0.001498,
-			"input": 0.04708,
-			"output": 0.14124
+			"cache_read": 0.013,
+			"input": 0.05,
+			"output": 0.16
 		},
 		"limit": {
 			"context": 1048576
@@ -11806,6 +11796,16 @@
 			"cache_read": 0.014,
 			"input": 0.6,
 			"output": 2.4
+		},
+		"limit": {
+			"context": 1048576
+		}
+	},
+	"deepseek/deepseek-v4.1-flash-1017-ultrafast": {
+		"cost": {
+			"cache_read": 0.048,
+			"input": 2.4,
+			"output": 9.6
 		},
 		"limit": {
 			"context": 1048576
@@ -16269,9 +16269,9 @@
 	},
 	"google/gemma-4-26b-a4b-it:thinking": {
 		"cost": {
-			"cache_read": 0.022,
-			"input": 0.044,
-			"output": 0.133
+			"cache_read": 0.008,
+			"input": 0.015,
+			"output": 0.046
 		},
 		"limit": {
 			"context": 262144
@@ -18710,6 +18710,16 @@
 			"context": 262144
 		}
 	},
+	"inclusionai/ling-3.0-tiny:thinking": {
+		"cost": {
+			"cache_read": 0.003,
+			"input": 0.015,
+			"output": 0.045
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
 	"inclusionai/ling-3.1-flash": {
 		"cost": {
 			"cache_read": 0.06,
@@ -19654,6 +19664,16 @@
 			"context": 128000
 		}
 	},
+	"liquid/lfm-3-1.7b": {
+		"cost": {
+			"cache_read": 0.02,
+			"input": 0.08,
+			"output": 0.2
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
 	"liquid/lfm2.5-24b-a2b": {
 		"cost": {
 			"cache_read": 0.025,
@@ -19935,8 +19955,9 @@
 	},
 	"mancer/weaver": {
 		"cost": {
-			"input": 0.7935,
-			"output": 1.058
+			"cache_read": 0.4,
+			"input": 0.4,
+			"output": 0.75
 		},
 		"exactOnly": true,
 		"limit": {
@@ -20914,9 +20935,9 @@
 	},
 	"minimax/MiniMax-M3.1-Flash": {
 		"cost": {
-			"cache_read": 0.0075,
-			"input": 0.075,
-			"output": 0.3
+			"cache_read": 0.015,
+			"input": 0.15,
+			"output": 0.6
 		},
 		"limit": {
 			"context": 1048576
@@ -32529,9 +32550,9 @@
 	},
 	"undi95/remm-slerp-l2-13b": {
 		"cost": {
-			"cache_read": 0.3995,
-			"input": 0.799,
-			"output": 1.207
+			"cache_read": 0.35,
+			"input": 0.35,
+			"output": 0.65
 		},
 		"limit": {
 			"context": 6144
@@ -35695,7 +35716,7 @@
 			"cache_read": 0.14,
 			"cache_write": 0,
 			"input": 1,
-			"output": 3.08
+			"output": 4.9
 		},
 		"limit": {
 			"context": 1048576
@@ -36187,7 +36208,7 @@
 	"~deepseek/deepseek-v4-flash-latest": {
 		"cost": {
 			"cache_read": 0.035,
-			"input": 0.0461,
+			"input": 0.0553,
 			"output": 0.3
 		},
 		"limit": {
@@ -36251,9 +36272,9 @@
 	},
 	"~moonshotai/kimi-latest": {
 		"cost": {
-			"cache_read": 0.16,
-			"input": 0.1624,
-			"output": 9.3388
+			"cache_read": 0.15,
+			"input": 0.1548,
+			"output": 10.551
 		},
 		"exactOnly": true,
 		"limit": {
@@ -36434,8 +36455,8 @@
 	},
 	"~z-ai/glm-flash-latest": {
 		"cost": {
-			"cache_read": 0.0284,
-			"input": 0.0284,
+			"cache_read": 0.0285,
+			"input": 0.0285,
 			"output": 0.0923
 		},
 		"exactOnly": true,
