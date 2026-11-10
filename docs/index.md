@@ -4,7 +4,7 @@ layout: home
 hero:
   name: ccusage
   text: Coding (Agent) CLI Usage Analysis
-  tagline: A fast local CLI for tracking tokens and estimated costs across Claude Code, Codex, OpenCode, Amp, Droid, Codebuff, Hermes Agent, pi-agent, Goose, OpenClaw, Kilo, Kimi, Qwen, GitHub Copilot CLI, Gemini CLI, Antigravity, Grok Build CLI, DeepSeek Harness, and ZCode
+  tagline: A fast local CLI for tracking tokens and estimated costs across Claude Code, Codex, OpenCode, Amp, Droid, Codebuff, Cline, Hermes Agent, pi-agent, Goose, OpenClaw, Kilo, Kimi, Qwen, GitHub Copilot CLI, Gemini CLI, Antigravity, Grok Build CLI, DeepSeek Harness, and ZCode
   image:
     src: /logo.svg
     alt: ccusage logo
@@ -27,7 +27,7 @@ features:
     link: /guide/getting-started
   - icon: 📁
     title: Local Data Sources
-    details: Reads local usage logs from Claude Code, Codex, OpenCode, Amp, Droid, Codebuff, Hermes Agent, pi-agent, Goose, OpenClaw, Kilo, Kimi, Qwen, GitHub Copilot CLI, Gemini CLI, Antigravity, Grok Build CLI, DeepSeek Harness, and ZCode without uploading your data
+    details: Reads local usage logs from Claude Code, Codex, OpenCode, Amp, Droid, Codebuff, Cline, Hermes Agent, pi-agent, Goose, OpenClaw, Kilo, Kimi, Qwen, GitHub Copilot CLI, Gemini CLI, Antigravity, Grok Build CLI, DeepSeek Harness, and ZCode without uploading your data
     link: /guide/
   - icon: 💰
     title: Cost Analysis
@@ -66,7 +66,10 @@ Project history (Japanese): [how ccusage began](https://ryoppippi.com/blog/2025-
       </picture>
     </a>
     <a href="https://blacksmith.sh" target="_blank" style="display: block;">
-      <img src="/blacksmith.png" alt="Blacksmith" style="display: block; width: min(320px, 80vw); height: auto;">
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="/blacksmith-logo-dark.svg">
+        <img src="/blacksmith-logo.svg" alt="CI powered by Blacksmith" style="display: block; width: min(320px, 80vw); height: auto;">
+      </picture>
     </a>
   </div>
 

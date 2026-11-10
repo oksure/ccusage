@@ -74,6 +74,7 @@ export default defineConfig({
 						{ text: 'Amp', link: '/guide/amp/' },
 						{ text: 'Droid', link: '/guide/droid/' },
 						{ text: 'Codebuff', link: '/guide/codebuff/' },
+						{ text: 'Cline', link: '/guide/cline/' },
 						{ text: 'Hermes Agent', link: '/guide/hermes/' },
 						{ text: 'pi-agent', link: '/guide/pi/' },
 						{ text: 'Goose', link: '/guide/goose/' },
@@ -86,7 +87,7 @@ export default defineConfig({
 						{ text: 'OpenClaw', link: '/guide/openclaw/' },
 						{ text: 'Grok Build CLI', link: '/guide/grok/' },
 						{ text: 'DeepSeek Harness', link: '/guide/dsh/' },
-						{ text: 'ZCode', link: '/guide/zcode/' }
+						{ text: 'ZCode', link: '/guide/zcode/' },
 						{ text: 'Source Support Q&A', link: '/guide/source-support-qa' },
 					],
 				},

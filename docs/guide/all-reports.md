@@ -40,7 +40,7 @@ Every section uses the options resolved for the invoked command. For example, `c
 
 ## How Unified Views Work
 
-ccusage detects local usage files from Claude Code, Codex, OpenCode, Amp, Droid, Codebuff, Hermes Agent, pi-agent, Goose, OpenClaw, Kilo, Kimi, Qwen, GitHub Copilot CLI, Gemini CLI, Antigravity, Grok Build CLI, DeepSeek Harness, and ZCode. The same daily, weekly, monthly, and session views can run in two modes:
+ccusage detects local usage files from Claude Code, Codex, OpenCode, Amp, Droid, Codebuff, Cline, Hermes Agent, pi-agent, Goose, OpenClaw, Kilo, Kimi, Qwen, GitHub Copilot CLI, Gemini CLI, Antigravity, Grok Build CLI, DeepSeek Harness, and ZCode. The same daily, weekly, monthly, and session views can run in two modes:
 
 | Mode    | Command example        | What it shows                           |
 | ------- | ---------------------- | --------------------------------------- |
@@ -50,7 +50,7 @@ ccusage detects local usage files from Claude Code, Codex, OpenCode, Amp, Droid,
 
 Unified tables include an **Agent** column so you can compare sources in one view. Focused views remove that comparison layer and show the selected source in more detail where applicable.
 
-When one tool runs another, usage can be logged by both. OpenCode's Claude Agent provider is one example: unified views skip the OpenCode copy of turns that Claude Code's own log has, matching them by session and, in daily views, by day, so a turn that runs across midnight can still be counted twice or partly left out. See [OpenCode](./opencode/#claude-agent-provider).
+When one tool runs another, usage can be logged by both. OpenCode's Claude Agent provider is one example: unified views and `ccusage opencode` skip the OpenCode copy of turns that Claude Code's own log has, matching them by session and, in daily views, by day, so a turn that runs across midnight can still be counted twice or partly left out. See [OpenCode](./opencode/#claude-agent-provider).
 
 ## Supported Sources
 
@@ -62,6 +62,7 @@ When one tool runs another, usage can be logged by both. OpenCode's Claude Agent
 | Amp              | `amp`         | `ccusage amp session`       |
 | Droid            | `droid`       | `ccusage droid daily`       |
 | Codebuff         | `codebuff`    | `ccusage codebuff daily`    |
+| Cline            | `cline`       | `ccusage cline daily`       |
 | Hermes Agent     | `hermes`      | `ccusage hermes daily`      |
 | pi-agent         | `pi`          | `ccusage pi monthly`        |
 | Goose            | `goose`       | `ccusage goose daily`       |
@@ -84,9 +85,11 @@ Use a source namespace when you want source-specific options or when you are deb
 ccusage codex daily --speed fast
 ccusage claude daily --mode display
 ccusage opencode session --json
+ccusage opencode daily --include-claude-agent
 ccusage amp monthly --compact
 ccusage droid session
 ccusage codebuff daily
+ccusage cline daily
 ccusage pi session --pi-path /path/to/sessions
 ccusage openclaw daily --open-claw-path /path/to/openclaw
 ccusage kilo session

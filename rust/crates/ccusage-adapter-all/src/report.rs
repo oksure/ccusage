@@ -620,6 +620,7 @@ fn agent_label(agent: &str) -> &str {
         "grok" => "Grok",
         "dsh" => "DeepSeek Harness",
         "zcode" => "ZCode",
+        "cline" => "Cline",
         _ => agent,
     }
 }

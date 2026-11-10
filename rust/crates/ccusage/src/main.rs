@@ -39,7 +39,7 @@ fn main() -> Result<()> {
         Command::Blocks(args) => commands::run_blocks(args),
         Command::Statusline(args) => commands::run_statusline(args),
         Command::Codex(args) => adapter::codex::run(args),
-        Command::OpenCode(args) => adapter::opencode::run(args),
+        Command::OpenCode(args) => adapter::all::run_opencode(args),
         Command::Amp(args) => adapter::amp::run(args),
         Command::Droid(args) => adapter::droid::run(args),
         Command::Dsh(args) => adapter::dsh::run(args),
@@ -56,6 +56,7 @@ fn main() -> Result<()> {
         Command::OpenClaw(args) => adapter::openclaw::run(args),
         Command::Grok(args) => adapter::grok::run(args),
         Command::ZCode(args) => adapter::zcode::run(args),
+        Command::Cline(args) => adapter::cline::run(args),
     }
 }
 
@@ -82,7 +83,7 @@ mod tests {
 
     #[test]
     fn agent_commands_are_exposed_by_independent_crates() {
-        let runs: [fn(AgentCommandArgs) -> Result<()>; 18] = [
+        let runs: [fn(AgentCommandArgs) -> Result<()>; 19] = [
             ccusage_adapter_amp::run,
             ccusage_adapter_antigravity::run,
             ccusage_adapter_codebuff::run,
@@ -101,9 +102,10 @@ mod tests {
             ccusage_adapter_pi::run,
             ccusage_adapter_qwen::run,
             ccusage_adapter_zcode::run,
+            ccusage_adapter_cline::run,
         ];
 
-        assert_eq!(runs.len(), 18);
+        assert_eq!(runs.len(), 19);
     }
 
     #[test]

@@ -51,7 +51,8 @@ fn command_shared(command: &Command) -> &SharedArgs {
         | Command::OpenClaw(args)
         | Command::Grok(args)
         | Command::ZCode(args)
-        | Command::Dsh(args) => &args.shared,
+        | Command::Dsh(args)
+        | Command::Cline(args) => &args.shared,
         Command::Statusline(_) => unreachable!("statusline keeps its own timezone field"),
     }
 }
@@ -93,6 +94,7 @@ mod tests {
             &["claude", "daily", "--timezone", "Not/AZone"],
             &["claude", "session", "--timezone", "Not/AZone"],
             &["codex", "monthly", "--timezone", "Not/AZone"],
+            &["cline", "weekly", "--timezone", "Not/AZone"],
             &["blocks", "--timezone", "Not/AZone"],
             &["--timezone", "Not/AZone", "statusline"],
             &["statusline", "--timezone", "Not/AZone"],
