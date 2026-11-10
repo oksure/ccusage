@@ -26,7 +26,7 @@ export def wait-for-npm-package-versions [
     --poll-interval: duration
     --fetch-timeout-ms: int = 10000
 ]: nothing -> nothing {
-    let effective_timeout = $timeout | default 4min
+    let effective_timeout = $timeout | default 15min
     let effective_poll_interval = $poll_interval | default 10sec
     let deadline = (date now) + $effective_timeout
     let proportional_overhead = $effective_timeout / 10
@@ -72,7 +72,9 @@ export def wait-for-npm-package-versions [
             | each {|package| $"($package.name)@($package.version)"}
             | str join ', '
         )
-        error make {msg: $"npm registry did not serve exact package versions within ($effective_timeout): ($versions)"}
+        error make {
+            msg: $"npm registry did not serve exact package versions within ($effective_timeout): ($versions)"
+        }
     }
 
     print 'All native package versions are available from npm.'
