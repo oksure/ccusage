@@ -37,7 +37,7 @@ jobs:
           persist-credentials: false
 
       - name: Set up Nushell
-        uses: hustcer/setup-nu@eacad52a4634c4f8d17a94916f93be6856861b9c # v3.29
+        uses: hustcer/setup-nu@1b8faed9a8ff673c8ce0beae243e0b72d0787241 # v3.30
         with:
           version: 0.114.1
 
@@ -67,7 +67,7 @@ jobs:
           steps.access.outputs.skip != 'true' &&
           steps.access.outputs.bypass != 'true'
         continue-on-error: true
-        uses: pullfrog/pullfrog@3c58d31073422cc1b9573f58b5dbadb7a4914715 # v0.1.123
+        uses: pullfrog/pullfrog@6ea756a2610692d1c241dfb985e0240c46bb1925 # v0.1.125
         with:
           prompt: ${{ steps.request.outputs.prompt }}
           timeout: 15m
@@ -116,7 +116,7 @@ jobs:
           persist-credentials: false
 
       - name: Set up Nushell
-        uses: hustcer/setup-nu@eacad52a4634c4f8d17a94916f93be6856861b9c # v3.29
+        uses: hustcer/setup-nu@1b8faed9a8ff673c8ce0beae243e0b72d0787241 # v3.30
         with:
           version: 0.114.1
 
