@@ -51,3 +51,7 @@ SQLITE_OMIT_XFER_OPT = "1"
 # the same revision so a plain `cargo test` works without one. A real
 # environment variable still wins over this entry, so Nix keeps its own.
 CCUSAGE_PRICING_JSON_PATH = { value = "litellm/model_prices_and_context_window.json", relative = true }
+
+[registry]
+# Mirrors pnpm's minimumReleaseAge in pnpm-workspace.yaml.
+global-min-publish-age = "2 days"

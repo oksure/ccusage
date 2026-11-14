@@ -101,6 +101,7 @@ fn run_cli<const N: usize>(fixture: &Fixture, args: [&str; N]) -> String {
         .env_remove("OPENCODE_DATA_DIR")
         .env_remove("AMP_DATA_DIR")
         .env_remove("DROID_SESSIONS_DIR")
+        .env_remove("DSH_HOME")
         .env_remove("CODEBUFF_DATA_DIR")
         .env_remove("HERMES_HOME")
         .env_remove("PI_AGENT_DIR")

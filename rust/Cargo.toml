@@ -49,7 +49,7 @@ ccusage-test-support = { path = "crates/ccusage-test-support" }
 assert_fs = "1.1.4"
 compact_str = "0.10.0"
 insta = { version = "1.49.0", features = ["json"] }
-jiff = { version = "0.2.40", default-features = false, features = [
+jiff = { version = "0.2.41", default-features = false, features = [
 	"std",
 	"tz-system",
 	"tzdb-zoneinfo",
@@ -91,3 +91,7 @@ strip = "symbols"
 
 [profile.release.package."*"]
 opt-level = "s"
+
+[workspace.lints.cargo]
+unused_dependencies = "deny"
+unused_workspace_dependencies = "deny"
