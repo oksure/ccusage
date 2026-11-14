@@ -138,23 +138,23 @@
     "litellm": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-G9wwOL2EUEqeaX1aKibjucY2h8jIQpbSniY+minaoJU=",
+        "narHash": "sha256-KMvXgaV5Ml7zOvYY/YLbemVV9RY9kT1ffiQ4gyD01To=",
         "type": "file",
-        "url": "https://raw.githubusercontent.com/BerriAI/litellm/6abacd329b70dc668f69c705eb7118fbd639cd96/model_prices_and_context_window.json"
+        "url": "https://raw.githubusercontent.com/BerriAI/litellm/1f2b2734e5db334c56312595184889f64a9f6e26/model_prices_and_context_window.json"
       },
       "original": {
         "type": "file",
-        "url": "https://raw.githubusercontent.com/BerriAI/litellm/6abacd329b70dc668f69c705eb7118fbd639cd96/model_prices_and_context_window.json"
+        "url": "https://raw.githubusercontent.com/BerriAI/litellm/1f2b2734e5db334c56312595184889f64a9f6e26/model_prices_and_context_window.json"
       }
     },
     "models-dev": {
       "flake": false,
       "locked": {
-        "lastModified": 1794553652,
-        "narHash": "sha256-UBAsA4uMQSuQn52xyP9HDJ077KOllw3NdcZg8CFTveo=",
+        "lastModified": 1794659217,
+        "narHash": "sha256-Pczxa8n/6K6t+Y4djF51H+gLA9BIHy4j8Q4Kkn2pUvY=",
         "owner": "anomalyco",
         "repo": "models.dev",
-        "rev": "9a517985f4b60125ae89311c53d888cb39b3f40d",
+        "rev": "9afe121d524c044965ab0442daac933d99edf010",
         "type": "github"
       },
       "original": {
@@ -233,11 +233,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794127728,
-        "narHash": "sha256-QhZ104DwHvvMxWxmI13zdppISE27UmdqhRI2VwBg/yU=",
+        "lastModified": 1794561628,
+        "narHash": "sha256-oWtItM1eQqkp9OJXq2/Zo10Y9Vu9PDE6O8JRjj4+EkE=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "51c6dc40d18552701f7c5c62e3f7a5fc899f7132",
+        "rev": "84edd48f141b0c8910dffdd0296ddd577e829132",
         "type": "github"
       },
       "original": {
