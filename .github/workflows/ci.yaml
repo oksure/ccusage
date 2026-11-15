@@ -17,10 +17,9 @@ on:
 permissions: read-all
 
 env:
-  # Only runs of main may persist the Nix stores and the Cargo cache: the
-  # sticky disks these jobs mount are the ones main and release builds read.
-  # Pull requests and merge groups mount them without committing, so their
-  # changes are discarded. This is decided here rather than only inside the
+  # Only runs of main may persist the Nix stores and the Cargo cache; pull
+  # requests and merge groups restore them without saving their changes.
+  # This is decided here rather than only inside the
   # local actions, so the gate sits next to the triggers. It cannot stop a
   # queued commit that edits this file; review before queuing does that.
   PERSIST_CACHES: ${{ github.ref == 'refs/heads/main' }}
@@ -47,8 +46,9 @@ jobs:
   # the flake's pinned package so CI matches the dev shell.
   tirith-scan:
     name: tirith security scan
-    runs-on: blacksmith-32vcpu-ubuntu-2404
-    timeout-minutes: 15
+    # The fork uses standard hosted runners while its Blacksmith jobs queue.
+    runs-on: ${{ github.repository == 'oksure/ccusage' && 'ubuntu-24.04' || 'blacksmith-32vcpu-ubuntu-2404' }}
+    timeout-minutes: ${{ github.repository == 'oksure/ccusage' && 60 || 15 }}
     # Read-only: this job executes PR-controlled code (the local action, the PR
     # flake, the installed tirith), so it must hold no write scopes. The SARIF
     # is published from the separate `tirith-sarif-upload` job, which never runs
@@ -161,8 +161,8 @@ jobs:
   # of the slowest build, and `ci-gate` still requires it to pass.
   preflight:
     name: security & lint preflight
-    runs-on: blacksmith-32vcpu-ubuntu-2404
-    timeout-minutes: 15
+    runs-on: ${{ github.repository == 'oksure/ccusage' && 'ubuntu-24.04' || 'blacksmith-32vcpu-ubuntu-2404' }}
+    timeout-minutes: ${{ github.repository == 'oksure/ccusage' && 60 || 15 }}
     permissions:
       contents: read
     steps:
@@ -179,8 +179,8 @@ jobs:
   test:
     needs: [changes, tirith-scan]
     if: needs.changes.outputs.code-changed == 'true'
-    runs-on: blacksmith-32vcpu-ubuntu-2404
-    timeout-minutes: 30
+    runs-on: ${{ github.repository == 'oksure/ccusage' && 'ubuntu-24.04' || 'blacksmith-32vcpu-ubuntu-2404' }}
+    timeout-minutes: ${{ github.repository == 'oksure/ccusage' && 120 || 30 }}
     permissions:
       contents: read
       pull-requests: read
@@ -228,33 +228,33 @@ jobs:
       actions: read
       contents: read
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 30
+    timeout-minutes: ${{ github.repository == 'oksure/ccusage' && 120 || 30 }}
     strategy:
       fail-fast: false
       matrix:
         include:
           - name: build-linux-arm64
-            os: blacksmith-32vcpu-ubuntu-2404-arm
+            os: ${{ github.repository == 'oksure/ccusage' && 'ubuntu-24.04-arm' || 'blacksmith-32vcpu-ubuntu-2404-arm' }}
             platform: linux
             arch: arm64
             binary: result/bin/ccusage
           - name: build-linux-x64
-            os: blacksmith-32vcpu-ubuntu-2404
+            os: ${{ github.repository == 'oksure/ccusage' && 'ubuntu-24.04' || 'blacksmith-32vcpu-ubuntu-2404' }}
             platform: linux
             arch: x64
             binary: result/bin/ccusage
           - name: build-mac-arm64
-            os: blacksmith-12vcpu-macos-26
+            os: ${{ github.repository == 'oksure/ccusage' && 'macos-15' || 'blacksmith-12vcpu-macos-26' }}
             platform: darwin
             arch: arm64
             binary: result/bin/ccusage
           - name: build-mac-x64
-            os: blacksmith-12vcpu-macos-26
+            os: ${{ github.repository == 'oksure/ccusage' && 'macos-15' || 'blacksmith-12vcpu-macos-26' }}
             platform: darwin
             arch: x64
             binary: result/bin/ccusage
           - name: build-windows-x64
-            os: blacksmith-32vcpu-windows-2025
+            os: ${{ github.repository == 'oksure/ccusage' && 'windows-2025' || 'blacksmith-32vcpu-windows-2025' }}
             platform: win32
             arch: x64
             binary: rust/target/release/ccusage.exe
@@ -298,7 +298,7 @@ jobs:
     permissions:
       actions: read
       contents: read
-    runs-on: blacksmith-32vcpu-ubuntu-2404
+    runs-on: ${{ github.repository == 'oksure/ccusage' && 'ubuntu-24.04' || 'blacksmith-32vcpu-ubuntu-2404' }}
     outputs:
       urls: ${{ steps.publish.outputs.urls }}
       preview-url: ${{ steps.preview-url.outputs.url }}
@@ -367,7 +367,7 @@ jobs:
       - changes
       - npm-publish-dry-run-and-upload-pkg-pr-now
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 20
+    timeout-minutes: ${{ github.repository == 'oksure/ccusage' && 45 || 20 }}
     # No checkout on purpose: the working directory stays empty so each package
     # runner behaves like a real end user instead of inheriting the repo's
     # pnpm-workspace.yaml / package.json (which is why pnpm previously needed
@@ -380,13 +380,13 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - blacksmith-32vcpu-ubuntu-2404
-          - blacksmith-32vcpu-ubuntu-2404-arm
-          - blacksmith-12vcpu-macos-26
+          - ${{ github.repository == 'oksure/ccusage' && 'ubuntu-24.04' || 'blacksmith-32vcpu-ubuntu-2404' }}
+          - ${{ github.repository == 'oksure/ccusage' && 'ubuntu-24.04-arm' || 'blacksmith-32vcpu-ubuntu-2404-arm' }}
+          - ${{ github.repository == 'oksure/ccusage' && 'macos-15' || 'blacksmith-12vcpu-macos-26' }}
           # Intel macOS to exercise the cross-built x86_64 darwin binary on real
           # Intel hardware (the build runner is arm64).
           - macos-15-intel
-          - blacksmith-32vcpu-windows-2025
+          - ${{ github.repository == 'oksure/ccusage' && 'windows-2025' || 'blacksmith-32vcpu-windows-2025' }}
         # One job per package runner, each installed via its official action.
         # Excluded:
         #   yarn - no official install action (it expects corepack, which we avoid)
@@ -495,8 +495,8 @@ jobs:
     # comment is posted by ccusage-perf-comment, which runs none of them.
     permissions:
       contents: read
-    runs-on: blacksmith-32vcpu-ubuntu-2404
-    timeout-minutes: 30
+    runs-on: ${{ github.repository == 'oksure/ccusage' && 'ubuntu-24.04' || 'blacksmith-32vcpu-ubuntu-2404' }}
+    timeout-minutes: ${{ github.repository == 'oksure/ccusage' && 120 || 30 }}
     # The PR side is the checked-out merge commit (`github.sha`), built on top
     # of the base commit, so a branch behind its base is not credited with the
     # base's newer commits.
@@ -511,9 +511,7 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      # Base and PR are built here with the same derivation the Linux x64
-      # native package ships, so that job's sticky disk already holds the
-      # dependency artifacts both builds reuse.
+      # Base and PR use the Linux x64 native package's dependency cache.
       - name: Setup Nix
         uses: ./.github/actions/setup-nix-cache
         with:
@@ -575,8 +573,8 @@ jobs:
       contents: read
       pull-requests: write
       issues: write
-    runs-on: blacksmith-32vcpu-ubuntu-2404
-    timeout-minutes: 10
+    runs-on: ${{ github.repository == 'oksure/ccusage' && 'ubuntu-24.04' || 'blacksmith-32vcpu-ubuntu-2404' }}
+    timeout-minutes: ${{ github.repository == 'oksure/ccusage' && 30 || 10 }}
     steps:
       # The write token must not reach code the PR edited, so the action and
       # the upsert script come from the base commit; the downloaded report is
