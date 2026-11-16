@@ -334,10 +334,19 @@ jobs:
         # bump the pin here by hand.
         # Compact URLs resolve through npm's repository metadata, which points
         # to upstream. Include this repository and full commit in preview URLs.
+        # pkg-pr-new refuses to publish unless its GitHub app is installed on
+        # the repository, and the fork does not have it: the publish step 404s
+        # there no matter how the URLs are shaped. Skip it outside upstream and
+        # run only the packing checks below; the preview URL and the E2E jobs
+        # that consume it are downstream of this step's output.
+        if: github.repository == 'ccusage/ccusage'
         run: pnpm dlx pkg-pr-new@0.0.75 publish --no-compact --pnpm --bin './apps/ccusage' './packages/ccusage-linux-arm64' './packages/ccusage-linux-x64' './packages/ccusage-darwin-arm64' './packages/ccusage-darwin-x64' './packages/ccusage-win32-x64'
       # Resolve the ccusage CLI preview URL and build the E2E fixture here (this
       # job has the checkout); the E2E jobs then run without a checkout.
       - id: preview-url
+        # Empty when the publish step above was skipped: without URLs there is
+        # nothing to resolve, and the E2E matrix stays off with it.
+        if: steps.publish.outputs.urls != ''
         env:
           URLS: ${{ steps.publish.outputs.urls }}
         run: |
@@ -362,8 +371,10 @@ jobs:
     # on main (see on.push.branches), so this validates the published preview
     # package post-merge too, not just on PRs. Merge groups publish a
     # preview of the queued commit, so the queue verifies the package built from
-    # the tree main will get.
-    if: needs.changes.outputs.code-changed == 'true'
+    # the tree main will get. Repositories without the pkg-pr-new app (the
+    # fork) publish no preview URL, so there is nothing for these runners to
+    # install and the whole matrix stays skipped.
+    if: needs.changes.outputs.code-changed == 'true' && needs.npm-publish-dry-run-and-upload-pkg-pr-now.outputs.preview-url != ''
     name: e2e ${{ matrix.runner }} (${{ matrix.os }})
     needs:
       - changes
