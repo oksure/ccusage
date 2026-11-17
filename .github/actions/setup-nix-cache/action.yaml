@@ -16,9 +16,9 @@ inputs:
     default: ''
   disk-job:
     description: >
-      Job id whose Nix store to restore instead of this job's own, for either
-      sticky disks or Actions cache. Lets a job that never saves (e.g. one that
-      only runs on pull requests) start from another job's warm store.
+      Job id whose sticky disk to mount instead of this job's own. Lets a job
+      that never commits (e.g. one that only runs on pull requests) start from
+      the store another job with the same closure keeps warm.
     default: ''
   save:
     description: >
@@ -128,7 +128,7 @@ runs:
       shell: bash
       env:
         DEPS_HASH: ${{ hashFiles('flake.lock', 'flake.nix', 'default.nix', 'package.nix', 'nix/packages.nix', 'nix/static-package.nix', 'nix/darwin-x64-package.nix', 'rust-toolchain.toml', 'rust/Cargo.lock', 'rust/**/Cargo.toml') }}
-        SCOPE: nix-${{ inputs.disk-job || github.job }}-${{ inputs.cache-scope }}
+        SCOPE: nix-${{ github.job }}-${{ inputs.cache-scope }}
         SHA: ${{ github.sha }}
       run: |
         {
