@@ -27,7 +27,7 @@ runs:
         cache-scope: ${{ inputs.cache-scope }}
         save: ${{ inputs.save-nix-cache }}
         gc-max-store-size-linux: 4G
-        defer-save: 'true'
+        defer-save: ${{ github.repository == 'oksure/ccusage' && 'true' || 'false' }}
 
     - name: Build Linux static binary
       shell: bash
@@ -86,9 +86,9 @@ runs:
         path: ccusage-native-linux-${{ inputs.arch }}.tar
         if-no-files-found: error
 
-    # Nested composite actions need an explicit save on non-sticky runners.
+    # Fork only: nested composite actions need an explicit save on the fork's hosted runners.
     - name: Save Nix store
-      if: steps.nix.outputs.save == 'true' && steps.nix.outputs.primary-key != ''
+      if: github.repository == 'oksure/ccusage' && steps.nix.outputs.save == 'true' && steps.nix.outputs.primary-key != ''
       uses: nix-community/cache-nix-action/save@7df957e333c1e5da7721f60227dbba6d06080569 # v7.0.2
       with:
         primary-key: ${{ steps.nix.outputs.primary-key }}
