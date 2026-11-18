@@ -21,17 +21,10 @@ inputs:
 runs:
   using: composite
   steps:
-    # defer-save keeps cache-nix-action's post-job save out of this composite: a
-    # step two composite levels deep never receives its `with:` values in the
-    # post step, so the save aborted on the required `primary-key` input. The
-    # explicit save below runs the same work with the values in hand.
     - uses: ./.github/actions/setup-nix-cache
-      id: nix
       with:
         cache-scope: ${{ inputs.cache-scope }}
         save: ${{ inputs.save-nix-cache }}
-        gc-max-store-size-linux: 4G
-        defer-save: 'true'
 
     - name: Build Linux static binary
       shell: bash
@@ -44,18 +37,18 @@ runs:
           nix build .#ccusage-static --print-build-logs
         fi
 
-    # The link lives inside the store's own gcroots, so it persists with a
-    # sticky disk or a cache-nix-action entry and protects these artifacts
-    # (and, through keep-outputs, their toolchain) from the next trim until a
-    # later run replaces it.
+    # The link lives inside the store's own gcroots, so it persists with the
+    # sticky disk and protects these artifacts (and, through keep-outputs, their
+    # toolchain) from the next trim until a later run replaces it.
     - name: Root current Crane artifacts for cache save
       if: inputs.save-nix-cache == 'true'
       shell: bash
       run: |
         system="$(nix eval --impure --raw --expr builtins.currentSystem)"
-        mkdir -p /nix/var/nix/gcroots/ci
+        user_gcroot="/nix/var/nix/gcroots/per-user/$(id -un)/ci"
+        mkdir -p "$user_gcroot"
         nix build ".#packages.$system.ccusage-static.passthru.workspaceArtifacts.cacheRoot" \
-          --out-link /nix/var/nix/gcroots/ci/ccusage-cargo-artifacts
+          --out-link "$user_gcroot/ccusage-cargo-artifacts"
 
     - name: Verify Linux binary is static
       shell: bash
@@ -89,13 +82,3 @@ runs:
         name: ccusage-native-linux-${{ inputs.arch }}
         path: ccusage-native-linux-${{ inputs.arch }}.tar
         if-no-files-found: error
-
-    # Runs last so the store it saves holds the built closure, and only when
-    # setup-nix-cache left a key: Blacksmith sticky disks keep /nix themselves
-    # and expose no primary key.
-    - name: Save Nix store
-      if: steps.nix.outputs.save == 'true' && steps.nix.outputs.primary-key != ''
-      uses: nix-community/cache-nix-action/save@7df957e333c1e5da7721f60227dbba6d06080569 # v7.0.2
-      with:
-        primary-key: ${{ steps.nix.outputs.primary-key }}
-        gc-max-store-size-linux: 4G

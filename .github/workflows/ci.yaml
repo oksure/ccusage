@@ -17,11 +17,14 @@ on:
 permissions: read-all
 
 env:
-  # Only runs of main may persist the Nix stores and the Cargo cache; pull
-  # requests and merge groups restore them without saving their changes.
-  # This is decided here rather than only inside the
+  # Only runs of main may persist the Nix stores and the Cargo cache: the
+  # sticky disks these jobs mount are the ones main and release builds read.
+  # Pull requests and merge groups mount them without committing, so their
+  # changes are discarded. This is decided here rather than only inside the
   # local actions, so the gate sits next to the triggers. It cannot stop a
   # queued commit that edits this file; review before queuing does that.
+  # The macOS legs do not take this gate: hestia writes into the Actions cache
+  # scope of the run's own branch, which main never reads.
   PERSIST_CACHES: ${{ github.ref == 'refs/heads/main' }}
 
 jobs:
@@ -54,6 +57,7 @@ jobs:
     # is published from the separate `tirith-sarif-upload` job, which never runs
     # PR code, keeping the elevated `security-events: write` away from the scan.
     permissions:
+      actions: read
       contents: read
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -164,6 +168,7 @@ jobs:
     runs-on: ${{ github.repository == 'oksure/ccusage' && 'ubuntu-24.04' || 'blacksmith-32vcpu-ubuntu-2404' }}
     timeout-minutes: ${{ github.repository == 'oksure/ccusage' && 60 || 15 }}
     permissions:
+      actions: read
       contents: read
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -182,6 +187,7 @@ jobs:
     runs-on: ${{ github.repository == 'oksure/ccusage' && 'ubuntu-24.04' || 'blacksmith-32vcpu-ubuntu-2404' }}
     timeout-minutes: ${{ github.repository == 'oksure/ccusage' && 120 || 30 }}
     permissions:
+      actions: read
       contents: read
       pull-requests: read
 
@@ -216,9 +222,10 @@ jobs:
       - name: Root test dependency layers for the sticky disk
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         run: |
-          mkdir -p /nix/var/nix/gcroots/ci
+          user_gcroot="/nix/var/nix/gcroots/per-user/$(id -un)/ci"
+          mkdir -p "$user_gcroot"
           nix build .#ccusage-tests.passthru.cargoArtifacts \
-            --out-link /nix/var/nix/gcroots/ci/ccusage-test-deps
+            --out-link "$user_gcroot/ccusage-test-deps"
 
   build-native-packages:
     needs: [changes, tirith-scan]
@@ -279,7 +286,6 @@ jobs:
           arch: ${{ matrix.arch }}
           binary: ${{ matrix.binary }}
           cache-scope: ${{ matrix.name }}
-          save-nix-cache: ${{ env.PERSIST_CACHES }}
       - uses: ./.github/actions/build-windows-native-package
         if: matrix.platform == 'win32'
         with:
@@ -496,6 +502,7 @@ jobs:
     # Runs PR-built binaries and scripts, so it gets a read-only token; the
     # comment is posted by ccusage-perf-comment, which runs none of them.
     permissions:
+      actions: read
       contents: read
     runs-on: ${{ github.repository == 'oksure/ccusage' && 'ubuntu-24.04' || 'blacksmith-32vcpu-ubuntu-2404' }}
     timeout-minutes: ${{ github.repository == 'oksure/ccusage' && 120 || 30 }}
@@ -513,7 +520,9 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      # Base and PR use the Linux x64 native package's dependency cache.
+      # Base and PR are built here with the same derivation the Linux x64
+      # native package ships, so that job's sticky disk already holds the
+      # dependency artifacts both builds reuse.
       - name: Setup Nix
         uses: ./.github/actions/setup-nix-cache
         with:
@@ -572,6 +581,7 @@ jobs:
     if: github.event_name == 'pull_request' && !github.event.pull_request.head.repo.fork
     needs: ccusage-perf
     permissions:
+      actions: read
       contents: read
       pull-requests: write
       issues: write
