@@ -65,9 +65,12 @@ stdenvNoCC.mkDerivation {
   installPhase = ''
     runHook preInstall
     mkdir -p "$out/bin"
-    # cargo-hawk execs cargo-hawk-driver from its own directory, so both have to
-    # land together.
-    install -m555 cargo-hawk cargo-hawk-driver "$out/bin/"
+    # cargo-hawk execs cargo-hawk-driver and cargo-hawk-rustdoc from its own
+    # directory, so all three have to land together. 0.1.16 added the rustdoc
+    # wrapper for doctests, and hawk fails on the first doctest with ENOENT when
+    # the sibling is missing, which looks like a build error in the crate under
+    # test rather than a packaging mistake here.
+    install -m555 cargo-hawk cargo-hawk-driver cargo-hawk-rustdoc "$out/bin/"
     runHook postInstall
   '';
 
