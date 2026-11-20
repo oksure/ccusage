@@ -18,10 +18,15 @@ concurrency:
 jobs:
   update-pricing:
     name: ${{ matrix.name }}
+    # The oksure fork takes pricing snapshots from upstream merges: its own
+    # pushes would conflict with upstream's daily lock updates, and it has no
+    # Blacksmith runner, so the job would only queue until cancelled.
     if: >-
-      github.event_name != 'push' || !(
-        startsWith(github.event.head_commit.message, 'chore: release v') ||
-        startsWith(github.event.head_commit.message, 'chore(pricing): ')
+      github.repository != 'oksure/ccusage' && (
+        github.event_name != 'push' || !(
+          startsWith(github.event.head_commit.message, 'chore: release v') ||
+          startsWith(github.event.head_commit.message, 'chore(pricing): ')
+        )
       )
     runs-on: blacksmith-32vcpu-ubuntu-2404
     timeout-minutes: 60
