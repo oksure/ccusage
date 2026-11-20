@@ -13,6 +13,8 @@ concurrency:
 
 jobs:
   autofix:
+    # The oksure fork has no Blacksmith runner; the job would only queue.
+    if: github.repository != 'oksure/ccusage'
     runs-on: blacksmith-32vcpu-ubuntu-2404
     timeout-minutes: 20
     steps:
